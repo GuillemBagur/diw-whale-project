@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web de la Balena</title>
+
+    <!-- Insert this script -->
+    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <nav id="nav" class="nav">
+        <!-- I'll use this structure because it can handle webp images with a fallback -->
+        <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
+        <picture>
+            <source type="image/webp" srcset="/assets/imgs/logo-w-portrait.webp">
+            <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
+        </picture>
+    </nav>
+    <main class="main">
+        <div class="main-page-gradient">
+            <section class="hero">
+                <h1 class="hero__title">Balena blava</h1>
+            </section>
+
+            <section class="section">
+                <h2 class="section__title">Història</h2>
+
+                <section class="section__body">
+                    <p class="paragraph paragraph--flex-1">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
+                        ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor voluptates
+                        totam molestiae id incidunt.
+                        Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat inventore
+                        ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at magni,
+                        soluta asperiores quas quos eligendi!
+                        <br />
+                        <br />
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
+                        ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor voluptates
+                        totam molestiae id incidunt.
+                        Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat inventore
+                        ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at magni,
+                        soluta asperiores quas quos eligendi!
+
+                        <a href="/pages/historia.html" class="btn btn--white">Llegeix més</a>
+                    </p>
+
+
+                    <div class="imgs-accordeon">
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--1"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                        </picture>
+
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--2"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                        </picture>
+
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--3"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                        </picture>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <!-- Initialize the viewer -->
+    <script type="text/javascript">
+        const iframe = document.getElementById('api-frame');
+        const uid = '8502dbef80ed4aa688c13c90cb14de73';
+
+        // By default, the latest version of the viewer API will be used.
+        const client = new Sketchfab(iframe);
+
+        // Alternatively, you can request a specific version.
+        // const client = new Sketchfab( '1.12.1', iframe );
+
+        client.init(uid, {
+            success: function onSuccess(api) {
+
+                api.start(function () {
+                    api.addEventListener('viewerready', function () {
+                        api.setBackground({
+                            color: [0, 0, 0]
+                        });
+
+                        api.setEnvironment();
+
+                        api.setLightFeatureEnabled(true);
+
+                        api.setLight(0, {
+                            color: [1, 0, 0]
+                        }, function (err) {
+                            if (!err) {
+                                window.console.log('Set light');
+                            }
+                        });
+
+                        api.setLight(1, {
+                            color: [0, .3, 1]
+                        }, function (err) {
+                            if (!err) {
+                                window.console.log('Set light');
+                            }
+                        });
+
+                        api.setLight(2, {
+                            color: [0, 1, 0]
+                        }, function (err) {
+                            if (!err) {
+                                window.console.log('Set light');
+                            }
+                        });
+
+
+                        // API is ready to use
+                        // Insert your code here
+                        console.log('Viewer is ready');
+                    });
+                });
+
+            },
+            error: function onError() {
+                console.log('Viewer error');
+            }
+        });
+    </script>
+</body>
+
+</html>

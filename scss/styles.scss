@@ -1,0 +1,145 @@
+@import "./vars.scss";
+@import "./fonts.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 100;
+}
+
+// I always like to make the imgs not selectable
+img {
+    user-select: none;
+    pointer-events: none;
+}
+
+.nav {
+    position: fixed;
+    z-index: 8;
+    width: 100vw;
+    height: 5rem;
+    padding: .5rem;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, .3);
+
+    &__logo {
+        height: 100%;
+    }
+}
+
+.hero {
+    display: none;
+    height: 100vh;
+    height: 100svh;
+    padding-top: 5rem;
+
+    &__title {
+        font-family: "Libre Baskerville", sans-serif;
+        color: $bg_white;
+        font-size: 3.5rem;
+    }
+}
+
+.whale-viewer {
+    width: 100%;
+    height: 99.5%;
+}
+
+.main-page-gradient {
+    height: 500vh;
+    background-image: linear-gradient(180deg, $blue, $bg_blue);
+}
+
+.section {
+    padding: 8rem;
+    padding-top: 6rem;
+
+    &__title {
+        font-family: "Libre Baskerville";
+        color: $bg_white;
+        font-size: 3.5rem;
+    }
+
+    &__body {
+        display: flex;
+        margin: auto;
+        margin-top: 1.5rem;
+        justify-content: space-between;
+        gap: 5%;
+    }
+}
+
+.paragraph {
+    text-align: justify;
+    color: white;
+    font-size: 1.1rem;
+    line-height: 2.2rem;
+}
+
+.paragraph--flex-1 {
+    flex: 1;
+}
+
+.imgs-accordeon {
+    width: 25rem;
+    position: relative;
+    flex: 1;
+
+    &__img {
+        border-radius: 12px;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+
+        &--1 {
+            z-index: 3;
+            opacity: 1;
+        }
+
+        &--2 {
+            z-index: 2;
+            opacity: .6;
+            transform: scale(.95) translateY(7%);
+            transition: all .3s;
+        }
+
+        &--3 {
+            z-index: 1;
+            opacity: .3;
+            transform: scale(.9) translateY(14%);
+            transition: all .3s;
+        }
+    }
+
+    &:hover {
+        &--1 {
+            z-index: 3;
+            opacity: 1;
+        }
+
+        &--2 {
+            transform: none;
+            transition: all .3s;
+        }
+
+        &--3 {
+            transform: none;
+            transition: all .3s;
+        }
+    }
+}
+
+.btn {
+    padding: .9rem 1.8rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: "Libre Baskerville";
+
+    &--white {
+        background-color: $bg_white;
+        color: $bg_blue;
+    }
+}

@@ -1,0 +1,139 @@
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/assets/fonts/libre-baskerville-regular.woff2");
+  src: url("/assets/fonts/libre-baskerville-regular.woff");
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/plus-jakarta-sans-regular.woff2");
+  src: url("/assets/fonts/plus-jakarta-sans-regular.woff");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 100;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  z-index: 8;
+  width: 100vw;
+  height: 5rem;
+  padding: 0.5rem;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.nav__logo {
+  height: 100%;
+}
+
+.hero {
+  display: none;
+  height: 100vh;
+  height: 100svh;
+  padding-top: 5rem;
+}
+.hero__title {
+  font-family: "Libre Baskerville", sans-serif;
+  color: #FFE6D7;
+  font-size: 3.5rem;
+}
+
+.whale-viewer {
+  width: 100%;
+  height: 99.5%;
+}
+
+.main-page-gradient {
+  height: 500vh;
+  background-image: linear-gradient(180deg, #192832, #0A0F14);
+}
+
+.section {
+  padding: 8rem;
+  padding-top: 6rem;
+}
+.section__title {
+  font-family: "Libre Baskerville";
+  color: #FFE6D7;
+  font-size: 3.5rem;
+}
+.section__body {
+  display: flex;
+  margin: auto;
+  margin-top: 1.5rem;
+  justify-content: space-between;
+  gap: 5%;
+}
+
+.paragraph {
+  text-align: justify;
+  color: white;
+  font-size: 1.1rem;
+  line-height: 2.2rem;
+}
+
+.paragraph--flex-1 {
+  flex: 1;
+}
+
+.imgs-accordeon {
+  width: 25rem;
+  position: relative;
+  flex: 1;
+}
+.imgs-accordeon__img {
+  border-radius: 12px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.imgs-accordeon__img--1 {
+  z-index: 3;
+  opacity: 1;
+}
+.imgs-accordeon__img--2 {
+  z-index: 2;
+  opacity: 0.6;
+  transform: scale(0.95) translateY(7%);
+  transition: all 0.3s;
+}
+.imgs-accordeon__img--3 {
+  z-index: 1;
+  opacity: 0.3;
+  transform: scale(0.9) translateY(14%);
+  transition: all 0.3s;
+}
+.imgs-accordeon:hover--1 {
+  z-index: 3;
+  opacity: 1;
+}
+.imgs-accordeon:hover--2 {
+  transform: none;
+  transition: all 0.3s;
+}
+.imgs-accordeon:hover--3 {
+  transform: none;
+  transition: all 0.3s;
+}
+
+.btn {
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville";
+}
+.btn--white {
+  background-color: #FFE6D7;
+  color: #0A0F14;
+}
+
+/*# sourceMappingURL=styles.css.map */
