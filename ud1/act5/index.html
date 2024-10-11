@@ -16,10 +16,12 @@
     <nav id="nav" class="nav">
         <!-- I'll use this structure because it can handle webp images with a fallback -->
         <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
-        <picture>
-            <source type="image/webp" srcset="/assets/imgs/logo-w-portrait.webp">
-            <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
-        </picture>
+        <a href="/">
+            <picture>
+                <source type="image/webp" srcset="/assets/imgs/logo-w-portrait.webp">
+                <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
+            </picture>
+        </a>
     </nav>
     <main class="main">
         <div class="main-page-gradient">
@@ -30,50 +32,135 @@
             <section class="section">
                 <h2 class="section__title">Història</h2>
 
-                <section class="section__body">
-                    <p class="paragraph paragraph--flex-1">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
-                        ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor voluptates
-                        totam molestiae id incidunt.
-                        Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat inventore
-                        ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at magni,
-                        soluta asperiores quas quos eligendi!
-                        <br />
-                        <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
-                        ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor voluptates
-                        totam molestiae id incidunt.
-                        Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat inventore
-                        ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at magni,
-                        soluta asperiores quas quos eligendi!
+                <section class="section__body section__body--flex">
+                    <div class="flex-1">
+                        <p class="paragraph paragraph--flex-1">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
+                            ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor
+                            voluptates
+                            totam molestiae id incidunt.
+                            Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat
+                            inventore
+                            ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at
+                            magni,
+                            soluta asperiores quas quos eligendi!
+                            <br />
+                            <br />
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
+                            ratione nemo neque, maxime illo sequi mollitia animi possimus doloremque rem dolor
+                            voluptates
+                            totam molestiae id incidunt.
+                            Velit aperiam at provident consequatur optio rerum nulla laboriosam mollitia quaerat
+                            inventore
+                            ipsam, ipsum debitis deserunt excepturi! Enim et quam perspiciatis, harum repudiandae at
+                            magni,
+                            soluta asperiores quas quos eligendi!
+                        </p>
+                        <div class="centerer centerer--mt-3">
+                            <a href="/pages/historia.html" class="btn btn--orange btn--center">Llegeix més</a>
+                        </div>
+                    </div>
 
-                        <a href="/pages/historia.html" class="btn btn--white">Llegeix més</a>
-                    </p>
 
-
-                    <div class="imgs-accordeon">
+                    <a class="imgs-accordeon" href="/pages/historia.html" title="Llegir més">
                         <picture>
                             <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
                             <img class="imgs-accordeon__img imgs-accordeon__img--1"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen extraída de un periódico de 1912.">
                         </picture>
 
                         <picture>
                             <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
                             <img class="imgs-accordeon__img imgs-accordeon__img--2"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
                         </picture>
 
                         <picture>
                             <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
                             <img class="imgs-accordeon__img imgs-accordeon__img--3"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Logo Portrait">
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
                         </picture>
+                    </a>
+                </section>
+            </section>
+
+            <section class="section">
+                <h2 class="section__title">Trust the process...</h2>
+
+                <section class="section__body">
+                    <div class="process-carousel">
+                        <ul class="process-carousel__ul">
+                            <li class="process-carousel__li">
+                                <picture>
+                                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/img-1.webp">
+                                    <img class="process-carousel__img" src="/assets/imgs/portfolio-proces/img-1.jpg"
+                                        alt="Fotografía del proceso">
+                                </picture>
+                            </li>
+                            <li class="process-carousel__li">
+                                <picture>
+                                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/img-2.webp">
+                                    <img class="process-carousel__img" src="/assets/imgs/portfolio-proces/img-2.jpg"
+                                        alt="Fotografía del proceso">
+                                </picture>
+                            </li>
+                            <li class="process-carousel__li">
+                                <picture>
+                                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/img-3.webp">
+                                    <img class="process-carousel__img" src="/assets/imgs/portfolio-proces/img-3.jpg"
+                                        alt="Fotografía del proceso">
+                                </picture>
+                            </li>
+                            <li class="process-carousel__li">
+                                <picture>
+                                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/img-4.webp">
+                                    <img class="process-carousel__img" src="/assets/imgs/portfolio-proces/img-4.jpg"
+                                        alt="Fotografía del proceso">
+                                </picture>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="centerer centerer--mt-3">
+                        <a href="/pages/historia.html" class="btn btn--orange btn--center">Veure més</a>
                     </div>
                 </section>
             </section>
         </div>
+
+        <section class="section section--white">
+            <picture>
+                <source type="image/webp" srcset="/assets/imgs/eroded-texture.webp">
+                <img class="texture" src="/assets/imgs/eroded-texture.png" alt="Fotografía del proceso">
+            </picture>
+
+            <h2 class="section__title">Darreres notícies</h2>
+
+            <section class="news-container">
+                <article class="news-article">
+                    <h3 class="news-article">Obertura al públic</h3>
+                </article>
+
+                <div class="news-article__author">Autor: Joan Pons</div>
+
+                <p class="news-article__body">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, eius
+                    aspernatur assumenda nemo voluptas sunt, a in iusto adipisci quidem amet accusamus dicta asperiores
+                    dolorem ullam qui dolor tenetur corporis.
+                    Asperiores ipsa ut dolore, sequi eum iste. Perferendis doloremque corrupti quae nihil sint, ea,
+                    officia ratione iure ipsa assumenda pariatur. Magni vero earum, quaerat suscipit ut totam tenetur
+                    facere! Est?
+                </p>
+
+                <a href="/ud1/act5/index.html" class="btn btn--dark-blue">Llegir</a>
+            </section>
+        </section>
     </main>
+
+    <footer class="footer">
+        <p class="footer__credits">Web by: Guiem Bagur</p>
+        <p class="footer__copyright">&copy; 2024 - Present</p>
+    </footer>
 
     <!-- Initialize the viewer -->
     <script type="text/javascript">

@@ -1,5 +1,16 @@
-$bg_blue: #0A0F14;
-$bg_brown: #1E1E1E;
-$bg_white: #FFE6D7;
+@import "./fonts.scss";
+
+
+$dark_blue: #0A0F14;
+$brown: #1E1E1E;
+$white: #FFE6D7;
 $blue: #192832;
 $orange: #BE6900;
+
+$font_serif: "Libre Baskerville",
+"Times New Roman",
+serif;
+
+$font_sans: "Plus Jakarta Sans",
+ubuntu,
+sans-serif;

@@ -12,8 +12,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Plus Jakarta Sans", ubuntu, sans-serif;
   font-weight: 100;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 img {
@@ -35,15 +40,16 @@ img {
 }
 
 .hero {
-  display: none;
   height: 100vh;
   height: 100svh;
   padding-top: 5rem;
 }
 .hero__title {
-  font-family: "Libre Baskerville", sans-serif;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
   color: #FFE6D7;
   font-size: 3.5rem;
+  margin-top: 3rem;
+  margin-left: 3rem;
 }
 
 .whale-viewer {
@@ -57,20 +63,24 @@ img {
 }
 
 .section {
+  position: relative;
   padding: 8rem;
   padding-top: 6rem;
 }
 .section__title {
-  font-family: "Libre Baskerville";
+  font-family: "Libre Baskerville", "Times New Roman", serif;
   color: #FFE6D7;
   font-size: 3.5rem;
+  margin-bottom: 1.5rem;
 }
-.section__body {
+.section__body--flex {
   display: flex;
   margin: auto;
-  margin-top: 1.5rem;
   justify-content: space-between;
   gap: 5%;
+}
+.section--white {
+  background-color: blue;
 }
 
 .paragraph {
@@ -95,6 +105,7 @@ img {
   width: 100%;
   top: 0;
   left: 0;
+  transition: all 0.3s;
 }
 .imgs-accordeon__img--1 {
   z-index: 3;
@@ -104,36 +115,101 @@ img {
   z-index: 2;
   opacity: 0.6;
   transform: scale(0.95) translateY(7%);
-  transition: all 0.3s;
 }
 .imgs-accordeon__img--3 {
   z-index: 1;
   opacity: 0.3;
   transform: scale(0.9) translateY(14%);
-  transition: all 0.3s;
 }
-.imgs-accordeon:hover--1 {
-  z-index: 3;
-  opacity: 1;
-}
-.imgs-accordeon:hover--2 {
+.imgs-accordeon:hover .imgs-accordeon__img--2, .imgs-accordeon:hover .imgs-accordeon__img--3 {
+  z-index: 0;
   transform: none;
-  transition: all 0.3s;
 }
-.imgs-accordeon:hover--3 {
-  transform: none;
-  transition: all 0.3s;
+.imgs-accordeon:hover .imgs-accordeon__img--1 {
+  transform: scale(1.05);
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 .btn {
   padding: 0.9rem 1.8rem;
   border-radius: 10px;
   text-decoration: none;
-  font-family: "Libre Baskerville";
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.3s;
 }
 .btn--white {
   background-color: #FFE6D7;
   color: #0A0F14;
+}
+.btn--dark-blue {
+  background-color: #0A0F14;
+  color: #FFE6D7;
+}
+.btn--orange {
+  background-color: #BE6900;
+  color: #0A0F14;
+}
+.btn:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.btn:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+.centerer {
+  display: flex;
+  justify-content: center;
+}
+.centerer--mt-3 {
+  margin-top: 3rem;
+}
+
+.process-carousel__ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 24rem;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+.process-carousel__li {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+.process-carousel__img {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.texture {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+.footer {
+  background-color: #0A0F14;
+  color: #FFE6D7;
+  padding: 3rem;
+}
+.footer__credits {
+  text-align: center;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+.footer__copyright {
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.7;
 }
 
 /*# sourceMappingURL=styles.css.map */

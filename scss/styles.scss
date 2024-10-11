@@ -1,12 +1,16 @@
 @import "./vars.scss";
-@import "./fonts.scss";
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: $font_sans;
     font-weight: 100;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
 }
 
 // I always like to make the imgs not selectable
@@ -30,15 +34,16 @@ img {
 }
 
 .hero {
-    display: none;
     height: 100vh;
     height: 100svh;
     padding-top: 5rem;
 
     &__title {
-        font-family: "Libre Baskerville", sans-serif;
-        color: $bg_white;
+        font-family: $font_serif;
+        color: $white;
         font-size: 3.5rem;
+        margin-top: 3rem;
+        margin-left: 3rem;
     }
 }
 
@@ -48,26 +53,34 @@ img {
 }
 
 .main-page-gradient {
+
     height: 500vh;
-    background-image: linear-gradient(180deg, $blue, $bg_blue);
+    background-image: linear-gradient(180deg, $blue, $dark_blue);
 }
 
 .section {
+    position: relative;
     padding: 8rem;
     padding-top: 6rem;
 
     &__title {
-        font-family: "Libre Baskerville";
-        color: $bg_white;
+        font-family: $font_serif;
+        color: $white;
         font-size: 3.5rem;
+        margin-bottom: 1.5rem;
     }
 
     &__body {
-        display: flex;
-        margin: auto;
-        margin-top: 1.5rem;
-        justify-content: space-between;
-        gap: 5%;
+        &--flex {
+            display: flex;
+            margin: auto;
+            justify-content: space-between;
+            gap: 5%;
+        }
+    }
+
+    &--white {
+        background-color: blue;
     }
 }
 
@@ -93,6 +106,7 @@ img {
         width: 100%;
         top: 0;
         left: 0;
+        transition: all .3s;
 
         &--1 {
             z-index: 3;
@@ -103,43 +117,135 @@ img {
             z-index: 2;
             opacity: .6;
             transform: scale(.95) translateY(7%);
-            transition: all .3s;
         }
 
         &--3 {
             z-index: 1;
             opacity: .3;
             transform: scale(.9) translateY(14%);
-            transition: all .3s;
         }
     }
 
-    &:hover {
-        &--1 {
-            z-index: 3;
-            opacity: 1;
-        }
-
-        &--2 {
-            transform: none;
-            transition: all .3s;
-        }
-
-        &--3 {
-            transform: none;
-            transition: all .3s;
-        }
+    &:hover .imgs-accordeon__img--2,
+    &:hover .imgs-accordeon__img--3 {
+        z-index: 0;
+        transform: none;
     }
+
+    &:hover .imgs-accordeon__img--1 {
+        transform: scale(1.05);
+
+    }
+
+}
+
+.flex-1 {
+    flex: 1;
 }
 
 .btn {
     padding: .9rem 1.8rem;
     border-radius: 10px;
     text-decoration: none;
-    font-family: "Libre Baskerville";
+    font-family: $font_serif;
+    transition: all .3s;
 
     &--white {
-        background-color: $bg_white;
-        color: $bg_blue;
+        background-color: $white;
+        color: $dark_blue;
+    }
+
+    &--dark-blue {
+        background-color: $dark_blue;
+        color: $white;
+    }
+
+    &--orange {
+        background-color: $orange;
+        color: $dark_blue;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        transition: all .1s;
+    }
+
+    &:active {
+        transform: scale(.95);
+        transition: all .1s;
     }
 }
+
+.centerer {
+    display: flex;
+    justify-content: center;
+
+    &--mt-3 {
+        margin-top: 3rem;
+    }
+}
+
+.process-carousel {
+    &__ul {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        height: 24rem;
+        gap: 1.5rem;
+        overflow: hidden;
+    }
+
+    &__li {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+
+    &__img {
+        height: 100%;
+        border-radius: 10px;
+    }
+}
+
+.texture {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+    background-color: $dark_blue;
+    color: $white;
+    padding: 3rem;
+
+    &__credits {
+        text-align: center;
+        font-family: $font_serif;
+        font-size: 1.5rem;
+        margin-bottom: .7rem;
+    }
+
+    &__copyright {
+        text-align: center;
+        font-size: 1.2rem;
+        opacity: .7;
+    }
+}
+
