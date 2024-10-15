@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Web de la Balena</title>
+
+    <!-- Insert this script -->
+    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <nav id="nav" class="nav">
+        <!-- I'll use this structure because it can handle webp images with a fallback -->
+        <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
+        <a href="/">
+            <picture>
+                <source type="image/webp" srcset="/assets/imgs/logo-w-portrait.webp">
+                <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
+            </picture>
+        </a>
+    </nav>
+
+    <main class="main main--blue main--h100">
+        <section class="hero">
+            <h1 class="hero__title hero__title--centered">Login</h1>
+
+            <form action="#" class="login-form">
+                <input type="text" name="username" id="username" placeholder="Nom d'usuari" class="input-text">
+                <input type="password" name="password" id="password" placeholder="Contrasenya" class="input-text">
+
+                <button class="btn btn--orange btn--block btn--w100 btn--big" type="submit">Login</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__credits">Web by: Guiem Bagur</p>
+        <p class="footer__copyright">&copy; 2024 - Present</p>
+    </footer>
+
+
+</body>
+
+</html>

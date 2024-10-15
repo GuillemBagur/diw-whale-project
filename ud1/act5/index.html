@@ -27,12 +27,51 @@
         <div class="main-page-gradient">
             <section class="hero">
                 <h1 class="hero__title">Balena blava</h1>
+
+                <div class="whale-viewer-container">
+                    <div class="whale-viewer-ui-hidder whale-viewer-ui-hidder--1"></div>
+                    <div class="whale-viewer-ui-hidder whale-viewer-ui-hidder--2"></div>
+
+                    <iframe class="whale-viewer" title="Blue whale skeleton" frameborder="0" allowfullscreen
+                        mozallowfullscreen="true" webkitallowfullscreen="true"
+                        allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
+                        execution-while-out-of-viewport execution-while-not-rendered web-share
+                        src="https://sketchfab.com/models/8502dbef80ed4aa688c13c90cb14de73/embed?autostart=1&camera=0&annotations_visible=0&transparent=1&dnt=1">
+                    </iframe>
+                </div>
+
+                <a class="scroll-btn" href="#scroll">
+                    <img class="scroll-btn__img" src="/assets/icons/mouse.svg" alt="Scroll Icon" />
+                </a>
             </section>
 
+            <a id="scroll"></a>
             <section class="section">
                 <h2 class="section__title">Història</h2>
 
-                <section class="section__body section__body--flex">
+                <section class="section__body section__body--reverse-flex">
+
+
+                    <a class="imgs-accordeon" href="/pages/historia.html" title="Llegir més">
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--1"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen extraída de un periódico de 1912.">
+                        </picture>
+
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--2"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
+                        </picture>
+
+                        <picture>
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="imgs-accordeon__img imgs-accordeon__img--3"
+                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
+                        </picture>
+                    </a>
+
                     <div class="flex-1">
                         <p class="paragraph paragraph--flex-1">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit dignissimos libero minus,
@@ -62,25 +101,6 @@
                     </div>
 
 
-                    <a class="imgs-accordeon" href="/pages/historia.html" title="Llegir més">
-                        <picture>
-                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
-                            <img class="imgs-accordeon__img imgs-accordeon__img--1"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen extraída de un periódico de 1912.">
-                        </picture>
-
-                        <picture>
-                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
-                            <img class="imgs-accordeon__img imgs-accordeon__img--2"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
-                        </picture>
-
-                        <picture>
-                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
-                            <img class="imgs-accordeon__img imgs-accordeon__img--3"
-                                src="/assets/imgs/img-ballena-diari.jpg" alt="Imagen decorativa">
-                        </picture>
-                    </a>
                 </section>
             </section>
 
@@ -129,31 +149,49 @@
         </div>
 
         <section class="section section--white">
-            <picture>
+            <picture class="texture-picture">
                 <source type="image/webp" srcset="/assets/imgs/eroded-texture.webp">
-                <img class="texture" src="/assets/imgs/eroded-texture.png" alt="Fotografía del proceso">
+                <img class="texture-img" src="/assets/imgs/eroded-texture.png" alt="Fotografía del proceso">
             </picture>
 
-            <h2 class="section__title">Darreres notícies</h2>
+            <h2 class="section__title section__title--brown">Darreres notícies</h2>
 
             <section class="news-container">
                 <article class="news-article">
-                    <h3 class="news-article">Obertura al públic</h3>
+                    <h3 class="news-article__title">Obertura al públic</h3>
+
+                    <div class="news-article__author">Autor: Joan Pons</div>
+
+                    <div class="news-article__body">
+                        <p class="news-article__text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, eius
+                            aspernatur assumenda nemo voluptas sunt, a in iusto adipisci quidem amet accusamus dicta
+                            asperiores
+                            dolorem ullam qui dolor tenetur corporis.
+                            Asperiores ipsa ut dolore, sequi eum iste. Perferendis doloremque corrupti quae nihil sint,
+                            ea,
+                            officia ratione iure ipsa assumenda pariatur. Magni vero earum, quaerat suscipit ut totam
+                            tenetur
+                            facere! Est?
+                        </p>
+
+                        <picture class="news-article__picture">
+                            <source type="image/webp" srcset="/assets/imgs/img-ballena-diari.webp">
+                            <img class="news-article__img" src="/assets/imgs/img-ballena-diari.jpg"
+                                alt="Imagen extraída de un periódico de 1912.">
+                        </picture>
+                    </div>
+
+
+                    <div class="mobile-centerer">
+                        <a href="/ud1/act5/index.html" class="btn btn--dark-blue">Llegir</a>
+                    </div>
                 </article>
-
-                <div class="news-article__author">Autor: Joan Pons</div>
-
-                <p class="news-article__body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, eius
-                    aspernatur assumenda nemo voluptas sunt, a in iusto adipisci quidem amet accusamus dicta asperiores
-                    dolorem ullam qui dolor tenetur corporis.
-                    Asperiores ipsa ut dolore, sequi eum iste. Perferendis doloremque corrupti quae nihil sint, ea,
-                    officia ratione iure ipsa assumenda pariatur. Magni vero earum, quaerat suscipit ut totam tenetur
-                    facere! Est?
-                </p>
-
-                <a href="/ud1/act5/index.html" class="btn btn--dark-blue">Llegir</a>
             </section>
+
+            <div class="centerer">
+                <a href="/ud1/act5/noticies.html" class="btn btn--dark-blue">Mostra més notícies</a>
+            </div>
         </section>
     </main>
 
@@ -162,67 +200,7 @@
         <p class="footer__copyright">&copy; 2024 - Present</p>
     </footer>
 
-    <!-- Initialize the viewer -->
-    <script type="text/javascript">
-        const iframe = document.getElementById('api-frame');
-        const uid = '8502dbef80ed4aa688c13c90cb14de73';
 
-        // By default, the latest version of the viewer API will be used.
-        const client = new Sketchfab(iframe);
-
-        // Alternatively, you can request a specific version.
-        // const client = new Sketchfab( '1.12.1', iframe );
-
-        client.init(uid, {
-            success: function onSuccess(api) {
-
-                api.start(function () {
-                    api.addEventListener('viewerready', function () {
-                        api.setBackground({
-                            color: [0, 0, 0]
-                        });
-
-                        api.setEnvironment();
-
-                        api.setLightFeatureEnabled(true);
-
-                        api.setLight(0, {
-                            color: [1, 0, 0]
-                        }, function (err) {
-                            if (!err) {
-                                window.console.log('Set light');
-                            }
-                        });
-
-                        api.setLight(1, {
-                            color: [0, .3, 1]
-                        }, function (err) {
-                            if (!err) {
-                                window.console.log('Set light');
-                            }
-                        });
-
-                        api.setLight(2, {
-                            color: [0, 1, 0]
-                        }, function (err) {
-                            if (!err) {
-                                window.console.log('Set light');
-                            }
-                        });
-
-
-                        // API is ready to use
-                        // Insert your code here
-                        console.log('Viewer is ready');
-                    });
-                });
-
-            },
-            error: function onError() {
-                console.log('Viewer error');
-            }
-        });
-    </script>
 </body>
 
 </html>
