@@ -1,12 +1,12 @@
 @font-face {
   font-family: "Libre Baskerville";
-  src: url("/assets/fonts/libre-baskerville-regular.woff2");
-  src: url("/assets/fonts/libre-baskerville-regular.woff");
+  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff2");
+  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff");
 }
 @font-face {
   font-family: "Plus Jakarta Sans";
-  src: url("/assets/fonts/plus-jakarta-sans-regular.woff2");
-  src: url("/assets/fonts/plus-jakarta-sans-regular.woff");
+  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff2");
+  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
 html {
   scroll-behavior: smooth;
