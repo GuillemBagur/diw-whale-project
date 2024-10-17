@@ -14,6 +14,10 @@
 
 <body>
     <nav id="nav" class="nav">
+        <button class="nav-hamburger" id="expand-nav-btn">
+            <img src="/assets/icons/menu.svg" alt="Hamburger" class="nav-hamburger__img">
+        </button>
+
         <!-- I'll use this structure because it can handle webp images with a fallback -->
         <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
         <a href="/">
@@ -22,123 +26,211 @@
                 <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
             </picture>
         </a>
+
+        <ul class="nav__links nav__links--hidden" id="nav-links">
+            <li class="nav__li"><a href="/ud1/act5/index.html" class="nav__link">Inici</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Sobre la balena</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Història</a></li>
+            <li class="nav__li"><a href="/ud1/act5/portfolio.html" class="nav__link">Procés</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Notícies</a></li>
+            <li class="nav__li"><a href="/ud1/act5/login.html" class="nav__link">Login</a></li>
+        </ul>
     </nav>
 
     <main class="main main--blue">
         <section class="hero hero--portfolio">
             <h1 class="hero__title">Procés</h1>
 
-            <picture class="hero__portfolio-picture">
-                <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                <img class="hero__portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                    alt="Imagen extraída de un periódico de 1912.">
-            </picture>
+            <div class="hero__portfolio-picture-wrapper">
+                <picture class="hero__portfolio-picture">
+                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                    <img class="hero__portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                        alt="Imagen extraída de un periódico de 1912.">
+                </picture>
+
+                <p class="hero__portfolio-picture-author">Ufe García</p>
+            </div>
         </section>
 
         <section class="portfolio-images-wrapper">
             <div class="portfolio-row portfolio-row--1">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
 
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
 
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
 
             <div class="portfolio-row portfolio-row--2">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
 
             <div class="portfolio-row portfolio-row--3">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
 
             <div class="portfolio-row portfolio-row--4">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
 
             <div class="portfolio-row portfolio-row--5">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
 
             <div class="portfolio-row portfolio-row--6">
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
-                <picture class="portfolio-picture">
-                    <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
-                    <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
-                        alt="Imagen extraída de un periódico de 1912.">
-                </picture>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
+                <div class="portfolio-picture-wrapper">
+                    <picture class="portfolio-picture">
+                        <source type="image/webp" srcset="/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="portfolio-img" src="/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imagen extraída de un periódico de 1912.">
+                    </picture>
+
+                    <p class="portfolio-picture-author">Ufe García</p>
+                </div>
             </div>
         </section>
     </main>
@@ -149,6 +241,7 @@
     </footer>
 
 
+    <script src="/js/nav.js"></script>
 </body>
 
 </html>

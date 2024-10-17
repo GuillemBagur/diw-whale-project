@@ -27,6 +27,8 @@ img {
 
 .nav {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     z-index: 8;
     width: 100vw;
     height: 5rem;
@@ -37,6 +39,43 @@ img {
     &__logo {
         height: 100%;
     }
+
+    &__links {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        list-style: none;
+        gap: 5rem;
+        margin-right: 3rem;
+    }
+
+    &__li {
+        height: 70%;
+
+        &:hover .nav__link {
+            transform: rotate(-5deg);
+            transform-origin: 0;
+        }
+
+        &:active .nav__link {
+            transform-origin: 100%;
+            transform: rotate(5deg)
+        }
+    }
+
+    &__link {
+        align-content: center;
+        display: block;
+        height: 100%;
+        color: $white;
+        text-decoration: none;
+        transform-origin: left;
+        transition: all .2s;
+    }
+}
+
+.nav-hamburger {
+    display: none;
 }
 
 .hero {
@@ -60,14 +99,20 @@ img {
         }
     }
 
-    &__portfolio-picture,
-    &__portfolio-img {
+    &__portfolio-picture-wrapper {
         display: block;
         margin: auto;
         height: 93%;
-        object-fit: cover;
-        width: 98%;
+        width: 96%;
         border-radius: 12px;
+    }
+
+    &__portfolio-picture,
+    &__portfolio-img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        border-radius: inherit;
     }
 }
 
@@ -116,7 +161,7 @@ img {
         height: 3rem;
         bottom: 0;
         left: 0;
-        background-color: #142029;
+        background-color: #111B22;
     }
 }
 
@@ -297,9 +342,10 @@ img {
     &__ul {
         display: flex;
         list-style-type: none;
+        flex-wrap: wrap;
         padding: 0;
         margin: 0;
-        height: 24rem;
+        //height: 24rem;
         gap: 1.5rem;
         overflow: hidden;
     }
@@ -307,11 +353,12 @@ img {
     &__li {
         padding: 0;
         margin: 0;
-        height: 100%;
+        width: 100%;
+        max-width: 20rem;
     }
 
     &__img {
-        height: 100%;
+        width: 100%;
         border-radius: 10px;
     }
 }
@@ -404,16 +451,17 @@ img {
 }
 
 .portfolio-row {
-    height: 20rem;
+    height: 30rem;
     display: flex;
     gap: 1rem;
 }
 
-.portfolio-picture {
+.portfolio-picture-wrapper {
     position: relative;
     display: block;
     height: 100%;
     flex: 1;
+    min-width: 10rem;
     width: auto;
     overflow: hidden;
 
@@ -432,11 +480,24 @@ img {
     }
 }
 
+.portfolio-picture-author {
+    position: absolute;
+    left: .75rem;
+    bottom: .75rem;
+    color: white;
+    font-size: 1rem;
+    z-index: 3;
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 // Generate some classes with variable widths, playing with "flex" property
 @for $j from 1 through 10 {
     @for $i from 1 through 3 {
-        .portfolio-row--#{$j} .portfolio-picture:nth-child(#{$i}) {
+        .portfolio-row--#{$j} .portfolio-picture-wrapper:nth-child(#{$i}) {
             flex: #{(161.8 * ($j + $i)) % (30)};
         }
     }
@@ -504,6 +565,60 @@ img {
         height: 20rem;
         margin: auto;
         margin-top: 1rem;
+    }
+
+    .nav {
+        &__links {
+            margin: 0;
+            position: absolute;
+            flex-direction: column;
+            justify-content: left;
+            gap: 3rem;
+            top: 5rem;
+            right: 0;
+            height: calc(100vh - 5rem);
+            width: 20rem;
+            max-width: 100%;
+            background-color: rgba(0, 0, 0, .8);
+            backdrop-filter: blur(10px);
+            transition: transform .2s;
+            transform: none;
+
+            &--hidden {
+                transform: translateX(100%);
+            }
+        }
+
+        &__li {
+            height: fit-content;
+            width: 70%;
+            text-align: right;
+            font-size: 1.5rem;
+
+            &:first-child {
+                margin-top: 5rem;
+            }
+
+            &__link {
+                width: fit-content;
+            }
+        }
+    }
+
+    .nav-hamburger {
+        position: absolute;
+        display: block;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 2rem;
+        height: 3rem;
+        background-color: transparent;
+        border: none;
+
+        &__img {
+            height: 100%;
+            width: 100%;
+        }
     }
 
 }

@@ -14,6 +14,10 @@
 
 <body>
     <nav id="nav" class="nav">
+        <button class="nav-hamburger" id="expand-nav-btn">
+            <img src="/assets/icons/menu.svg" alt="Hamburger" class="nav-hamburger__img">
+        </button>
+
         <!-- I'll use this structure because it can handle webp images with a fallback -->
         <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
         <a href="/">
@@ -22,6 +26,15 @@
                 <img class="nav__logo" src="/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
             </picture>
         </a>
+
+        <ul class="nav__links nav__links--hidden" id="nav-links">
+            <li class="nav__li"><a href="/ud1/act5/index.html" class="nav__link">Inici</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Sobre la balena</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Història</a></li>
+            <li class="nav__li"><a href="/ud1/act5/portfolio.html" class="nav__link">Procés</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Notícies</a></li>
+            <li class="nav__li"><a href="/ud1/act5/login.html" class="nav__link">Login</a></li>
+        </ul>
     </nav>
     <main class="main">
         <div class="main-page-gradient">
@@ -104,7 +117,7 @@
                 </section>
             </section>
 
-            <section class="section">
+            <!-- <section class="section">
                 <h2 class="section__title">Trust the process...</h2>
 
                 <section class="section__body">
@@ -142,10 +155,10 @@
                     </div>
 
                     <div class="centerer centerer--mt-3">
-                        <a href="/pages/historia.html" class="btn btn--orange btn--center">Veure més</a>
+                        <a href="portfolio.html" class="btn btn--orange btn--center">Veure més</a>
                     </div>
                 </section>
-            </section>
+            </section> -->
         </div>
 
         <section class="section section--white">
@@ -234,6 +247,7 @@
     </footer>
 
 
+    <script src="/js/nav.js"></script>
 </body>
 
 </html>
