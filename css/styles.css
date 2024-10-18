@@ -103,7 +103,7 @@ img {
   margin: auto;
   height: 93%;
   width: 96%;
-  border-radius: 12px;
+  background-color: blue;
 }
 .hero__portfolio-picture, .hero__portfolio-img {
   object-fit: cover;
