@@ -88,8 +88,8 @@ img {
 
 .hero {
   position: relative;
-  height: 100vh;
-  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
   padding-top: 5rem;
 }
 .hero__title {
@@ -99,6 +99,7 @@ img {
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 3rem;
+  width: 80%;
 }
 .hero__title--centered {
   margin-left: 0;
@@ -654,19 +655,20 @@ img {
   padding: 0;
   margin: 0;
   height: fit-content;
-  width: 100%;
-  gap: 15%;
-  overflow: hidden;
+  width: 90%;
+  gap: 10%;
+  overflow: visible;
+  margin: auto;
   min-height: 100%;
-  padding-top: 3rem;
+  padding-top: 5rem;
 }
 
 .about-whale-card {
   display: flex;
-  margin-bottom: 5rem;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   flex: 1;
+  padding-bottom: 7rem;
 }
 .about-whale-card__title {
   font-family: "Libre Baskerville", "Times New Roman", serif;
@@ -675,11 +677,27 @@ img {
   text-align: center;
   margin-bottom: 1rem;
 }
-.about-whale-card__picture {
-  display: inline-block;
-  width: auto;
-  height: 20rem;
+.about-whale-card__picture-wrapper {
+  position: relative;
+  width: 25rem;
   margin-bottom: 3rem;
+}
+.about-whale-card__picture {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  width: 100%;
+}
+.about-whale-card__beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: #FFE6D7;
+  filter: blur(120px);
 }
 .about-whale-card__img {
   object-fit: cover;
@@ -780,6 +798,18 @@ img {
   .portfolio-picture {
     display: block;
     margin-bottom: 0.5rem;
+  }
+  .about-whale-nav {
+    display: block;
+  }
+  .about-whale-card {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .about-whale-card__picture-wrapper {
+    width: 100%;
+    height: auto;
   }
 }
 

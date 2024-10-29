@@ -77,8 +77,8 @@ img {
 
 .hero {
     position: relative;
-    height: 100vh;
-    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
     padding-top: 5rem;
 
     &__title {
@@ -86,6 +86,7 @@ img {
         margin-top: 1rem;
         margin-bottom: 1rem;
         margin-left: 3rem;
+        width: 80%;
 
         &--centered {
             margin-left: 0;
@@ -532,17 +533,18 @@ img {
 
 
 .about-whale-nav {
-    @include horizontal-ul($height: fit-content, $width: 100%, $justify_content: center, $align_items: start, $gap: 15%);
+    @include horizontal-ul($height: fit-content, $width: 90%, $justify_content: center, $overflow: visible, $align_items: start, $gap: 10%);
+    margin: auto;
     min-height: 100%;
-    padding-top: 3rem;
+    padding-top: 5rem;
 }
 
 .about-whale-card {
     display: flex;
-    margin-bottom: 5rem;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
     flex: 1;
+    padding-bottom: 7rem;
     
     &__title {
         @include title($font_size: 3rem);
@@ -550,11 +552,29 @@ img {
         margin-bottom: 1rem;
     }
 
-    &__picture {
-        display: inline-block;
-        width: auto;
-        height: 20rem;
+    &__picture-wrapper {
+        position: relative;
+        width: 25rem;
         margin-bottom: 3rem;
+    }
+    
+    &__picture {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        width: 100%;
+    }
+
+    &__beam {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background-color: $white;
+        filter: blur(120px);
     }
 
     &__img {
@@ -700,5 +720,20 @@ img {
     .portfolio-picture {
         display: block;
         margin-bottom: .5rem;
+    }
+
+    .about-whale-nav {
+        display: block;
+    }
+
+    .about-whale-card {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+
+        &__picture-wrapper {
+            width: 100%;
+            height: auto;
+        }
     }
 }

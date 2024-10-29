@@ -36,18 +36,22 @@
     </nav>
 
     <main class="main main--blue">
-        <section class="section">
-            <h1 class="section__title">Al voltant de la Balena</h1>
+        <section class="hero">
+            <h1 class="hero__title">Al voltant de la Balena</h1>
 
             <div class="about-whale-nav">
                 <div class="about-whale-card">
                     <h2 class="about-whale-card__title">Fitxes d'ossos</h2>
 
-                    <picture class="about-whale-card__picture">
-                        <source type="image/webp" srcset="/diw-whale-project/assets/imgs/hueso.webp">
-                        <img class="about-whale-card__img" src="/diw-whale-project/assets/imgs/hueso.jpg"
-                            alt="Imagen decorativa">
-                    </picture>
+                    <div class="about-whale-card__picture-wrapper">
+                        <picture class="about-whale-card__picture">
+                            <source type="image/webp" srcset="/diw-whale-project/assets/imgs/hueso.webp">
+                            <img class="about-whale-card__img" src="/diw-whale-project/assets/imgs/hueso.jpg"
+                                alt="Imagen decorativa">
+                        </picture>
+
+                        <div class="about-whale-card__beam"></div>
+                    </div>
 
                     <div class="centerer"><a href="#" class="btn-white btn--big">Veure més</a></div>
                 </div>
@@ -55,11 +59,15 @@
                 <div class="about-whale-card">
                     <h2 class="about-whale-card__title">Altres activitats</h2>
 
-                    <picture class="about-whale-card__picture">
-                        <source type="image/webp" srcset="/diw-whale-project/assets/imgs/interrogante-piedra.webp">
-                        <img class="about-whale-card__img" src="/diw-whale-project/assets/imgs/interrogante-piedra.jpg"
-                            alt="Imagen decorativa">
-                    </picture>
+                    <div class="about-whale-card__picture-wrapper">
+                        <picture class="about-whale-card__picture">
+                            <source type="image/webp" srcset="/diw-whale-project/assets/imgs/interrogante-piedra.webp">
+                            <img class="about-whale-card__img"
+                                src="/diw-whale-project/assets/imgs/interrogante-piedra.jpg" alt="Imagen decorativa">
+                        </picture>
+                        
+                        <div class="about-whale-card__beam"></div>
+                    </div>
 
                     <div class="centerer"><a href="#" class="btn-white btn--big">Veure més</a></div>
                 </div>
@@ -71,7 +79,7 @@
         <p class="footer__credits">Web by: Guiem Bagur</p>
         <p class="footer__copyright">&copy; 2024 - Present</p>
     </footer>
-    
+
     <script src="/diw-whale-project/js/nav.js"></script>
 </body>
 

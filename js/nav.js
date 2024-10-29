@@ -3,5 +3,4 @@ const navLinks = document.getElementById("nav-links");
 
 expandNavBtn.addEventListener("click", function() {
     navLinks.classList.toggle("nav__links--hidden");
-    console.log(navLinks.classList);
 })
