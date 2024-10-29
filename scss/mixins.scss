@@ -23,7 +23,7 @@
 /* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
 @mixin horizontal-ul($height, $width, $justify_content, $align_items, $gap, $overflow: hidden, $padding: 0, $margin: 0) {
     display: flex;
-    justify-content: justify_content;
+    justify-content: $justify_content;
     align-items: $align_items;
     list-style-type: none;
     flex-wrap: wrap;
@@ -33,4 +33,10 @@
     width: $width;
     gap: $gap;
     overflow: $overflow;
+}
+
+@mixin title($font_size) {
+    font-family: $font_serif;
+    color: $white;
+    font-size: $font_size;
 }
