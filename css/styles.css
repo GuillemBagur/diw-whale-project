@@ -8,6 +8,7 @@
   src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff2");
   src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
+/* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -48,10 +49,16 @@ img {
 }
 .nav__links {
   display: flex;
-  height: 100%;
+  justify-content: justify_content;
   align-items: center;
-  list-style: none;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: auto;
   gap: 5rem;
+  overflow: hidden;
   margin-right: 3rem;
 }
 .nav__li {
@@ -103,7 +110,6 @@ img {
   margin: auto;
   height: 93%;
   width: 96%;
-  background-color: blue;
 }
 .hero__portfolio-picture, .hero__portfolio-img {
   object-fit: cover;
@@ -253,27 +259,7 @@ img {
   flex: 1;
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.9rem 1.8rem;
-  border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  font-family: "Libre Baskerville", "Times New Roman", serif;
-  transition: all 0.2s;
-}
-.btn--white {
-  background-color: #FFE6D7;
-  color: #0A0F14;
-}
-.btn--dark-blue {
-  background-color: #0A0F14;
-  color: #FFE6D7;
-}
-.btn--orange {
-  background-color: #BE6900;
-  color: #0A0F14;
-}
+/* Some modifiers for buttons */
 .btn--w100 {
   width: 100%;
 }
@@ -283,11 +269,63 @@ img {
 .btn--big {
   font-size: 1.25rem;
 }
-.btn:hover {
+
+.btn-white {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.2s;
+  background-color: #FFE6D7;
+  color: #0A0F14;
+}
+.btn-white:hover {
   transform: scale(1.05);
   transition: all 0.1s;
 }
-.btn:active {
+.btn-white:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+.btn-dark-blue {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.2s;
+  background-color: #0A0F14;
+  color: #FFE6D7;
+}
+.btn-dark-blue:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.btn-dark-blue:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+.btn-orange {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.2s;
+  background-color: #BE6900;
+  color: #0A0F14;
+}
+.btn-orange:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.btn-orange:active {
   transform: scale(0.95);
   transition: all 0.1s;
 }
@@ -601,6 +639,34 @@ img {
   text-align: center;
   font-size: 1.2rem;
   opacity: 0.7;
+}
+
+.about-whale-nav {
+  display: flex;
+  justify-content: justify_content;
+  align-items: center;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  gap: 5rem;
+  overflow: hidden;
+  background-color: blue;
+}
+
+.about-whale-card {
+  flex: 1;
+}
+.about-whale-card__picture {
+  width: 100%;
+  height: auto;
+}
+.about-whale-card__img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 868px) {

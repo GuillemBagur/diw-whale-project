@@ -1,4 +1,5 @@
 @import "./vars.scss";
+@import "./mixins.scss";
 
 html {
     scroll-behavior: smooth;
@@ -41,11 +42,7 @@ img {
     }
 
     &__links {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        list-style: none;
-        gap: 5rem;
+        @include horizontal-ul($height: 100%, $width: auto, $justify_content: auto, $align_items: center, $gap: 5rem, $overflow: hidden,);
         margin-right: 3rem;
     }
 
@@ -104,7 +101,6 @@ img {
         margin: auto;
         height: 93%;
         width: 96%;
-        background-color: blue;
     }
 
     &__portfolio-picture,
@@ -144,7 +140,7 @@ img {
     height: 100%;
 }
 
-// Hide the whale's ui buttons & stuff
+// Hide the whale's ui button($white, $dark_blue)s & stuff
 .whale-viewer-ui-hidder {
     position: absolute;
     width: 100vw;
@@ -282,30 +278,8 @@ img {
     flex: 1;
 }
 
+/* Some modifiers for buttons */
 .btn {
-    display: inline-block;
-    padding: .9rem 1.8rem;
-    border: none;
-    border-radius: 10px;
-    text-decoration: none;
-    font-family: $font_serif;
-    transition: all .2s;
-
-    &--white {
-        background-color: $white;
-        color: $dark_blue;
-    }
-
-    &--dark-blue {
-        background-color: $dark_blue;
-        color: $white;
-    }
-
-    &--orange {
-        background-color: $orange;
-        color: $dark_blue;
-    }
-
     &--w100 {
         width: 100%;
     }
@@ -317,16 +291,18 @@ img {
     &--big {
         font-size: 1.25rem;
     }
+}
 
-    &:hover {
-        transform: scale(1.05);
-        transition: all .1s;
-    }
+.btn-white {
+    @include button($white, $dark_blue);
+}
 
-    &:active {
-        transform: scale(.95);
-        transition: all .1s;
-    }
+.btn-dark-blue {
+    @include button($dark_blue, $white);
+}
+
+.btn-orange {
+    @include button($orange, $dark_blue);
 }
 
 .centerer {
@@ -340,6 +316,7 @@ img {
 
 .process-carousel {
     &__ul {
+        //@include horizontal-ul($height: auto, $gap: 1.5rem, $overflow: hidden,);
         display: flex;
         list-style-type: none;
         flex-wrap: wrap;
@@ -549,6 +526,43 @@ img {
         opacity: .7;
     }
 }
+
+
+
+.about-whale-nav {
+    @include horizontal-ul($height: 100%, $width: 100%, $justify_content: center, $align_items: center, $gap: 5rem);
+}
+
+.about-whale-card {
+    flex: 1;
+
+    &__picture {
+        width: 100%;
+        height: auto;
+    }
+
+    &__img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: $breakpoint_tablet) {
     .section {
