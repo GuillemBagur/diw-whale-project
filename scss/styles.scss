@@ -95,6 +95,13 @@ img {
         }
     }
 
+    &__subtitle {
+        @include title(2rem);
+        margin-left: 3rem;
+        opacity: .5;
+        margin-top: -1rem;
+    }
+
     &__portfolio-picture-wrapper {
         position: relative;
         display: block;
@@ -105,7 +112,9 @@ img {
         margin-bottom: 3rem;
 
         &::before {
-            @include gradient-shadow;
+            @include gradient-overlay;
+            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 12px;
         }
     }
 
@@ -128,6 +137,10 @@ img {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    &--blue {
+        background-color: $dark_blue;
     }
 }
 
@@ -220,6 +233,14 @@ img {
         &--brown {
             color: $brown;
         }
+
+        &--dark-blue {
+            color: $dark_blue;
+        }
+
+        &--mt-5 {
+            margin-top: 5rem;
+        }
     }
 
     &__body {
@@ -297,10 +318,25 @@ img {
     flex: 1;
 }
 
+
+.btn-white {
+    @include button($white, $dark_blue);
+}
+
+.btn-dark-blue {
+    @include button($dark_blue, $white);
+}
+
+.btn-orange {
+    @include button($orange, $dark_blue);
+}
+
+
 /* Some modifiers for buttons */
 .btn {
     &--w100 {
         width: 100%;
+        text-align: center;
     }
 
     &--block {
@@ -315,19 +351,18 @@ img {
     &--big {
         font-size: 1.25rem;
     }
+
+    &--color-brown {
+        color: $brown;
+    }
+
+    &--no-transform {
+        &:hover {
+            transform: none;
+        }
+    }
 }
 
-.btn-white {
-    @include button($white, $dark_blue);
-}
-
-.btn-dark-blue {
-    @include button($dark_blue, $white);
-}
-
-.btn-orange {
-    @include button($orange, $dark_blue);
-}
 
 .centerer {
     display: flex;
@@ -468,7 +503,9 @@ img {
 
 
     &::before {
-        @include gradient-shadow;
+        @include gradient-overlay;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
     }
 }
 
@@ -596,6 +633,88 @@ img {
 }
 
 
+.whale-skel {
+    position: relative;
+    display: flex;
+    width: 80%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+
+    &__picture {
+        height: 90%;
+    }
+
+    &__img {
+        height: 100%;
+        width: 100%;
+    }
+
+    &__button {
+        height: 4rem;
+        width: 4rem;
+        border: none;
+        border-radius: 50%;
+        background-color: rgba($orange, .7);
+        position: absolute;
+        left: 40%;
+
+        @include clickable-element;
+    }
+}
+
+.bone-sheets-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(7rem, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    height: fit-content;
+}
+
+.bone-sheet {
+    display: block;
+    position: relative;
+    background-color: $gray;
+    padding: 1rem;
+    border-radius: 12px;
+    position: relative;
+
+    &__img {
+        width: 100%;
+        height: 18rem;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    &__name {
+        @include title(2rem);
+        margin-top: 1rem;
+        margin-bottom: .4rem;
+    }
+
+    &__weight {
+        @include title(1.1rem);
+        opacity: .6;
+        margin-bottom: .5rem;
+    }
+
+    &__paragraph {
+        position: relative;
+        color: $white;
+        line-height: 1.3rem;
+        height: 5rem;
+        font-size: 1.2rem;
+        overflow: hidden;
+        margin-bottom: 1rem;
+
+        &::before {
+            @include gradient-overlay(rgba($gray, .1), $gray);
+            height: 100%;
+        }
+    }
+}
 
 
 
@@ -682,6 +801,10 @@ img {
         }
     }
 
+    .bone-sheets-container {
+        grid-template-columns: repeat(2, minmax(7rem, 1fr));
+    }
+
 }
 
 @media screen and (max-width: $breakpoint_mobile) {
@@ -746,5 +869,14 @@ img {
             width: 100%;
             height: auto;
         }
+    }
+
+    /* The picture is too horizontal to be visually pleasant on mobile */
+    .whale-skel, .hero--hide-on-mobile {
+        display: none;
+    }
+
+    .bone-sheets-container {
+        grid-template-columns: repeat(1, minmax(7rem, 1fr));
     }
 }

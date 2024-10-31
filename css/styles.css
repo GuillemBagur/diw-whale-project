@@ -106,6 +106,14 @@ img {
   width: 100%;
   text-align: center;
 }
+.hero__subtitle {
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  color: #FFE6D7;
+  font-size: 2rem;
+  margin-left: 3rem;
+  opacity: 0.5;
+  margin-top: -1rem;
+}
 .hero__portfolio-picture-wrapper {
   position: relative;
   display: block;
@@ -144,6 +152,9 @@ img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.hero--blue {
+  background-color: #0A0F14;
 }
 
 .main--blue {
@@ -225,6 +236,12 @@ img {
 .section__title--brown {
   color: #1E1E1E;
 }
+.section__title--dark-blue {
+  color: #0A0F14;
+}
+.section__title--mt-5 {
+  margin-top: 5rem;
+}
 .section__body--reverse-flex {
   display: flex;
   flex-direction: row-reverse;
@@ -287,21 +304,6 @@ img {
   flex: 1;
 }
 
-/* Some modifiers for buttons */
-.btn--w100 {
-  width: 100%;
-}
-.btn--block {
-  display: block;
-}
-.btn--centered {
-  display: block;
-  margin: auto;
-}
-.btn--big {
-  font-size: 1.25rem;
-}
-
 .btn-white {
   display: inline-block;
   padding: 0.9rem 1.8rem;
@@ -312,6 +314,7 @@ img {
   transition: all 0.2s;
   background-color: #FFE6D7;
   color: #0A0F14;
+  cursor: pointer;
 }
 .btn-white:hover {
   transform: scale(1.05);
@@ -332,6 +335,7 @@ img {
   transition: all 0.2s;
   background-color: #0A0F14;
   color: #FFE6D7;
+  cursor: pointer;
 }
 .btn-dark-blue:hover {
   transform: scale(1.05);
@@ -352,6 +356,7 @@ img {
   transition: all 0.2s;
   background-color: #BE6900;
   color: #0A0F14;
+  cursor: pointer;
 }
 .btn-orange:hover {
   transform: scale(1.05);
@@ -360,6 +365,28 @@ img {
 .btn-orange:active {
   transform: scale(0.95);
   transition: all 0.1s;
+}
+
+/* Some modifiers for buttons */
+.btn--w100 {
+  width: 100%;
+  text-align: center;
+}
+.btn--block {
+  display: block;
+}
+.btn--centered {
+  display: block;
+  margin: auto;
+}
+.btn--big {
+  font-size: 1.25rem;
+}
+.btn--color-brown {
+  color: #1E1E1E;
+}
+.btn--no-transform:hover {
+  transform: none;
 }
 
 .centerer {
@@ -732,6 +759,99 @@ img {
   height: 100%;
 }
 
+.whale-skel {
+  position: relative;
+  display: flex;
+  width: 80%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.whale-skel__picture {
+  height: 90%;
+}
+.whale-skel__img {
+  height: 100%;
+  width: 100%;
+}
+.whale-skel__button {
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(190, 105, 0, 0.7);
+  position: absolute;
+  left: 40%;
+  cursor: pointer;
+}
+.whale-skel__button:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.whale-skel__button:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+.bone-sheets-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(7rem, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  height: fit-content;
+}
+
+.bone-sheet {
+  display: block;
+  position: relative;
+  background-color: #464646;
+  padding: 1rem;
+  border-radius: 12px;
+  position: relative;
+}
+.bone-sheet__img {
+  width: 100%;
+  height: 18rem;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.bone-sheet__name {
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  color: #FFE6D7;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+.bone-sheet__weight {
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  color: #FFE6D7;
+  font-size: 1.1rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+}
+.bone-sheet__paragraph {
+  position: relative;
+  color: #FFE6D7;
+  line-height: 1.3rem;
+  height: 5rem;
+  font-size: 1.2rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.bone-sheet__paragraph::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background-image: linear-gradient(rgba(70, 70, 70, 0.1), #464646);
+  z-index: 1;
+  height: 100%;
+}
+
 @media screen and (max-width: 868px) {
   .section {
     padding: 2.5rem;
@@ -789,6 +909,9 @@ img {
     height: 100%;
     width: 100%;
   }
+  .bone-sheets-container {
+    grid-template-columns: repeat(2, minmax(7rem, 1fr));
+  }
 }
 @media screen and (max-width: 576px) {
   .section {
@@ -837,6 +960,13 @@ img {
   .about-whale-card__picture-wrapper {
     width: 100%;
     height: auto;
+  }
+  /* The picture is too horizontal to be visually pleasant on mobile */
+  .whale-skel, .hero--hide-on-mobile {
+    display: none;
+  }
+  .bone-sheets-container {
+    grid-template-columns: repeat(1, minmax(7rem, 1fr));
   }
 }
 
