@@ -658,9 +658,27 @@ img {
         border-radius: 50%;
         background-color: rgba($orange, .7);
         position: absolute;
-        left: 40%;
-
+        
         @include clickable-element;
+        
+        &--1 {
+            left: 40%;
+            top: auto;
+        }
+
+        &--2 {
+            left: 30%;
+            bottom: 30%;
+        }
+
+        &--3 {
+            bottom: 30%;
+        }
+
+        &--4 {
+            left: 52%;
+            bottom: 60%;
+        }
     }
 }
 

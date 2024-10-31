@@ -782,7 +782,6 @@ img {
   border-radius: 50%;
   background-color: rgba(190, 105, 0, 0.7);
   position: absolute;
-  left: 40%;
   cursor: pointer;
 }
 .whale-skel__button:hover {
@@ -792,6 +791,21 @@ img {
 .whale-skel__button:active {
   transform: scale(0.95);
   transition: all 0.1s;
+}
+.whale-skel__button--1 {
+  left: 40%;
+  top: auto;
+}
+.whale-skel__button--2 {
+  left: 30%;
+  bottom: 30%;
+}
+.whale-skel__button--3 {
+  bottom: 30%;
+}
+.whale-skel__button--4 {
+  left: 52%;
+  bottom: 60%;
 }
 
 .bone-sheets-container {
