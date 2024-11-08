@@ -21,9 +21,13 @@ html {
   font-family: "Plus Jakarta Sans", ubuntu, sans-serif;
   font-weight: 100;
   accent-color: rgba(0, 0, 0, 0);
+  /* We need to declare them both to make accessibility panel work */
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
 }
 
 body {
+  position: relative;
   width: 100%;
   overflow-x: hidden;
 }
@@ -222,6 +226,10 @@ img {
   background-image: linear-gradient(180deg, #192832, #0A0F14);
 }
 
+.main--inverted .section {
+  background-color: #FFE6D7;
+}
+
 .section {
   position: relative;
   padding: 8rem;
@@ -363,6 +371,27 @@ img {
   transition: all 0.1s;
 }
 .btn-orange:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+.btn-brown {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.2s;
+  background-color: #1E1E1E;
+  color: #FFE6D7;
+  cursor: pointer;
+}
+.btn-brown:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.btn-brown:active {
   transform: scale(0.95);
   transition: all 0.1s;
 }
@@ -866,6 +895,83 @@ img {
   height: 100%;
 }
 
+.acc-menu-foreground {
+  display: block;
+  left: 0;
+  top: 0;
+  position: fixed;
+  height: 100vh;
+  height: 100svh;
+  width: 100vw;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s;
+}
+.acc-menu-foreground--hidden {
+  background-color: transparent;
+}
+
+.acc-menu {
+  left: 0;
+  top: 5rem;
+  position: fixed;
+  height: 100%;
+  max-width: 25rem;
+  z-index: 6;
+  width: 80%;
+  background-color: #FFE6D7;
+  padding: 1rem;
+  transform: none;
+  transition: transform 0.4s;
+}
+.acc-menu__title {
+  text-align: center;
+}
+.acc-menu__options-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  max-height: 70%;
+  overflow-y: auto;
+}
+.acc-menu__input-wrapper {
+  border: 2px solid #1E1E1E;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  border-radius: 7px;
+}
+.acc-menu__label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.acc-menu__btn {
+  padding: 1.5rem;
+  background-color: #192832;
+}
+.acc-menu__range {
+  width: 100%;
+}
+.acc-menu__select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #1E1E1E;
+  border-radius: 4px;
+}
+.acc-menu__toggle-menu {
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  background-color: #192832;
+  border: 0;
+  transform: translate(100%);
+  cursor: pointer;
+}
+.acc-menu__toggle-menu img {
+  height: 3rem;
+}
+.acc-menu--hidden {
+  transform: translateX(-100%);
+}
+
 @media screen and (max-width: 868px) {
   .section {
     padding: 2.5rem;
@@ -976,7 +1082,8 @@ img {
     height: auto;
   }
   /* The picture is too horizontal to be visually pleasant on mobile */
-  .whale-skel, .hero--hide-on-mobile {
+  .whale-skel,
+  .hero--hide-on-mobile {
     display: none;
   }
   .bone-sheets-container {

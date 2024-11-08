@@ -72,7 +72,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure més</a>
+                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</a>
                 </article>
 
                 <article class="bone-sheet">
@@ -87,7 +88,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure més</a>
+                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</a>
                 </article>
 
                 <article class="bone-sheet">
@@ -102,7 +104,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure més</a>
+                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</a>
                 </article>
 
                 <article class="bone-sheet">
@@ -117,7 +120,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure més</a>
+                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</a>
                 </article>
 
                 <article class="bone-sheet">
@@ -132,18 +136,74 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure més</a>
+                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</a>
                 </article>
             </section>
         </section>
     </main>
+
+    <div class="acc-menu-foreground acc-menu-foreground--hidden" id="acc-menu-foreground">
+    </div>
+    <aside class="acc-menu acc-menu--hidden" id="acc-menu">
+        <h2 class="acc-menu__title">Opcions d'accessibilitat</h2>
+        <article class="acc-menu__options-container">
+            <fieldset class="acc-menu__input-wrapper">
+                <legend class="acc-menu__label" for="acc-set-font-size">Tamany de lletra</legend>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn" id="acc-dec-font-size">-</button>
+                    <button class="acc-menu__btn" id="acc-inc-font-size">+</button>
+                </div>
+            </fieldset>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-line-height">Interlineat</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn" id="acc-dec-line-height">-</button>
+                    <button class="acc-menu__btn" id="acc-inc-line-height">+</button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-word-spacing">Espaiat entre paraules</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn" id="acc-dec-word-spacing">-</button>
+                    <button class="acc-menu__btn" id="acc-inc-word-spacing">+</button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-letter-spacing">Espaiat entre lletres</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn" id="acc-dec-letter-spacing">-</button>
+                    <button class="acc-menu__btn" id="acc-inc-letter-spacing">+</button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-contrast">Opcions de contrast</label>
+                <select class="acc-menu__select" id="acc-set-contrast">
+                    <option value="default" selected>Per defecte</option>
+                    <option value="grayscale">Escala de grisos (blanc i negre)</option>
+                    <option value="dark-contrast">Contrast fosc</option>
+                    <option value="light-contrast">Contrast clar</option>
+                    <option value="high-saturation">Saturació alta</option>
+                    <option value="low-saturation">Saturació baixa</option>
+                </select>
+            </div>
+        </article>
+        <button id="acc-reset" class="btn-brown btn--no-transform btn--block btn--w100">
+            Reset
+        </button>
+        <button class="acc-menu__toggle-menu" id="acc-toggle">
+            <img src="/diw-whale-project/assets/icons/person-standing.svg" alt="Opcions d'accessibilitat" />
+        </button>
+    </aside>
 
     <footer class="footer">
         <p class="footer__credits">Web by: Guiem Bagur</p>
         <p class="footer__copyright">&copy; 2024 - Present</p>
     </footer>
 
+
     <script src="/diw-whale-project/js/nav.js"></script>
+    <script src="/diw-whale-project/js/accessibility-menu.js"></script>
 </body>
 
 </html>
