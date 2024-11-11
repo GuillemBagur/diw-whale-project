@@ -909,6 +909,7 @@ img {
 }
 .acc-menu-foreground--hidden {
   background-color: transparent;
+  pointer-events: none;
 }
 
 .acc-menu {
@@ -944,8 +945,18 @@ img {
   margin-bottom: 0.3rem;
 }
 .acc-menu__btn {
-  padding: 1.5rem;
+  padding: 10px;
   background-color: #192832;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.acc-menu__btn--disabled {
+  opacity: 0.5;
+}
+.acc-menu__btn--fake-center img {
+  transform: translateY(1px);
 }
 .acc-menu__range {
   width: 100%;

@@ -761,6 +761,7 @@ img {
 
     &--hidden {
         background-color: transparent;
+        pointer-events: none;
     }
 }
 
@@ -801,8 +802,20 @@ img {
     }
 
     &__btn {
-        padding: 1.5rem;
+        padding: 10px;
         background-color: $blue;
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &--disabled {
+            opacity: .5;
+        }
+
+        &--fake-center img {
+            transform: translateY(1px);
+        }
     }
 
     &__range {

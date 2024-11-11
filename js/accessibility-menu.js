@@ -1,6 +1,7 @@
 const accMenu = document.getElementById("acc-menu");
 const accMenuContainer = document.getElementById("acc-menu-foreground");
 const accToggle = document.getElementById("acc-toggle");
+const accReset = document.getElementById("acc-reset");
 
 const nav = document.querySelector("body nav");
 const main = document.querySelector("body main");
@@ -29,6 +30,28 @@ let accDefaultConf = {
     filter: "default",
 }
 
+const ACC_CONSTRAINTS = {
+    fontSize: {
+        min: -15,
+        max: 30,
+    },
+
+    lineHeight: {
+        min: 0,
+        max: 85,
+    },
+
+    wordSpacing: {
+        min: 0,
+        max: 250,
+    },
+
+    letterSpacing: {
+        min: 0,
+        max: 150,
+    },
+}
+
 let accStoredValues = loadSelection();
 applyValues(accStoredValues);
 
@@ -51,6 +74,7 @@ function loadSelection() {
     }
 }
 
+
 function applyValues(accStoredValues) {
     changeStyle("fontSize", accStoredValues.fontSize);
     changeStyle("lineHeight", accStoredValues.lineHeight);
@@ -62,32 +86,69 @@ function clearUnitsFromStyle(style) {
     return style.replace(/(r?em|px)$/, "");
 }
 
+function checkCurrentValueCanIncrease(style, currentValue) {
+    return ACC_CONSTRAINTS[style].max > currentValue;
+}
+
+function checkCurrentValueCanDecrease(style, currentValue) {
+    return ACC_CONSTRAINTS[style].min < currentValue;
+}
+
+function checkVariationIsValid(style, currentValue, variation) {
+    if (variation > 0) {
+        return checkCurrentValueCanIncrease(style, currentValue);
+    }
+
+    if (variation < 0) {
+        return checkCurrentValueCanDecrease(style, currentValue);
+    }
+
+    return true;
+}
+
+function convertPxToRem(value) {
+    return +value / 16 + "rem";
+}
+
 function changeStyle(style, variation) {
+    console.log(!checkVariationIsValid(style, accStoredValues[style], variation));
+    if (!checkVariationIsValid(style, accStoredValues[style], variation)) {
+        return false;
+    }
 
     const allTextElements = document.querySelectorAll("h1, h2, h3, h4, h5, h6, p, span, label");
 
     for (let i = 0; i < allTextElements.length; i++) {
-        const currentStyle = Number(clearUnitsFromStyle(window.getComputedStyle(allTextElements[i])[style]));
+        const currentValue = Number(clearUnitsFromStyle(window.getComputedStyle(allTextElements[i])[style]));
 
-        if (currentStyle) {
-            allTextElements[i].style[style] = (currentStyle + (currentStyle * variation / 100)) / 16 + "rem";
+        if (currentValue) {
+            allTextElements[i].style[style] = convertPxToRem(currentValue + (currentValue * variation / 100));
         }
     }
+
+    return true;
+}
+
+function updateStoredValues(variation, style) {
+    if (!accStoredValues?.[style]) {
+        accStoredValues[style] = 0;
+    }
+
+    accStoredValues[style] += variation;
+}
+
+function resetAccValues() {
+    accStoredValues = accDefaultConf;
+    saveSelection();
+    window.location.reload();
 }
 
 function changeStyleAndUpdate(style, variation) {
-    function updateStoredValues(variation) {
-        if (!accStoredValues[style]) {
-            accStoredValues[style] = 0;
-        }
-
-        accStoredValues[style] += variation;
+    if (!changeStyle(style, variation)) {
+        return;
     }
 
-
-    changeStyle(style, variation);
-
-    updateStoredValues(variation);
+    updateStoredValues(variation, style);
     saveSelection();
 }
 
@@ -135,4 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
             main.classList.add("main--inverted");
         }
     })
+
+
+    accReset.addEventListener("click", resetAccValues);
 });
