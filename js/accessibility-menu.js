@@ -7,7 +7,7 @@ const nav = document.querySelector("body nav");
 const main = document.querySelector("body main");
 const footer = document.querySelector("body footer");
 
-const accSetContrast = document.getElementById("acc-set-contrast");
+const accSetFilter = document.getElementById("acc-set-filter");
 
 const accDecFontSize = document.getElementById("acc-dec-font-size");
 const accIncFontSize = document.getElementById("acc-inc-font-size");
@@ -20,6 +20,15 @@ const accIncWordSpacing = document.getElementById("acc-inc-word-spacing");
 
 const accDecLetterSpacing = document.getElementById("acc-dec-letter-spacing");
 const accIncLetterSpacing = document.getElementById("acc-inc-letter-spacing");
+
+const filters = {
+    default: "none",
+    grayscale: "grayscale(100%)",
+    "dark-contrast": "invert(0%)",
+    "light-contrast": "contrast(150%) invert(100%)",
+    "high-saturation": "saturate(300%)",
+    "low-saturation": "saturate(30%)",
+};
 
 
 let accDefaultConf = {
@@ -53,7 +62,7 @@ const ACC_CONSTRAINTS = {
 }
 
 let accStoredValues = loadSelection();
-applyValues(accStoredValues);
+applyValues(accStoredValues)
 
 function saveSelection() {
     localStorage.setItem("whale-accessibility", JSON.stringify(accStoredValues));
@@ -74,12 +83,18 @@ function loadSelection() {
     }
 }
 
+function setSelectFilterValue(filterName) {
+    const filterId = Object.keys(filters).indexOf(filterName);
+    accSetFilter.selectedIndex = filterId;
+}
 
 function applyValues(accStoredValues) {
     changeStyle("fontSize", accStoredValues.fontSize);
     changeStyle("lineHeight", accStoredValues.lineHeight);
     changeStyle("wordSpacing", accStoredValues.wordSpacing);
     changeStyle("letterSpacing", accStoredValues.letterSpacing);
+
+    applyFilter(accStoredValues.filter);
 }
 
 function clearUnitsFromStyle(style) {
@@ -111,11 +126,6 @@ function convertPxToRem(value) {
 }
 
 function changeStyle(style, variation) {
-    console.log(!checkVariationIsValid(style, accStoredValues[style], variation));
-    if (!checkVariationIsValid(style, accStoredValues[style], variation)) {
-        return false;
-    }
-
     const allTextElements = document.querySelectorAll("h1, h2, h3, h4, h5, h6, p, span, label");
 
     for (let i = 0; i < allTextElements.length; i++) {
@@ -125,6 +135,16 @@ function changeStyle(style, variation) {
             allTextElements[i].style[style] = convertPxToRem(currentValue + (currentValue * variation / 100));
         }
     }
+
+    return true;
+}
+
+function changeStyleWithValidation(style, variation) {
+    if (!checkVariationIsValid(style, accStoredValues[style], variation)) {
+        return false;
+    }
+
+    changeStyle(style, variation);
 
     return true;
 }
@@ -144,7 +164,7 @@ function resetAccValues() {
 }
 
 function changeStyleAndUpdate(style, variation) {
-    if (!changeStyle(style, variation)) {
+    if (!changeStyleWithValidation(style, variation)) {
         return;
     }
 
@@ -152,6 +172,17 @@ function changeStyleAndUpdate(style, variation) {
     saveSelection();
 }
 
+function applyFilter(filter) {
+    setSelectFilterValue(filter);
+
+    nav.style.filter = filters[filter];
+    main.style.filter = filters[filter];
+    footer.style.filter = filters[filter];
+
+    if (filter === "light-contrast") {
+        main.classList.add("main--inverted");
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     accToggle.addEventListener("click", function () {
@@ -178,23 +209,10 @@ document.addEventListener("DOMContentLoaded", function () {
     accDecLetterSpacing.addEventListener("click", () => changeStyleAndUpdate("letterSpacing", -5));
     accIncLetterSpacing.addEventListener("click", () => changeStyleAndUpdate("letterSpacing", 5));
 
-    accSetContrast.addEventListener("change", function () {
-        const filters = {
-            default: "none",
-            grayscale: "grayscale(100%)",
-            "dark-contrast": "invert(0%)",
-            "light-contrast": "contrast(150%) invert(100%)",
-            "high-saturation": "saturate(300%)",
-            "low-saturation": "saturate(30%)",
-        };
-
-        nav.style.filter = filters[this.value];
-        main.style.filter = filters[this.value];
-        footer.style.filter = filters[this.value];
-
-        if (this.value === "light-contrast") {
-            main.classList.add("main--inverted");
-        }
+    accSetFilter.addEventListener("change", function () {
+        applyFilter(this.value);
+        accStoredValues.filter = this.value;
+        saveSelection();
     })
 
 

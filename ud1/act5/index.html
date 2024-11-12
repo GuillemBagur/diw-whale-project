@@ -15,7 +15,8 @@
 <body>
     <nav id="nav" class="nav">
         <button class="nav-hamburger" id="expand-nav-btn">
-            <img src="/diw-whale-project/assets/icons/menu.svg" alt="Hamburger" class="nav-hamburger__img" alt="Icona de menú">
+            <img src="/diw-whale-project/assets/icons/menu.svg" alt="Hamburger" class="nav-hamburger__img"
+                alt="Icona de menú">
         </button>
 
         <!-- I'll use this structure because it can handle webp images with a fallback -->
@@ -29,7 +30,8 @@
 
         <ul class="nav__links nav__links--hidden" id="nav-links">
             <li class="nav__li"><a href="/diw-whale-project/ud1/act5/index.html" class="nav__link">Inici</a></li>
-            <li class="nav__li"><a href="/diw-whale-project/ud1/act6/about-balena.html" class="nav__link">Sobre la balena</a></li>
+            <li class="nav__li"><a href="/diw-whale-project/ud1/act6/about-balena.html" class="nav__link">Sobre la
+                    balena</a></li>
             <li class="nav__li"><a href="/" class="nav__link">Història</a></li>
             <li class="nav__li"><a href="/diw-whale-project/ud1/act5/portfolio.html" class="nav__link">Procés</a></li>
             <li class="nav__li"><a href="/" class="nav__link">Notícies</a></li>
@@ -54,7 +56,8 @@
                 </div>
 
                 <a class="scroll-btn" href="#scroll">
-                    <img alt="Fes click aquí per navegar per la pàgina" class="scroll-btn__img" src="/diw-whale-project/assets/icons/mouse.svg" alt="Scroll Icon" />
+                    <img alt="Fes click aquí per navegar per la pàgina" class="scroll-btn__img"
+                        src="/diw-whale-project/assets/icons/mouse.svg" alt="Scroll Icon" />
                 </a>
             </section>
 
@@ -69,7 +72,8 @@
                         <picture>
                             <source type="image/webp" srcset="/diw-whale-project/assets/imgs/img-ballena-diari.webp">
                             <img class="imgs-accordeon__img imgs-accordeon__img--1"
-                                src="/diw-whale-project/assets/imgs/img-ballena-diari.jpg" alt="Imatge extreta d'un diari de 1912.">
+                                src="/diw-whale-project/assets/imgs/img-ballena-diari.jpg"
+                                alt="Imatge extreta d'un diari de 1912.">
                         </picture>
 
                         <picture>
@@ -164,7 +168,8 @@
         <section class="section section--white">
             <picture class="texture-picture">
                 <source type="image/webp" srcset="/diw-whale-project/assets/imgs/eroded-texture.webp">
-                <img class="texture-img" src="/diw-whale-project/assets/imgs/eroded-texture.png" alt="Textura decorativa">
+                <img class="texture-img" src="/diw-whale-project/assets/imgs/eroded-texture.png"
+                    alt="Textura decorativa">
             </picture>
 
             <h2 class="section__title section__title--brown">Darreres notícies</h2>
@@ -241,6 +246,75 @@
         </section>
     </main>
 
+    <div class="acc-menu-foreground acc-menu-foreground--hidden" id="acc-menu-foreground">
+    </div>
+    <aside class="acc-menu acc-menu--hidden" id="acc-menu">
+        <h2 class="acc-menu__title">Opcions d'accessibilitat</h2>
+        <article class="acc-menu__options-container">
+            <fieldset class="acc-menu__input-wrapper">
+                <legend class="acc-menu__label" for="acc-set-font-size">Tamany de lletra</legend>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-font-size"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir tamany de lletra" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-font-size"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar tamany de lletra" /></button>
+                </div>
+            </fieldset>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-line-height">Interlineat</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-line-height"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir interlineat" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-line-height"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar interlineat" /></button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-word-spacing">Espaiat entre paraules</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-letter-spacing">Espaiat entre lletres</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
+                </div>
+            </div>
+            <div class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-filter">Opcions de contrast</label>
+                <select class="acc-menu__select" id="acc-set-filter">
+                    <option value="default" selected>Per defecte</option>
+                    <option value="grayscale">Escala de grisos (blanc i negre)</option>
+                    <option value="dark-contrast">Contrast fosc</option>
+                    <option value="light-contrast">Contrast clar</option>
+                    <option value="high-saturation">Saturació alta</option>
+                    <option value="low-saturation">Saturació baixa</option>
+                </select>
+            </div>
+        </article>
+        <button id="acc-reset" class="btn-brown btn--no-transform btn--block btn--w100">
+            Reset
+        </button>
+        <button class="acc-menu__toggle-menu" id="acc-toggle">
+            <img src="/diw-whale-project/assets/icons/person-standing.svg" alt="Opcions d'accessibilitat" />
+        </button>
+    </aside>
+
     <footer class="footer">
         <p class="footer__credits">Web by: Guiem Bagur</p>
         <p class="footer__copyright">&copy; 2024 - Present</p>
@@ -248,6 +322,7 @@
 
 
     <script src="/diw-whale-project/js/nav.js"></script>
+    <script src="/diw-whale-project/js/accessibility-menu.js"></script>
 </body>
 
 </html>

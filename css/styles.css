@@ -46,7 +46,7 @@ img {
   height: 5rem;
   padding: 0.5rem;
   backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .nav__logo {
   height: 100%;
@@ -192,7 +192,7 @@ img {
   z-index: 2;
 }
 .whale-viewer-ui-hidder--1 {
-  background-color: #18262F;
+  background-color: #0A0F14;
   top: 0;
   left: 0;
   height: 4rem;
@@ -201,7 +201,7 @@ img {
   height: 3rem;
   bottom: 0;
   left: 0;
-  background-color: #111B22;
+  background-color: #0A0F14;
 }
 
 .scroll-btn {
@@ -223,7 +223,7 @@ img {
 }
 
 .main-page-gradient {
-  background-image: linear-gradient(180deg, #192832, #0A0F14);
+  background-color: #0A0F14;
 }
 
 .main--inverted .section {
@@ -700,6 +700,12 @@ img {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.login-form__label {
+  display: block;
+  color: #FFE6D7;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .input-text {

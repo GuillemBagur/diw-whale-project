@@ -40,7 +40,7 @@ img {
     height: 5rem;
     padding: .5rem;
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .8);
 
     &__logo {
         height: 100%;
@@ -184,7 +184,7 @@ img {
     z-index: 2;
 
     &--1 {
-        background-color: #18262F;
+        background-color: $dark_blue;
         top: 0;
         left: 0;
         height: 4rem;
@@ -194,7 +194,7 @@ img {
         height: 3rem;
         bottom: 0;
         left: 0;
-        background-color: #111B22;
+        background-color: $dark_blue;
     }
 }
 
@@ -221,7 +221,7 @@ img {
 }
 
 .main-page-gradient {
-    background-image: linear-gradient(180deg, $blue, $dark_blue);
+    background-color: $dark_blue;
 }
 
 .main--inverted .section {
@@ -560,6 +560,13 @@ img {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+
+    &__label {
+        display: block;
+        color: $white;
+        font-size: 1.2rem;
+        margin-bottom: .5rem;
+    }
 }
 
 .input-text {
