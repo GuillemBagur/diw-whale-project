@@ -9,39 +9,22 @@
   src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
 /* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff2");
+  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff");
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Plus Jakarta Sans", ubuntu, sans-serif;
-  font-weight: 100;
-  accent-color: rgba(0, 0, 0, 0);
-  /* We need to declare them both to make accessibility panel work */
-  letter-spacing: 0.05em;
-  word-spacing: 0.15em;
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff2");
+  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
-
-body {
-  position: relative;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-img {
-  user-select: none;
-  pointer-events: none;
-}
-
+/* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
 .nav {
   position: fixed;
   display: flex;
   justify-content: space-between;
-  z-index: 8;
+  z-index: 12;
   width: 100vw;
   height: 5rem;
   padding: 0.5rem;
@@ -88,6 +71,186 @@ img {
 
 .nav-hamburger {
   display: none;
+}
+
+.footer {
+  background-color: #0A0F14;
+  color: #FFE6D7;
+  padding: 3rem;
+}
+.footer__credits {
+  text-align: center;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+.footer__copyright {
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 868px) {
+  .nav__links {
+    margin: 0;
+    position: absolute;
+    flex-direction: column;
+    justify-content: left;
+    gap: 3rem;
+    top: 5rem;
+    right: 0;
+    height: calc(100vh - 5rem);
+    width: 20rem;
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s;
+    transform: none;
+  }
+  .nav__links--hidden {
+    transform: translateX(100%);
+  }
+  .nav__li {
+    height: fit-content;
+    width: 70%;
+    text-align: right;
+    font-size: 1.5rem;
+  }
+  .nav__li:first-child {
+    margin-top: 5rem;
+  }
+  .nav__li__link {
+    width: fit-content;
+  }
+  .nav-hamburger {
+    position: absolute;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2rem;
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+  }
+  .nav-hamburger__img {
+    height: 100%;
+    width: 100%;
+  }
+}
+.acc-menu-foreground {
+  display: block;
+  left: 0;
+  top: 0;
+  position: fixed;
+  height: 100vh;
+  height: 100svh;
+  width: 100vw;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s;
+}
+.acc-menu-foreground--hidden {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.acc-menu {
+  left: 0;
+  top: 5rem;
+  position: fixed;
+  height: 100%;
+  max-width: 25rem;
+  z-index: 6;
+  width: 80%;
+  background-color: #FFE6D7;
+  padding: 1rem;
+  transform: none;
+  transition: transform 0.4s;
+}
+.acc-menu__title {
+  text-align: center;
+}
+.acc-menu__options-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  max-height: 70%;
+  overflow-y: auto;
+}
+.acc-menu__input-wrapper {
+  border: 2px solid #1E1E1E;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  border-radius: 7px;
+}
+.acc-menu__label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.acc-menu__btn {
+  padding: 10px;
+  background-color: #192832;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.acc-menu__btn--disabled {
+  opacity: 0.5;
+}
+.acc-menu__btn--fake-center img {
+  transform: translateY(1px);
+}
+.acc-menu__range {
+  width: 100%;
+}
+.acc-menu__select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #1E1E1E;
+  border-radius: 4px;
+}
+.acc-menu__toggle-menu {
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  background-color: #192832;
+  border: 0;
+  transform: translate(100%);
+  cursor: pointer;
+}
+.acc-menu__toggle-menu img {
+  height: 3rem;
+}
+.acc-menu--hidden {
+  transform: translateX(-100%);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", ubuntu, sans-serif;
+  font-weight: 100;
+  accent-color: rgba(0, 0, 0, 0);
+  /* We need to declare them both to make accessibility panel work */
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
 }
 
 .hero {
@@ -718,23 +881,6 @@ img {
   margin-bottom: 1.5rem;
 }
 
-.footer {
-  background-color: #0A0F14;
-  color: #FFE6D7;
-  padding: 3rem;
-}
-.footer__credits {
-  text-align: center;
-  font-family: "Libre Baskerville", "Times New Roman", serif;
-  font-size: 1.5rem;
-  margin-bottom: 0.7rem;
-}
-.footer__copyright {
-  text-align: center;
-  font-size: 1.2rem;
-  opacity: 0.7;
-}
-
 .about-whale-nav {
   display: flex;
   justify-content: center;
@@ -901,94 +1047,6 @@ img {
   height: 100%;
 }
 
-.acc-menu-foreground {
-  display: block;
-  left: 0;
-  top: 0;
-  position: fixed;
-  height: 100vh;
-  height: 100svh;
-  width: 100vw;
-  z-index: 3;
-  background-color: rgba(0, 0, 0, 0.7);
-  transition: background-color 0.3s;
-}
-.acc-menu-foreground--hidden {
-  background-color: transparent;
-  pointer-events: none;
-}
-
-.acc-menu {
-  left: 0;
-  top: 5rem;
-  position: fixed;
-  height: 100%;
-  max-width: 25rem;
-  z-index: 6;
-  width: 80%;
-  background-color: #FFE6D7;
-  padding: 1rem;
-  transform: none;
-  transition: transform 0.4s;
-}
-.acc-menu__title {
-  text-align: center;
-}
-.acc-menu__options-container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  max-height: 70%;
-  overflow-y: auto;
-}
-.acc-menu__input-wrapper {
-  border: 2px solid #1E1E1E;
-  margin-bottom: 1rem;
-  padding: 0.7rem;
-  border-radius: 7px;
-}
-.acc-menu__label {
-  display: block;
-  margin-bottom: 0.3rem;
-}
-.acc-menu__btn {
-  padding: 10px;
-  background-color: #192832;
-  color: white;
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.acc-menu__btn--disabled {
-  opacity: 0.5;
-}
-.acc-menu__btn--fake-center img {
-  transform: translateY(1px);
-}
-.acc-menu__range {
-  width: 100%;
-}
-.acc-menu__select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #1E1E1E;
-  border-radius: 4px;
-}
-.acc-menu__toggle-menu {
-  position: absolute;
-  right: 0;
-  bottom: 20%;
-  background-color: #192832;
-  border: 0;
-  transform: translate(100%);
-  cursor: pointer;
-}
-.acc-menu__toggle-menu img {
-  height: 3rem;
-}
-.acc-menu--hidden {
-  transform: translateX(-100%);
-}
-
 @media screen and (max-width: 868px) {
   .section {
     padding: 2.5rem;
@@ -1000,51 +1058,6 @@ img {
     height: 20rem;
     margin: auto;
     margin-top: 1rem;
-  }
-  .nav__links {
-    margin: 0;
-    position: absolute;
-    flex-direction: column;
-    justify-content: left;
-    gap: 3rem;
-    top: 5rem;
-    right: 0;
-    height: calc(100vh - 5rem);
-    width: 20rem;
-    max-width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    transition: transform 0.2s;
-    transform: none;
-  }
-  .nav__links--hidden {
-    transform: translateX(100%);
-  }
-  .nav__li {
-    height: fit-content;
-    width: 70%;
-    text-align: right;
-    font-size: 1.5rem;
-  }
-  .nav__li:first-child {
-    margin-top: 5rem;
-  }
-  .nav__li__link {
-    width: fit-content;
-  }
-  .nav-hamburger {
-    position: absolute;
-    display: block;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 2rem;
-    height: 3rem;
-    background-color: transparent;
-    border: none;
-  }
-  .nav-hamburger__img {
-    height: 100%;
-    width: 100%;
   }
   .bone-sheets-container {
     grid-template-columns: repeat(2, minmax(7rem, 1fr));

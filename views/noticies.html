@@ -7,28 +7,312 @@
     <title>Notícies</title>
 
     <link rel="stylesheet" href="/diw-whale-project/tailwind/output.css">
+    <link rel="stylesheet" href="/diw-whale-project/css/commons.css">
 </head>
 
-<body>
-    <main>
-        <h1 class="text-brown text-2xl font-serif">Darreres notícies</h1>
+<body class="overflow-x-hidden">
+    <nav id="nav" class="nav">
+        <button class="nav-hamburger" id="expand-nav-btn">
+            <img src="/diw-whale-project/assets/icons/menu.svg" alt="Hamburger" class="nav-hamburger__img"
+                alt="Icona de menú">
+        </button>
 
-        <article>
-            <h2 class="text-brown font-serif">Troben restes d'ADN humà a la balena</h2>
-
-            <div>
-                <img src="/diw-whale-project/assets/imgs/joan-pons-pons.png" alt="L'autor de la notícia">
-                <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
-                <h4 class="text-brown text-sm opacity-50 font-serif">11 d'ago. 2024</h4>
-            </div>
-
+        <!-- I'll use this structure because it can handle webp images with a fallback -->
+        <!-- https://stackoverflow.com/questions/65529016/webp-fallback-for-img-tag-in-html -->
+        <a href="/">
             <picture>
-                <source type="image/webp" srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
-                <img src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
-                    alt="Imatge del procés de restauració.">
+                <source type="image/webp" srcset="/diw-whale-project/assets/imgs/logo-w-portrait.webp">
+                <img class="nav__logo" src="/diw-whale-project/assets/imgs/logo-w-portrait.png" alt="Logo Portrait">
             </picture>
-        </article>
+        </a>
+
+        <ul class="nav__links nav__links--hidden" id="nav-links">
+            <li class="nav__li"><a href="/diw-whale-project/views/index.html" class="nav__link">Inici</a></li>
+            <li class="nav__li"><a href="/diw-whale-project/views/about-balena.html" class="nav__link">Sobre la
+                    balena</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Història</a></li>
+            <li class="nav__li"><a href="/diw-whale-project/views/portfolio.html" class="nav__link">Procés</a></li>
+            <li class="nav__li"><a href="/" class="nav__link">Notícies</a></li>
+            <li class="nav__li"><a href="/diw-whale-project/views/login.html" class="nav__link">Login</a></li>
+        </ul>
+    </nav>
+
+    <picture class="absolute l-0 top-6 w-full h-full z-0 opacity-[0.02]">
+        <source type="image/webp" srcset="/diw-whale-project/assets/imgs/eroded-texture.webp">
+        <img class="w-full h-full object-cover" src="/diw-whale-project/assets/imgs/eroded-texture.png"
+            alt="Textura decorativa">
+    </picture>
+    <main class="static box-border p-6 bg-white">
+
+        <h1 class="text-brown text-5xl mt-[5rem] font-serif">Darreres notícies</h1>
+
+        <div class="block mx-auto md:w-[80%] md:grid md:grid-cols-2 md:gap-8">
+            <section class="mt-[5rem] mb-[10rem] md:mb-[3rem]">
+                <article class="relative">
+                    <h2 class="text-brown font-serif text-3xl">Troben restes d'ADN humà a la balena</h2>
+                    <div class="flex gap-4 mt-3 mb-8">
+                        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+                            alt="L'autor de la notícia">
+                        <div>
+                            <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
+                            <h4 class="text-brown text-sm opacity-70 font-serif">11 d'ago. 2024</h4>
+                        </div>
+                    </div>
+                    <picture class="overflow-hidden">
+                        <source type="image/webp"
+                            srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="rounded-xl" src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imatge del procés de restauració.">
+                    </picture>
+                    <div class="relative">
+                        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+                        <p class="text-justify text-brown font-sans text-lg mt-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aliquam nobis molestiae
+                            voluptates
+                            eos
+                            provident maxime cumque quaerat voluptatibus aliquid. Error eius fugiat ipsam libero sit
+                            consequatur
+                            architecto. Perspiciatis, fugiat?
+                            Laudantium, corrupti officia. Incidunt provident tenetur asperiores minus ipsam ad
+                            obcaecati,
+                            harum
+                            atque nihil ullam recusandae suscipit ea porro sequi voluptas ipsa, in quo id. Hic eligendi
+                            consequatur ex laborum!
+                        </p>
+                    </div>
+                    <a href="noticia.html"
+                        class="bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif">Llegir</a>
+                </article>
+            </section>
+            <section class="mt-[5rem] mb-[10rem] md:mb-[3rem]">
+                <article class="relative">
+                    <h2 class="text-brown font-serif text-3xl">Troben restes d'ADN humà a la balena</h2>
+                    <div class="flex gap-4 mt-3 mb-8">
+                        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+                            alt="L'autor de la notícia">
+                        <div>
+                            <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
+                            <h4 class="text-brown text-sm opacity-70 font-serif">11 d'ago. 2024</h4>
+                        </div>
+                    </div>
+                    <picture class="overflow-hidden">
+                        <source type="image/webp"
+                            srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="rounded-xl" src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imatge del procés de restauració.">
+                    </picture>
+                    <div class="relative">
+                        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+                        <p class="text-justify text-brown font-sans text-lg mt-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aliquam nobis molestiae
+                            voluptates
+                            eos
+                            provident maxime cumque quaerat voluptatibus aliquid. Error eius fugiat ipsam libero sit
+                            consequatur
+                            architecto. Perspiciatis, fugiat?
+                            Laudantium, corrupti officia. Incidunt provident tenetur asperiores minus ipsam ad
+                            obcaecati,
+                            harum
+                            atque nihil ullam recusandae suscipit ea porro sequi voluptas ipsa, in quo id. Hic eligendi
+                            consequatur ex laborum!
+                        </p>
+                    </div>
+                    <a href="noticia.html"
+                        class="bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif">Llegir</a>
+                </article>
+            </section>
+            <section class="mt-[5rem] mb-[10rem] md:mb-[3rem]">
+                <article class="relative">
+                    <h2 class="text-brown font-serif text-3xl">Troben restes d'ADN humà a la balena</h2>
+                    <div class="flex gap-4 mt-3 mb-8">
+                        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+                            alt="L'autor de la notícia">
+                        <div>
+                            <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
+                            <h4 class="text-brown text-sm opacity-70 font-serif">11 d'ago. 2024</h4>
+                        </div>
+                    </div>
+                    <picture class="overflow-hidden">
+                        <source type="image/webp"
+                            srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="rounded-xl" src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imatge del procés de restauració.">
+                    </picture>
+                    <div class="relative">
+                        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+                        <p class="text-justify text-brown font-sans text-lg mt-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aliquam nobis molestiae
+                            voluptates
+                            eos
+                            provident maxime cumque quaerat voluptatibus aliquid. Error eius fugiat ipsam libero sit
+                            consequatur
+                            architecto. Perspiciatis, fugiat?
+                            Laudantium, corrupti officia. Incidunt provident tenetur asperiores minus ipsam ad
+                            obcaecati,
+                            harum
+                            atque nihil ullam recusandae suscipit ea porro sequi voluptas ipsa, in quo id. Hic eligendi
+                            consequatur ex laborum!
+                        </p>
+                    </div>
+                    <a href="noticia.html"
+                        class="bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif">Llegir</a>
+                </article>
+            </section>
+            <section class="mt-[5rem] mb-[10rem] md:mb-[3rem]">
+                <article class="relative">
+                    <h2 class="text-brown font-serif text-3xl">Troben restes d'ADN humà a la balena</h2>
+                    <div class="flex gap-4 mt-3 mb-8">
+                        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+                            alt="L'autor de la notícia">
+                        <div>
+                            <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
+                            <h4 class="text-brown text-sm opacity-70 font-serif">11 d'ago. 2024</h4>
+                        </div>
+                    </div>
+                    <picture class="overflow-hidden">
+                        <source type="image/webp"
+                            srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="rounded-xl" src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imatge del procés de restauració.">
+                    </picture>
+                    <div class="relative">
+                        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+                        <p class="text-justify text-brown font-sans text-lg mt-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aliquam nobis molestiae
+                            voluptates
+                            eos
+                            provident maxime cumque quaerat voluptatibus aliquid. Error eius fugiat ipsam libero sit
+                            consequatur
+                            architecto. Perspiciatis, fugiat?
+                            Laudantium, corrupti officia. Incidunt provident tenetur asperiores minus ipsam ad
+                            obcaecati,
+                            harum
+                            atque nihil ullam recusandae suscipit ea porro sequi voluptas ipsa, in quo id. Hic eligendi
+                            consequatur ex laborum!
+                        </p>
+                    </div>
+                    <a href="noticia.html"
+                        class="bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif">Llegir</a>
+                </article>
+            </section>
+            <section class="mt-[5rem] mb-[10rem] md:mb-[3rem]">
+                <article class="relative">
+                    <h2 class="text-brown font-serif text-3xl">Troben restes d'ADN humà a la balena</h2>
+                    <div class="flex gap-4 mt-3 mb-8">
+                        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+                            alt="L'autor de la notícia">
+                        <div>
+                            <h3 class="text-brown text-lg font-serif">Joan Pons Pons</h3>
+                            <h4 class="text-brown text-sm opacity-70 font-serif">11 d'ago. 2024</h4>
+                        </div>
+                    </div>
+                    <picture class="overflow-hidden">
+                        <source type="image/webp"
+                            srcset="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.webp">
+                        <img class="rounded-xl" src="/diw-whale-project/assets/imgs/portfolio-proces/hero-proces.jpg"
+                            alt="Imatge del procés de restauració.">
+                    </picture>
+                    <div class="relative">
+                        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+                        <p class="text-justify text-brown font-sans text-lg mt-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aliquam nobis molestiae
+                            voluptates
+                            eos
+                            provident maxime cumque quaerat voluptatibus aliquid. Error eius fugiat ipsam libero sit
+                            consequatur
+                            architecto. Perspiciatis, fugiat?
+                            Laudantium, corrupti officia. Incidunt provident tenetur asperiores minus ipsam ad
+                            obcaecati,
+                            harum
+                            atque nihil ullam recusandae suscipit ea porro sequi voluptas ipsa, in quo id. Hic eligendi
+                            consequatur ex laborum!
+                        </p>
+                    </div>
+                    <a href="noticia.html"
+                        class="bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif">Llegir</a>
+                </article>
+            </section>
+        </div>
     </main>
+
+    <footer class="footer">
+        <p class="footer__credits">Web by: Guiem Bagur</p>
+        <p class="footer__copyright">&copy; 2024 - Present</p>
+    </footer>
+
+
+    <div class="acc-menu-foreground acc-menu-foreground--hidden" id="acc-menu-foreground">
+    </div>
+    <aside class="acc-menu acc-menu--hidden" id="acc-menu">
+        <h2 class="acc-menu__title">Opcions d'accessibilitat</h2>
+        <article class="acc-menu__options-container">
+            <fieldset class="acc-menu__input-wrapper">
+                <legend class="acc-menu__label" for="acc-set-font-size">Tamany de lletra</legend>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-font-size"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir tamany de lletra" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-font-size"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar tamany de lletra" /></button>
+                </div>
+            </fieldset>
+            <fieldset class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-line-height">Interlineat</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-line-height"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir interlineat" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-line-height"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar interlineat" /></button>
+                </div>
+            </fieldset>
+            <fieldset class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-word-spacing">Espaiat entre paraules</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
+                </div>
+            </fieldset>
+            <fieldset class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-letter-spacing">Espaiat entre lletres</label>
+                <div class="acc-menu__bts-wrapper">
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
+                </div>
+            </fieldset>
+            <fieldset class="acc-menu__input-wrapper">
+                <label class="acc-menu__label" for="acc-set-filter">Opcions de contrast</label>
+                <select class="acc-menu__select" id="acc-set-filter">
+                    <option value="default" selected>Per defecte</option>
+                    <option value="grayscale">Escala de grisos (blanc i negre)</option>
+                    <option value="dark-contrast">Contrast fosc</option>
+                    <option value="light-contrast">Contrast clar</option>
+                    <option value="high-saturation">Saturació alta</option>
+                    <option value="low-saturation">Saturació baixa</option>
+                </select>
+            </fieldset>
+        </article>
+        <button id="acc-reset" class="block w-full text-white p-2 bg-brown rounded-md">
+            Reset
+        </button>
+        <button class="acc-menu__toggle-menu" id="acc-toggle">
+            <img src="/diw-whale-project/assets/icons/person-standing.svg" alt="Opcions d'accessibilitat" />
+        </button>
+    </aside>
+
+
+    <script src="/diw-whale-project/js/nav.js"></script>
+    <script src="/diw-whale-project/js/accessibility-menu.js"></script>
 </body>
 
 </html>
