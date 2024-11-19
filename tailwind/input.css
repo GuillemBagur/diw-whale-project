@@ -13,3 +13,17 @@
     src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff2");
     src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
+
+@layer components {
+    .title {
+        @apply text-brown text-5xl mt-[5rem] font-serif;
+    }
+
+    .article-title {
+        @apply text-brown font-serif text-3xl;
+    }
+
+    .button-main {
+        @apply bg-darkblue px-10 py-2 block m-auto w-fit text-white rounded-lg font-serif;
+    }
+}
