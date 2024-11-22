@@ -48,10 +48,10 @@
                         alt="Imagen extraída de un periódico de 1912.">
                 </picture>
 
-                <button class="whale-skel__button whale-skel__button--1"></button>
-                <button class="whale-skel__button whale-skel__button--2"></button>
-                <button class="whale-skel__button whale-skel__button--3"></button>
-                <button class="whale-skel__button whale-skel__button--4"></button>
+                <button data-role="btn-display-bone" class="whale-skel__button whale-skel__button--1"></button>
+                <button data-role="btn-display-bone" class="whale-skel__button whale-skel__button--2"></button>
+                <button data-role="btn-display-bone" class="whale-skel__button whale-skel__button--3"></button>
+                <button data-role="btn-display-bone" class="whale-skel__button whale-skel__button--4"></button>
             </div>
         </section>
 
@@ -72,8 +72,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
-                        més</a>
+                    <button data-role="btn-display-bone" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</button>
                 </article>
 
                 <article class="bone-sheet">
@@ -88,8 +88,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
-                        més</a>
+                    <button data-role="btn-display-bone" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</button>
                 </article>
 
                 <article class="bone-sheet">
@@ -104,8 +104,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
-                        més</a>
+                    <button data-role="btn-display-bone" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</button>
                 </article>
 
                 <article class="bone-sheet">
@@ -120,8 +120,8 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
-                        més</a>
+                    <button data-role="btn-display-bone" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</button>
                 </article>
 
                 <article class="bone-sheet">
@@ -136,12 +136,47 @@
                         minima facilis cumque.
                     </p>
 
-                    <a href="#" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
-                        més</a>
+                    <button data-role="btn-display-bone" class="btn btn-white btn--block btn--w100 btn--color-brown btn--no-transform">Veure
+                        més</button>
                 </article>
             </section>
         </section>
     </main>
+
+    <div class="display-bone-foreground display-bone-foreground--hidden" id="display-bone-foreground"></div>
+
+    <aside class="display-bone display-bone--hidden" id="display-bone">
+        <img src="/diw-whale-project/assets/imgs/bones/vertebra-cervical.jpg" alt="Vèrtebra cervical"
+            class="display-bone__img">
+
+        <section class="display-bone__info">
+            <h2 class="display-bone__name">Vèrtebra cervical</h2>
+            <h3 class="display-bone__metadata">Pes: 3,2 kg</h3>
+            <h3 class="display-bone__metadata">Mides: 23x14x6 cms</h3>
+
+            <section class="display-bone__sections">
+                <section class="display-bone__section">
+                    <h4 class="display-bone__section-title">Integritat òssia</h4>
+                    <p class="display-bone__paragraph">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae maiores quod natus voluptatibus.
+                    </p>
+                </section>
+                <section class="display-bone__section">
+                    <h4 class="display-bone__section-title">Alteracions biològiques</h4>
+                <p class="display-bone__paragraph">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae maiores quod natus voluptatibus.
+                </p>
+                        </section>
+                <section class="display-bone__section">
+                    <h4 class="display-bone__section-title">Alteracions cromàtiques</h4>
+                <p class="display-bone__paragraph">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae maiores quod natus voluptatibus.
+                </p>
+                        </section>
+            </section>
+    </section>
+    </aside>
+
 
     <div class="acc-menu-foreground acc-menu-foreground--hidden" id="acc-menu-foreground">
     </div>
@@ -151,29 +186,45 @@
             <fieldset class="acc-menu__input-wrapper">
                 <legend class="acc-menu__label" for="acc-set-font-size">Tamany de lletra</legend>
                 <div class="acc-menu__bts-wrapper">
-                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-font-size"><img src="/diw-whale-project/assets/icons/minus.svg" alt="Icona de disminuir tamany de lletra" /></button>
-                    <button class="acc-menu__btn" id="acc-inc-font-size"><img src="/diw-whale-project/assets/icons/plus.svg" alt="Icona de augmentar tamany de lletra" /></button>
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-font-size"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir tamany de lletra" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-font-size"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar tamany de lletra" /></button>
                 </div>
             </fieldset>
             <fieldset class="acc-menu__input-wrapper">
                 <label class="acc-menu__label" for="acc-set-line-height">Interlineat</label>
                 <div class="acc-menu__bts-wrapper">
-                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-line-height"><img src="/diw-whale-project/assets/icons/minus.svg" alt="Icona de disminuir interlineat" /></button>
-                    <button class="acc-menu__btn" id="acc-inc-line-height"><img src="/diw-whale-project/assets/icons/plus.svg" alt="Icona de augmentar interlineat" /></button>
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-line-height"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir interlineat" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-line-height"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar interlineat" /></button>
                 </div>
             </fieldset>
             <fieldset class="acc-menu__input-wrapper">
                 <label class="acc-menu__label" for="acc-set-word-spacing">Espaiat entre paraules</label>
                 <div class="acc-menu__bts-wrapper">
-                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-word-spacing"><img src="/diw-whale-project/assets/icons/minus.svg" alt="Icona de disminuir espaiat entre paraules" /></button>
-                    <button class="acc-menu__btn" id="acc-inc-word-spacing"><img src="/diw-whale-project/assets/icons/plus.svg" alt="Icona de augmentar espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-word-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
                 </div>
             </fieldset>
             <fieldset class="acc-menu__input-wrapper">
                 <label class="acc-menu__label" for="acc-set-letter-spacing">Espaiat entre lletres</label>
                 <div class="acc-menu__bts-wrapper">
-                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-letter-spacing"><img src="/diw-whale-project/assets/icons/minus.svg" alt="Icona de disminuir espaiat entre paraules" /></button>
-                    <button class="acc-menu__btn" id="acc-inc-letter-spacing"><img src="/diw-whale-project/assets/icons/plus.svg" alt="Icona de augmentar espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn acc-menu__btn--fake-center" id="acc-dec-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/minus.svg"
+                            alt="Icona de disminuir espaiat entre paraules" /></button>
+                    <button class="acc-menu__btn" id="acc-inc-letter-spacing"><img
+                            src="/diw-whale-project/assets/icons/plus.svg"
+                            alt="Icona de augmentar espaiat entre paraules" /></button>
                 </div>
             </fieldset>
             <fieldset class="acc-menu__input-wrapper">
@@ -204,6 +255,7 @@
 
     <script src="/diw-whale-project/js/nav.js"></script>
     <script src="/diw-whale-project/js/accessibility-menu.js"></script>
+    <script src="/diw-whale-project/js/display-bone.js"></script>
 </body>
 
 </html>

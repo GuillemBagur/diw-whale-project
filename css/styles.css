@@ -9,17 +9,6 @@
   src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
 /* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
-@font-face {
-  font-family: "Libre Baskerville";
-  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff2");
-  src: url("/diw-whale-project/assets/fonts/libre-baskerville-regular.woff");
-}
-@font-face {
-  font-family: "Plus Jakarta Sans";
-  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff2");
-  src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
-}
-/* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
 .nav {
   position: fixed;
   display: flex;
@@ -1047,6 +1036,83 @@ img {
   height: 100%;
 }
 
+.display-bone {
+  position: fixed;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 5vh));
+  transition: transform 0.4s;
+  z-index: 3;
+  width: 90%;
+  max-width: 80rem;
+  background-color: #FFE6D7;
+  border-radius: 15px;
+  overflow: hidden;
+  min-height: 25rem;
+  align-items: stretch;
+}
+.display-bone--hidden {
+  transform: translate(-50%, calc(-100% - 100vh));
+}
+.display-bone__img {
+  width: 50%;
+  object-fit: cover;
+}
+.display-bone__info {
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+.display-bone__name {
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  color: #0A0F14;
+  font-size: 2rem;
+}
+.display-bone__metadata {
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  color: #1E1E1E;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+.display-bone__sections {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5em;
+  gap: 1.5rem;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 0.7rem;
+  border-radius: 10px;
+}
+.display-bone__section-title {
+  color: #192832;
+  font-size: 1.3rem;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  margin-bottom: 0.5rem;
+}
+.display-bone__paragraph {
+  font-size: 1.1rem;
+  line-height: 1.5em;
+  color: #1E1E1E;
+}
+
+.display-bone-foreground {
+  display: block;
+  left: 0;
+  top: 0;
+  position: fixed;
+  height: 100vh;
+  height: 100svh;
+  width: 100vw;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s;
+}
+.display-bone-foreground--hidden {
+  background-color: transparent;
+  pointer-events: none;
+}
+
 @media screen and (max-width: 868px) {
   .section {
     padding: 2.5rem;
@@ -1061,6 +1127,18 @@ img {
   }
   .bone-sheets-container {
     grid-template-columns: repeat(2, minmax(7rem, 1fr));
+  }
+  .display-bone {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .display-bone__img {
+    width: auto;
+    height: 15rem;
+  }
+  .display-bone__sections {
+    max-height: 30vh;
+    border: 2px solid #192832;
   }
 }
 @media screen and (max-width: 576px) {

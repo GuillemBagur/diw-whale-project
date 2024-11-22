@@ -1,5 +1,3 @@
-@import "./vars.scss";
-@import "./mixins.scss";
 @import "./commons.scss";
 
 html {
@@ -687,6 +685,79 @@ img {
     }
 }
 
+.display-bone {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 5vh));
+    transition: transform .4s;
+    z-index: 3;
+    width: 90%;
+    max-width: 80rem;
+    background-color: $white;
+    border-radius: 15px;
+    overflow: hidden;
+    min-height: 25rem;
+    align-items: stretch;
+
+    &--hidden {
+        transform: translate(-50%, calc(-100% - 100vh));
+    }
+
+    &__img {
+        width: 50%;
+        object-fit: cover;
+    }
+
+    &__info {
+        padding: 1.5rem;
+        box-sizing: border-box;
+    }
+
+    &__name {
+        font-family: $font_serif;
+        color: $dark_blue;
+        font-size: 2rem;
+    }
+
+    &__metadata {
+        font-family: $font_serif;
+        color: $brown;
+        font-size: 1.2rem;
+        opacity: .8;
+    }
+
+    &__sections {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5em;
+        gap: 1.5rem;
+        max-height: 40vh;
+        overflow-y: auto;
+        padding: .7rem;
+        border-radius: 10px;
+    }
+
+    &__section-title {
+        color: $blue;
+        font-size: 1.3rem;
+        font-family: $font_serif;
+        margin-bottom: .5rem;
+    }
+
+    &__paragraph {
+        font-size: 1.1rem;
+        line-height: 1.5em;
+        color: $brown;
+    }
+}
+
+.display-bone-foreground {
+    @include foreground;
+}
+
+
 @media screen and (max-width: $breakpoint_tablet) {
     .section {
         padding: 2.5rem;
@@ -706,6 +777,21 @@ img {
 
     .bone-sheets-container {
         grid-template-columns: repeat(2, minmax(7rem, 1fr));
+    }
+
+    .display-bone {
+        flex-direction: column;
+        align-items: stretch;
+
+        &__img {
+            width: auto;
+            height: 15rem;
+        }
+
+        &__sections {
+            max-height: 30vh;
+            border: 2px solid $blue;
+        }
     }
 
 }
