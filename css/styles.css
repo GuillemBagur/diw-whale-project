@@ -9,6 +9,24 @@
   src: url("/diw-whale-project/assets/fonts/plus-jakarta-sans-regular.woff");
 }
 /* If we need an unestilized horizontal ul, such as a navbar links container. It could be useful for carousels as well. */
+/* I was going to customize the scrollbar, but then I came up with this article: https://www.nngroup.com/articles/scrolling-and-scrollbars/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: mix($white, black, 90%);
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $brown;
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darken($brown, 30%);
+} */
 .nav {
   position: fixed;
   display: flex;
@@ -363,6 +381,7 @@ img {
   bottom: 3rem;
   color: white;
   transition: all 0.2s;
+  animation: scroll-btn-animation 4s ease 2s infinite normal forwards;
 }
 .scroll-btn__img {
   height: 4rem;
@@ -372,6 +391,23 @@ img {
 }
 .scroll-btn:active {
   transform: translateX(-50%) scale(0.95);
+}
+@keyframes scroll-btn-animation {
+  30%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  37%, 51%, 65%, 79% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+  44%, 58%, 72% {
+    transform: translateX(-50%) translateY(4px);
+  }
+  86% {
+    transform: translateX(-50%) translateY(1px);
+  }
+  93% {
+    transform: translateX(-50%) translateY(-1px);
+  }
 }
 
 .main-page-gradient {
@@ -401,6 +437,9 @@ img {
 }
 .section__title--mt-5 {
   margin-top: 5rem;
+}
+.section__title--centered {
+  text-align: center;
 }
 .section__body--reverse-flex {
   display: flex;
@@ -568,6 +607,9 @@ img {
 }
 .btn--no-transform:hover {
   transform: none;
+}
+.btn--login {
+  margin-bottom: 1rem;
 }
 
 .centerer {
@@ -845,19 +887,73 @@ img {
   border-radius: 12px;
 }
 
-.login-form {
-  position: absolute;
-  width: 80%;
+.form {
+  position: relative;
+}
+.form--centered {
+  transform: translate(-50%, -50%);
   max-width: 30rem;
+  width: 80%;
+  position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
 }
-.login-form__label {
+.form--small {
+  display: block;
+  margin: auto;
+  width: 50%;
+  min-width: 500px;
+}
+.form--over-white .input-text {
+  border: 2px solid #0A0F14;
+}
+.form--over-white .form__label {
+  color: #0A0F14;
+}
+.form--over-white .form__error-msg {
+  color: rgb(70, 17, 17);
+}
+.form__control {
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+.form__control--last {
+  margin-bottom: 3rem;
+}
+.form__control--correct input {
+  border: 2px solid green;
+}
+.form__control--incorrect input {
+  border: 2px solid red;
+}
+.form__fieldset {
+  border: 2px solid #0A0F14;
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 5rem;
+}
+.form__legend {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  background-color: #FFE6D7;
+}
+.form__button-wrapper {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.form__label {
   display: block;
   color: #FFE6D7;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+}
+.form__error-msg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  color: rgb(255, 186, 186);
 }
 
 .input-text {
@@ -868,6 +964,12 @@ img {
   font-size: 1.1rem;
   padding: 1rem;
   margin-bottom: 1.5rem;
+}
+
+.input-checkbox {
+  transform: scale(1.8);
+  accent-color: #192832;
+  margin-right: 0.8rem;
 }
 
 .about-whale-nav {
@@ -1079,7 +1181,7 @@ img {
   flex-direction: column;
   margin-top: 1.5em;
   gap: 1.5rem;
-  max-height: 40vh;
+  max-height: 60vh;
   overflow-y: auto;
   padding: 0.7rem;
   border-radius: 10px;

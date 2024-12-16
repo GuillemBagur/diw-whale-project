@@ -1,15 +1,13 @@
-<!DOCTYPE HTML>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | Web de la Balena</title>
-
-    <!-- Insert this script -->
-    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panell d'administració</title>
 
     <link rel="stylesheet" href="/diw-whale-project/css/styles.css">
+    <link rel="stylesheet" href="/diw-whale-project/css/admin-panel.css">
 </head>
 
 <body>
@@ -38,31 +36,7 @@
         </ul>
     </nav>
 
-    <main class="main main--blue main--h100">
-        <section class="hero">
-            <h1 class="hero__title hero__title--centered">Login</h1>
-
-            <form id="login-form" class="form form--centered">
-                <div class="form__control">
-                    <label class="form__label" for="email">Email</label>
-                    <input type="text" name="email" id="email" placeholder="hola@exemple.com" class="input-text"
-                        aria-label="Email">
-                    <small class="form__error-msg"></small>
-                </div>
-
-                <div class="form__control login-form__control--last">
-                    <label class="form__label" for="password">Contrasenya</label>
-                    <input type="password" name="password" id="password" placeholder="Contrasenya" class="input-text"
-                        aria-label="Contrasenya">
-                    <small class="form__error-msg"></small>
-                </div>
-
-                <div class="form__button-wrapper">
-                    <button class="btn-orange btn--block btn--w100 btn--big btn--login" type="submit">Login</button>
-                    <small id="error-msg-login" class="form__error-msg"></small>
-                </div>
-            </form>
-        </section>
+    <main id="admin-panel" class="main main--blue main--h100">
     </main>
 
     <div class="acc-menu-foreground acc-menu-foreground--hidden" id="acc-menu-foreground">
@@ -134,6 +108,7 @@
         </button>
     </aside>
 
+
     <footer class="footer">
         <p class="footer__credits">Web by: Guiem Bagur</p>
         <p class="footer__copyright">&copy; 2024 - Present</p>
@@ -142,21 +117,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
         integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous">
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.2.0/bcrypt.min.js"
-        integrity="sha512-BJZhA/ftU3DVJvbBMWZwp7hXc49RJHq0xH81tTgLlG16/OkDq7VbNX6nUnx+QY4bBZkXtJoG0b0qihuia64X0w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script src="/diw-whale-project/js/nav.js"></script>
-    <script src="/diw-whale-project/js/accessibility-menu.js"></script>
-    <script src="/diw-whale-project/js/auth.js"></script>
-
     <script src="/diw-whale-project/js/utils-form.js"></script>
-    <script src="/diw-whale-project/js/login.js"></script>
+    <script src="/diw-whale-project/js/accessibility-menu.js"></script>
+    <script src="/diw-whale-project/js/modal.js"></script>
+    <script src="/diw-whale-project/js/auth.js"></script>
+    <script src="/diw-whale-project/js/admin-panel.js"></script>
 </body>
 
 </html>

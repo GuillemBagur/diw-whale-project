@@ -1,0 +1,12 @@
+{
+    "id": 1,
+    "name": "admin",
+    "email": "desenvolupador@iesjoanramis.org",
+    "password": "a2d3da606031f7b3101778bb226e7d03038663cb21aa67d6738a7e9ad6739dea",
+    "edit_news": 1,
+    "edit_users": 1,
+    "edit_bone_files": 1,
+    "active": 1,
+    "image_profile": "https://www.aquariumcostadealmeria.com/wp-content/uploads/2018/01/pez-4.jpg",
+    "salt": "dtyV3dWlF?u|+,{|"
+}

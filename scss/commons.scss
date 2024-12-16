@@ -1,6 +1,28 @@
 @import "./vars.scss";
 @import "./mixins.scss";
 
+
+/* I was going to customize the scrollbar, but then I came up with this article: https://www.nngroup.com/articles/scrolling-and-scrollbars/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: mix($white, black, 90%);
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $brown;
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darken($brown, 30%);
+} */
+
+
+
 .nav {
     position: fixed;
     display: flex;
