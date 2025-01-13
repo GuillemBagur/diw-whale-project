@@ -44,12 +44,7 @@ async function addDefaultUserToLocalStorage() {
 function generateUser(userData) {
     const user = {...userData};
     user.salt = generateSalt();
-
-    console.log(user.password);
-
     user.password = hash(user.password, user.salt);
-
-    console.log(user.password);
 
     return user;
 }

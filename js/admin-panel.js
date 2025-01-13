@@ -132,9 +132,11 @@ function drawPageCreateArticle() {
                 </div>
 
                 <div class="toolbox">
-                    <h3>Toolbox</h3>
-                    <div class="tool" data-type="paragraph">Párrafo</div>
-                    <div class="tool" data-type="image">Imagen</div>
+                    <h3>Elements i dissenys</h3>
+
+                    <div class="tool" data-type="title-section">Títol de secció</div>
+                    <div class="tool" data-type="paragraph">Paràgraf</div>
+                    <div class="tool" data-type="image">Imatge</div>
 
                     <label for="column-choice">Número de columnas por fila:</label>
                     <select id="column-choice">
@@ -143,9 +145,16 @@ function drawPageCreateArticle() {
                     </select>
                 </div>
 
-                <div class="editor">
-                <h2 id="article-title" class="section__title section__title--brown" contenteditable="true">Article title...</h2>
+                <div id="editor" class="editor">
+                <h2 id="article-title" class="section__title section__title--brown" contenteditable="true">Títol de la notícia...</h2>
                 <div id="rows-container" class="rows-container"></div>
+                <button id="add-row" class="btn-add-row">+<button>
+                
+                <div id="add-row-tooltip" class="add-row-tooltip">
+                    <button data-cols="1" class="add-row-tooltip__btn">1<button>
+                    <button data-cols="2" class="add-row-tooltip__btn">2<button>
+                    <button data-cols="3" class="add-row-tooltip__btn">3<button>
+                </div>
                 </div>
             </div>
         </section>
@@ -158,6 +167,8 @@ function drawPageCreateArticle() {
     $("#toolbar").droppable({
         
     });
+
+
 
     $("#article-structure").droppable({
         drop: function(e, ui) {
