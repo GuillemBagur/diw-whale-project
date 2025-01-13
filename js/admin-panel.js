@@ -1,4 +1,4 @@
-function showChangePasswordPanel() {
+function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
     $("#admin-panel").append(`
         <div id="change-password" class="modal">
@@ -29,18 +29,18 @@ function clearPage() {
 }
 
 
-function drawUserCard(user) {
+function drawCardUser(user) {
     return `
         <article class="user-card" data-userid="${user.id}">
                 <h3 class="user-card__name">${user.name}</h3>
                 <h4 class="user-card__email">${user.email}</h4>
                 <button id="update-user" data-userid=${user.id} class="user-card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
-                ${user.id !== 1 ? `<button id="delete-user" data-userid=${user.id} class="user-card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
+                ${isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="user-card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
         </article>
     `;
 }
 
-function drawManageUsersPage() {
+function drawPageManageUsers() {
     const storedUsers = getUsers();
 
     clearPage();
@@ -54,7 +54,7 @@ function drawManageUsersPage() {
 
     $userList = $("#users-list");
     $(storedUsers).each(function (_, user) {
-        $userList.append(drawUserCard(user));
+        $userList.append(drawCardUser(user));
     });
 }
 
@@ -62,12 +62,10 @@ function setChecked(prop) {
     return prop ? "checked" : "";
 }
 
-function drawUpdateUserPage(userId) {
+function drawPageUpdateUser(userId) {
     clearPage();
 
     const user = findUser(user => user.id === +userId);
-
-    console.log(user, userId);
 
     $("#admin-panel").append(`
         <section class="section section--white">
@@ -118,6 +116,57 @@ function drawUpdateUserPage(userId) {
             </form>
         </section>
     `);
+}
+
+function drawPageCreateArticle() {
+    clearPage();
+
+    $("#admin-panel").append(`
+        <section class="section section--white">
+            <h1 class="section__title section__title--dark-blue">Post Editor</h1>
+        
+            <div class="builder">
+                <div>
+                    <button class="btn-dark-blue" id="add-row">Añadir Fila</button>
+                    <button class="btn-dark-blue" id="save-config">Guardar Configuración</button>
+                </div>
+
+                <div class="toolbox">
+                    <h3>Toolbox</h3>
+                    <div class="tool" data-type="paragraph">Párrafo</div>
+                    <div class="tool" data-type="image">Imagen</div>
+
+                    <label for="column-choice">Número de columnas por fila:</label>
+                    <select id="column-choice">
+                        <option value="1">1 columna</option>
+                        <option value="2">2 columnas</option>
+                    </select>
+                </div>
+
+                <div class="editor">
+                <h2 id="article-title" class="section__title section__title--brown" contenteditable="true">Article title...</h2>
+                <div id="rows-container" class="rows-container"></div>
+                </div>
+            </div>
+        </section>
+    `);
+
+    $("#toolbar > .create-article__block").draggable({
+        revert: "invalid",
+    });
+
+    $("#toolbar").droppable({
+        
+    });
+
+    $("#article-structure").droppable({
+        drop: function(e, ui) {
+            $element = ui.draggable;
+            console.log($element);
+            $(this).append(`<div class="${$element.attr("class")}"></div>`);
+            console.log($(this).html());
+        }
+    });
 }
 
 $(function () {
@@ -187,7 +236,7 @@ $(function () {
 
             updateUser(user.id, user);
 
-            drawManageUsersPage();
+            drawPageManageUsers();
         }
     });
 
@@ -203,13 +252,13 @@ $(function () {
     $("#admin-panel").on("click", "#update-user, .user-card", function(e) {
         const userId = e.target.dataset.userid;
 
-        drawUpdateUserPage(userId);
+        drawPageUpdateUser(userId);
     });
 
     if (user.is_first_login ?? true) {
-        showChangePasswordPanel();
+        drawPageChangePassword();
         return;
     }
 
-    drawManageUsersPage();
+    drawPageCreateArticle();
 });

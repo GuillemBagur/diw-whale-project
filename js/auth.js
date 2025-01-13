@@ -1,4 +1,4 @@
-const USERS_LOCAL_STORAGE = "users";
+const USERS_LOCAL_STORAGE = "whale-users";
 
 const randLen = 16384
 var randomId = randLen
@@ -19,11 +19,11 @@ function random32() {
 }
 
 function setSessionUser(user) {
-    localStorage.setItem("session", JSON.stringify(user));
+    localStorage.setItem("whale-session", JSON.stringify(user));
 }
 
 function getSessionUser(failAuthRedirectUrl = "/diw-whale-project/views/index.html") {
-    const user = JSON.parse(localStorage.getItem("session"));
+    const user = JSON.parse(localStorage.getItem("whale-session"));
 
     if(user) {
         return user;
@@ -37,14 +37,19 @@ async function getDefaultUser() {
 }
 
 async function addDefaultUserToLocalStorage() {
-    const user = await getDefaultUser();
+    const user = generateUser(await getDefaultUser());
     addUser(user);
 }
 
 function generateUser(userData) {
     const user = {...userData};
     user.salt = generateSalt();
+
+    console.log(user.password);
+
     user.password = hash(user.password, user.salt);
+
+    console.log(user.password);
 
     return user;
 }
@@ -77,6 +82,8 @@ function hash(string, salt) {
 
 function checkUserPassword(password, user) {
     password = hash(password, user.salt);
+
+    console.log(password, user.password, user.salt);
 
     return password === user.password;
 }
@@ -113,14 +120,18 @@ function deleteUser(userId) {
     saveUsers(users);
 }
 
-function updateUser(userId, newUserData) {
+function updateUser(userId, userNewData) {
     const users = getUsers();
 
     const userIndex = users.findIndex(user => user.id === userId);
 
-    users[userIndex] = newUserData;
+    users[userIndex] = userNewData;
 
     saveUsers(users);
+}
+
+function isMainUser(user) {
+    return user.id === 1;
 }
 
 

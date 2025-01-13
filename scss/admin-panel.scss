@@ -66,3 +66,99 @@
         transform: translateY(3px);
     }
 }
+
+.create-article {
+    &__toolbar {
+        display: flex;
+        background-color: $blue;
+    }
+
+    &__structure {
+        display: flex;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, .3);
+        height: 300px;
+    }
+
+    &__block {
+        background-color: $white;
+        height: 150px;
+        width: 150px;
+        border-radius: 12px;
+        margin: 10px;
+
+        &--blue {
+            background-color: rgb(59, 59, 107);
+        }
+
+        &--red {
+            background-color: rgb(197, 78, 78);
+        }
+    }
+}
+
+
+.builder {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+    grid-template-rows: 1fr 7fr;
+    border: 3px solid $dark_blue;
+    border-radius: 8px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+.toolbox {
+    grid-row: 1 / 7;
+    grid-column: 1 / 2;
+    background: $white;
+    background-color: $dark_blue;
+}
+
+.tool {
+    height: 2rem;
+    z-index: 3;
+    background-color: yellow;
+}
+
+.rows-container {
+    background-color: $white;
+}
+    
+.row {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    height: 8rem;
+    margin-bottom: .5rem;
+
+    &__column {
+        height: 100%;
+        position: relative;
+        background-color: $white;
+        border: 3px dashed rgba($brown, 30%);
+        overflow: hidden;
+        flex-grow: 1;
+        transition: border .1s;
+
+        &--over {
+            border: 3px dashed $brown;
+        }
+    }
+
+    &__delete-row-btn {
+        width: 3rem;
+    }
+}
+
+.element, .element * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: purple;
+}
