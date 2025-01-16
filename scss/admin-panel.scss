@@ -101,31 +101,57 @@
 .builder {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 11fr;
-    grid-template-rows: 1fr 7fr;
+    grid-template-columns: 1fr 5fr;
     border: 3px solid $dark_blue;
     gap: 1rem;
+    height: 60vh;
     border-radius: 8px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.builder-buttons-wrapper {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: right;
 }
 
 .toolbox {
-    grid-row: 1 / 7;
     grid-column: 1 / 2;
     background: $white;
     color: white;
     background-color: $dark_blue;
+
+    &__title {
+        font-family: $font_serif;
+        font-size: 1.7rem;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
 }
 
 .tool {
-    height: 2rem;
     z-index: 3;
+    padding: .5rem;
+    background-color: $dark_blue;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .5rem;
+    transition: background-color .2s;
+    cursor: grab;
+
+    &:hover, &:active, &:focus {
+        background-color: $blue;
+    }
 }
 
 .editor {
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 50vh;
     padding-bottom: 10rem;
     background-color: $white;
     padding-right: 1rem;
@@ -156,22 +182,28 @@
 .add-row-tooltip {
     position: relative;
     display: flex;
-    height: 4rem;
-    width: 5rem;
+    justify-content: space-around;
+    gap: .5rem;
+    padding: 10px;
+    width: fit-content;
     left: 50%;
     background-color: blue;
     bottom: 0%;
-    transform: translateX(-50%) translateY(100%);
+    transform: translateX(-50%);
     background-color: $white;
     border-radius: 7px;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 1);
+    box-shadow: 0 6px 20px 1px rgba(0, 0, 0, .3);
 
     &__btn {
         border: none;
         border-radius: 5px;
-        height: 20px;
-        width: 20px;
+        flex: 1;
+        padding: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
+        text-align: center;
         background-color: rgba(0, 0, 0, 0);
         transition: background .2s;
 
@@ -197,6 +229,7 @@
         border: 3px dashed rgba($brown, 30%);
         overflow: hidden;
         flex-grow: 1;
+        flex-basis: 0;
         transition: border .1s;
 
         &--over {
@@ -206,13 +239,26 @@
 
     &__delete-row-btn {
         width: 3rem;
+        cursor: pointer;
+        background-color: rgba($brown, .2);
+        border: 0;
     }
+}
+
+.element {
+    background-color: rgba($blue, 1);
+    color: $white;
 }
 
 .element, .element * {
     position: relative;
     min-height: 5rem;
     width: 100%;
-    background-color: purple;
     margin-bottom: 1rem;
+}
+
+.element .section-title {
+    font-family: $font_serif;
+    font-size: 1.8rem;
+    color: $white;
 }

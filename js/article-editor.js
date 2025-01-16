@@ -39,7 +39,7 @@ function createNewElement(elementType) {
   if (elementType === "title-section") {
     return $(
       `<div class="element">
-        <h3 class="section__title section__title--brown" contenteditable="true">Títol de secció...</h3>
+        <h3 class="section-title" contenteditable="true">Títol de secció...</h3>
       </div>`
     );
   }
@@ -62,6 +62,39 @@ function createNewElement(elementType) {
   }
 }
 
+function initializeDroppable() {
+  $(".row__column").droppable({
+    accept: ".tool",
+    over: function() {
+      $(this).addClass("row__column--over");
+    },
+    out: function() {
+      $(this).removeClass("row__column--over");
+    },
+    drop: function(event, ui) {
+      const type = ui.draggable.data("type");
+
+      $(this).removeClass("row__column--over");
+
+      if ($(this).children().length >= 4) {
+        alert("Solo se permiten 4 elementos por columna.");
+        return;
+      }
+
+      const newElement = createNewElement(type);
+
+      $(this).append(newElement);
+      makeColumnsSortable();
+    }
+  });
+}
+
+function makeColumnsSortable() {
+  $(".row__column").each(function() {
+    $(this).sortable();
+  });
+}
+
 $(function() {
   // Hacer los elementos de la toolbox arrastrables
   $(".tool").draggable({
@@ -79,41 +112,14 @@ $(function() {
     addRow($(this).attr("data-cols"));
   });
 
-  function initializeDroppable() {
-    $(".row__column").droppable({
-      accept: ".tool",
-      over: function() {
-        $(this).addClass("row__column--over");
-      },
-      out: function() {
-        $(this).removeClass("row__column--over");
-      },
-      drop: function(event, ui) {
-        const type = ui.draggable.data("type");
 
-        $(this).removeClass("row__column--over");
+  $("#admin-panel").on("click", "#add-row", function() {
+      $("#add-row-tooltip").toggle();
+  });
 
-        if ($(this).children().length >= 4) {
-          alert("Solo se permiten 4 elementos por columna.");
-          return;
-        }
-
-        const newElement = createNewElement(type);
-
-        $(this).append(newElement);
-        makeElementsDraggable();
-      }
-    });
-  }
-
-  function makeElementsDraggable() {
-    $(".element").draggable({
-      helper: "original",
-      revert: "invalid"
-    });
-  }
-
-  $("#add-row").on("click", () => addRow(1));
+  $("#admin-panel").on("click", ".add-row-tooltip__btn", function() {
+      $("#add-row-tooltip").hide();
+  });
 
   $("#save-config").on("click", saveArticle);
 
@@ -130,24 +136,12 @@ $(function() {
     rows.forEach(row => {
       let newRow = '<div class="row">';
       row.forEach(column => {
-        newRow += column.length > 1 ? `<div class="column row__column column row__column--half">` : `<div class="column row__column">`;
-        column.forEach(element => {
-          if (element.type === "paragraph") {
-            newRow += `
-              <div class="element">
-                <p class="editable" onclick="editParagraph(this)">${element.content}</p>
-              </div>`;
-          } else if (element.type === "image") {
-            newRow += `
-              <div class="element">
-                <img src="${element.src}" alt="Imagen">
-              </div>`;
-          }
-        });
+        newRow += column.length > 1 ? `<div class="row__column column row__column--half">` : `<div class="row__column">`;
+        column.forEach(element => newRow += createNewElement(element.type));
         newRow += `</div>`;
       });
 
-      newRow += `<button class="row__delete-row-btn">Eliminar fila</button></div>`;
+      newRow += `<button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>`;
       $("#rows-container").append(newRow);
     });
 
@@ -189,18 +183,23 @@ function editParagraph(paragraph) {
 function addRow(columnCount) {
   let newRow = '<div class="row">';
   
-  if (columnCount === "1") {
-    newRow += `<div class="column row__column"></div>`;
+  if (columnCount == "1") {
+    newRow += `<div class="row__column"></div>`;
+  } else if(columnCount == "2") {
+    newRow += `
+      <div class="row__column row__column--half"></div>
+      <div class="row__column row__column--half"></div>`;
   } else {
     newRow += `
+      <div class="row__column row__column--half"></div>
       <div class="row__column row__column--half"></div>
       <div class="row__column row__column--half"></div>`;
   }
 
   newRow += `
-    <button class="row__delete-row-btn">Eliminar fila</button>
+    <button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>
     </div>`;
   $("#rows-container").append(newRow);
-
+  
   initializeDroppable();
 }

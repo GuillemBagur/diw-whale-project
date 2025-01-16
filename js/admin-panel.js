@@ -126,36 +126,29 @@ function drawPageCreateArticle() {
             <h1 class="section__title section__title--dark-blue">Post Editor</h1>
         
             <div class="builder">
-                <div>
-                    <button class="btn-dark-blue" id="add-row">Añadir Fila</button>
-                    <button class="btn-dark-blue" id="save-config">Guardar Configuración</button>
-                </div>
-
                 <div class="toolbox">
-                    <h3>Elements i dissenys</h3>
+                    <h3 class="toolbox__title">Eines</h3>
 
-                    <div class="tool" data-type="title-section">Títol de secció</div>
-                    <div class="tool" data-type="paragraph">Paràgraf</div>
-                    <div class="tool" data-type="image">Imatge</div>
-
-                    <label for="column-choice">Número de columnas por fila:</label>
-                    <select id="column-choice">
-                        <option value="1">1 columna</option>
-                        <option value="2">2 columnas</option>
-                    </select>
+                    <div class="tool" data-type="title-section"><img src="/diw-whale-project/assets/icons/type-outline.svg" /><span class="tool__name">Títol de secció</span></div>
+                    <div class="tool" data-type="paragraph"><img src="/diw-whale-project/assets/icons/text.svg" /><span class="tool__name">Paràgraf</span></div>
+                    <div class="tool" data-type="image"><img src="/diw-whale-project/assets/icons/image.svg" /><span class="tool__name">Imatge</span></div>
                 </div>
 
                 <div id="editor" class="editor">
-                <h2 id="article-title" class="section__title section__title--brown" contenteditable="true">Títol de la notícia...</h2>
-                <div id="rows-container" class="rows-container"></div>
-                <button id="add-row" class="btn-add-row">+<button>
-                
-                <div id="add-row-tooltip" class="add-row-tooltip">
-                    <button data-cols="1" class="add-row-tooltip__btn">1<button>
-                    <button data-cols="2" class="add-row-tooltip__btn">2<button>
-                    <button data-cols="3" class="add-row-tooltip__btn">3<button>
+                    <h2 id="article-title" class="section__title section__title--brown" contenteditable="true">Títol de la notícia...</h2>
+                    <div id="rows-container" class="rows-container"></div>
+                    <button id="add-row" class="btn-add-row"><img src="/diw-whale-project/assets/icons/plus-dark.svg" /></button>
+                    
+                    <div id="add-row-tooltip" class="add-row-tooltip">
+                        <button title="1 columna" data-cols="1" class="add-row-tooltip__btn"><img src="/diw-whale-project/assets/icons/square.svg" /></button>
+                        <button title="2 columnes" data-cols="2" class="add-row-tooltip__btn"><img src="/diw-whale-project/assets/icons/columns-2.svg" /></button>
+                        <button title="3 columnes" data-cols="3" class="add-row-tooltip__btn"><img src="/diw-whale-project/assets/icons/columns-3.svg" /></button>
+                    </div>
                 </div>
-                </div>
+            </div>
+
+            <div class="builder-buttons-wrapper">
+                <button class="btn-dark-blue" id="save-config">Guardar Configuración</button>
             </div>
         </section>
     `);
@@ -164,24 +157,20 @@ function drawPageCreateArticle() {
         revert: "invalid",
     });
 
-    $("#toolbar").droppable({
-        
+    $("#toolbar > .create-article__block").draggable({
+        revert: "invalid",
     });
 
 
-
-    $("#article-structure").droppable({
-        drop: function(e, ui) {
-            $element = ui.draggable;
-            console.log($element);
-            $(this).append(`<div class="${$element.attr("class")}"></div>`);
-            console.log($(this).html());
-        }
-    });
+    $("#add-row-tooltip").hide();
+    addRow("1");
 }
+
+
 
 $(function () {
     const user = getSessionUser();
+
 
     $("#admin-panel").on("submit", "#change-password", function (e) {
         e.preventDefault();
