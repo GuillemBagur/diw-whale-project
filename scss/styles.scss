@@ -318,6 +318,11 @@ img {
     @include button($white, $dark_blue);
 }
 
+.btn-secondary {
+    @include button($white, $dark_blue);
+    border: 1px solid $dark_blue;
+}
+
 .btn-dark-blue {
     @include button($dark_blue, $white);
 }

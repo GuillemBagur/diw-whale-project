@@ -31,14 +31,29 @@ function clearPage() {
 
 function drawCardUser(user) {
     return `
-        <article class="user-card" data-userid="${user.id}">
-                <h3 class="user-card__name">${user.name}</h3>
-                <h4 class="user-card__email">${user.email}</h4>
-                <button id="update-user" data-userid=${user.id} class="user-card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
-                ${isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="user-card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
+        <article class="card" data-userid="${user.id}">
+                <h3 class="card__title">${user.name}</h3>
+                <h4 class="card__subtitle">${user.email}</h4>
+                <button id="update-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
+                ${!isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
         </article>
     `;
 }
+
+
+function drawCardArticle(article) {
+    //<a href="/diw-whale-project/views/noticia.html?id=${article.id}" target="_blank" class="card__button"><img src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" /></a>
+
+    return `
+        <article class="card" data-articleid="${article.id}">
+                <h3 class="card__title">${article.title}</h3>
+                <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
+                <button id="update-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
+                <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>
+        </article>
+    `;
+}
+
 
 function drawPageManageUsers() {
     const storedUsers = getUsers();
@@ -118,8 +133,30 @@ function drawPageUpdateUser(userId) {
     `);
 }
 
-function drawPageCreateArticle() {
+
+function drawPageManageArticles() {
+    const storedArticles = getArticlesView();
+
     clearPage();
+    $("#admin-panel").append(`
+        <section class="section">
+            <h2 class="section__title section__title--mt-5">Gestionar notícies</h2>
+            <article class="articles-list" id="articles-list">
+            </article>
+        </section>
+    `);
+
+    $articleList = $("#articles-list");
+    $(storedArticles).each(function (_, article) {
+        $articleList.append(drawCardArticle(article));
+    });
+
+}
+
+function drawPageCreateOrUpdateArticle(articleId) {
+    clearPage();
+
+    const articleData = findArticle(article => article.id == articleId);
 
     $("#admin-panel").append(`
         <section class="section section--white">
@@ -148,7 +185,9 @@ function drawPageCreateArticle() {
             </div>
 
             <div class="builder-buttons-wrapper">
-                <button class="btn-dark-blue" id="save-config">Guardar Configuración</button>
+            <button class="btn-secondary" id="save-draft">Guardar borrador</button>
+            <button class="btn-dark-blue" id="save-article">Guardar i publicar</button>
+            <button class="btn-dark-blue" id="update-article">Actualitzar</button>
             </div>
         </section>
     `);
@@ -164,13 +203,13 @@ function drawPageCreateArticle() {
 
     $("#add-row-tooltip").hide();
     addRow("1");
+    
 }
 
 
 
 $(function () {
     const user = getSessionUser();
-
 
     $("#admin-panel").on("submit", "#change-password", function (e) {
         e.preventDefault();
@@ -255,10 +294,26 @@ $(function () {
         drawPageUpdateUser(userId);
     });
 
+    $("#admin-panel").on("click", "#delete-article", function(e) {
+        const articleId = e.target.dataset.articleid;
+
+        // Modal confirm component under construction
+        // drawModalConfirm("Estàs segur que vols eliminar la notícia " + article.title + "?", () => deleteArticle(articleId));
+        deleteArticle(articleId, drawPageManageArticles);
+    });
+
+    $("#admin-panel").on("click", "#update-article, .article-card", function(e) {
+        const articleId = e.target.dataset.articleid;
+
+        drawPageCreateOrUpdateArticle(articleId);
+    });
+
+
     if (user.is_first_login ?? true) {
         drawPageChangePassword();
         return;
     }
 
-    drawPageCreateArticle();
+    drawPageCreateOrUpdateArticle();
+    //drawPageManageArticles();
 });

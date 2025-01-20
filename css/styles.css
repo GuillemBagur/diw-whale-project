@@ -524,6 +524,28 @@ img {
   transition: all 0.1s;
 }
 
+.btn-secondary {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: "Libre Baskerville", "Times New Roman", serif;
+  transition: all 0.2s;
+  background-color: #FFE6D7;
+  color: #0A0F14;
+  cursor: pointer;
+  border: 1px solid #0A0F14;
+}
+.btn-secondary:hover {
+  transform: scale(1.05);
+  transition: all 0.1s;
+}
+.btn-secondary:active {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
 .btn-dark-blue {
   display: inline-block;
   padding: 0.9rem 1.8rem;

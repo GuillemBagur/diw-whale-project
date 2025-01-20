@@ -96,6 +96,11 @@ function saveUsers(users) {
 function addUser(user) {
     let users = getUsers();
 
+    
+    // Assign ID to that user
+    let lastId = users[users.length -1]?.id ?? 0;
+    user.id = lastId + 1;
+
     users.push(user);
     
     if(user.is_first_login === undefined) {
@@ -108,7 +113,7 @@ function addUser(user) {
 function deleteUser(userId) {
     const users = getUsers();
 
-    const userIndex = users.findIndex(user => user.id === userId);
+    const userIndex = users.findIndex(user => user.id == userId);
 
     users.splice(userIndex, 1);
 

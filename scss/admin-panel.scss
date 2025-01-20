@@ -29,7 +29,7 @@
     }
 }
 
-.user-card {
+.card {
     display: block;
     padding: .8rem;
     border-radius: 8px;
@@ -43,14 +43,17 @@
     column-gap: 1rem;
     margin-bottom: 1.5rem;
 
-    &__name {
+    &__title {
         text-transform: capitalize;
         grid-row: 1 / 2;
     }
 
-    &__email {
+    &__subtitle {
         grid-row: 2 / 3;
         max-width: 90%;
+        opacity: .8;
+        display: flex;
+        align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -64,6 +67,11 @@
 
         /* Visual correction */
         transform: translateY(3px);
+    }
+
+    &__icon {
+        margin-right: .5rem;
+        height: 24px;
     }
 }
 
@@ -114,6 +122,7 @@
     margin-top: 1.5rem;
     display: flex;
     justify-content: right;
+    gap: 1rem;
 }
 
 .toolbox {

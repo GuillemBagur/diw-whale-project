@@ -1,54 +1,77 @@
 const ARTICLES_LOCAL_STORAGE = "whale-articles";
 
 function findArticle(condition) {
-    const articles = getArticles();
+  const articles = getArticles();
 
-    return articles.find(condition);
+  return articles.find(condition);
 }
 
-
-async function addDefaultArticleToLocalStorage() {
-    const article = await getDefaultArticle();
-    addArticle(article);
+function joinAuthorToArticle(article) {
+  let articleView = { ...article };
+  const author = findUser((user) => article.author_id === user.id);
+  articleView.author = author;
+  return articleView;
 }
-
 
 function getArticles() {
-    let articles = localStorage.getItem(ARTICLES_LOCAL_STORAGE);
+  let articles = localStorage.getItem(ARTICLES_LOCAL_STORAGE);
 
-    return JSON.parse(articles) ?? [];
+  return JSON.parse(articles) ?? [];
+}
+
+// Rich data version of article (with author data)
+// Simulates an SQL view
+function getArticlesView() {
+  let articles = getArticles();
+
+  articles = articles.map(function (article) {
+    return joinAuthorToArticle(article);
+  });
+
+  return articles;
 }
 
 function saveArticles(articles) {
-    localStorage.setItem(ARTICLES_LOCAL_STORAGE, JSON.stringify(articles));
+  localStorage.setItem(ARTICLES_LOCAL_STORAGE, JSON.stringify(articles));
 }
 
 function addArticle(article) {
-    let articles = getArticles();
+  let articles = getArticles();
 
-    articles.push(article);
+  // Assign ID to that article
+  let lastId = articles[articles.length - 1]?.id ?? 0;
+  article.id = lastId + 1;
 
-    saveArticles(articles);
+  articles.push(article);
+
+  saveArticles(articles);
 }
 
-function deleteArticle(articleId) {
-    const articles = getArticles();
+function deleteArticle(articleId, callback) {
+  const articles = getArticles();
 
-    const articleIndex = articles.findIndex(article => article.id === articleId);
+  const articleIndex = articles.findIndex(
+    (article) => article.id == articleId
+  );
 
-    articles.splice(articleIndex, 1);
+  articles.splice(articleIndex, 1);
 
-    saveArticles(articles);
+  saveArticles(articles);
+  callback();
 }
 
-function updateArticle(articleId, articleNewData) {
-    const articles = getArticles();
+function updateArticle(articleId) {
+  const articleNewData = getAllArticleData();
 
-    const articleIndex = articles.findIndex(article => article.id === articleId);
+  const articles = getArticles();
 
-    articles[articleIndex] = articleNewData;
+  const articleIndex = articles.findIndex(
+    (article) => article.id === articleId
+  );
 
-    saveArticles(articles);
+  articles[articleIndex] = articleNewData;
+
+  console.log(articleNewData);
+
+  saveArticles(articles);
 }
-
-
