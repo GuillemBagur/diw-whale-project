@@ -47,7 +47,7 @@ function addArticle(article) {
   saveArticles(articles);
 }
 
-function deleteArticle(articleId, callback) {
+function deleteArticle(articleId, callback = () => {}) {
   const articles = getArticles();
 
   const articleIndex = articles.findIndex(
@@ -62,16 +62,19 @@ function deleteArticle(articleId, callback) {
 
 function updateArticle(articleId) {
   const articleNewData = getAllArticleData();
+  articleNewData.id = articleId;
+  articleNewData.published = true;
 
   const articles = getArticles();
 
   const articleIndex = articles.findIndex(
-    (article) => article.id === articleId
+    (article) => article.id == articleId
   );
 
   articles[articleIndex] = articleNewData;
 
   console.log(articleNewData);
+  console.log(articles);
 
   saveArticles(articles);
 }

@@ -77,8 +77,8 @@ function loadArticle() {
   // Update the buttons
   $("#save-draft").hide();
   $("#save-article").hide();
-  $("#update-article").show();
-  $("#update-article").attr("data-articleId", articleId);
+  $("#save-update-article").show();
+  $("#save-update-article").attr("data-articleId", articleId);
 }
 
 function handleSaveAndPublish() {
@@ -181,11 +181,11 @@ $(function () {
 
   $("#save-draft").on("click", handleSaveDraft);
   $("#save-article").on("click", handleSaveAndPublish);
-  $("#update-article").on("click", handleUpdateArticle);
+  $("#save-update-article").on("click", handleUpdateArticle);
 
   $("#save-draft").show();
   $("#save-article").show();
-  $("#update-article").hide();
+  $("#save-update-article").hide();
 
   initializeDroppable();
   loadArticle();

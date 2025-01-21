@@ -110,7 +110,7 @@ function addUser(user) {
     saveUsers(users);
 }
 
-function deleteUser(userId) {
+function deleteUser(userId, callback = () => {}) {
     const users = getUsers();
 
     const userIndex = users.findIndex(user => user.id == userId);
@@ -118,6 +118,7 @@ function deleteUser(userId) {
     users.splice(userIndex, 1);
 
     saveUsers(users);
+    callback();
 }
 
 function updateUser(userId, userNewData) {

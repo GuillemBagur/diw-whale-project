@@ -48,14 +48,14 @@ function drawCardArticle(article) {
         <article class="card" data-articleid="${article.id}">
                 <h3 class="card__title">${article.title}</h3>
                 <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
-                <button id="update-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
+                <a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
                 <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>
         </article>
     `;
 }
 
 
-function drawPageManageUsers() {
+function drawPageUsersList() {
     const storedUsers = getUsers();
 
     clearPage();
@@ -77,7 +77,7 @@ function setChecked(prop) {
     return prop ? "checked" : "";
 }
 
-function drawPageUpdateUser(userId) {
+function drawPageUserEditor(userId) {
     clearPage();
 
     const user = findUser(user => user.id === +userId);
@@ -134,7 +134,7 @@ function drawPageUpdateUser(userId) {
 }
 
 
-function drawPageManageArticles() {
+function drawPageArticlesList() {
     const storedArticles = getArticlesView();
 
     clearPage();
@@ -153,10 +153,8 @@ function drawPageManageArticles() {
 
 }
 
-function drawPageCreateOrUpdateArticle(articleId) {
+function drawPageArticleEditor() {
     clearPage();
-
-    const articleData = findArticle(article => article.id == articleId);
 
     $("#admin-panel").append(`
         <section class="section section--white">
@@ -187,7 +185,7 @@ function drawPageCreateOrUpdateArticle(articleId) {
             <div class="builder-buttons-wrapper">
             <button class="btn-secondary" id="save-draft">Guardar borrador</button>
             <button class="btn-dark-blue" id="save-article">Guardar i publicar</button>
-            <button class="btn-dark-blue" id="update-article">Actualitzar</button>
+            <button class="btn-dark-blue" id="save-update-article">Actualitzar</button>
             </div>
         </section>
     `);
@@ -206,6 +204,37 @@ function drawPageCreateOrUpdateArticle(articleId) {
     
 }
 
+function drawPageDefault() {
+    console.log("Default page");
+    drawPageArticlesList();
+}
+
+function handlePages() {
+    const url = new URL(window.location.href);
+    const page = url.searchParams.get("page");
+
+    if(page === "articleEditor") {
+        drawPageArticleEditor();
+        return;
+    }
+
+    if(page === "articlesList") {
+        drawPageArticlesList();
+        return;
+    }
+
+    if(page === "userEditor") {
+        drawPageUserEditor();
+        return;
+    }
+
+    if(page === "usersList") {
+        drawPageUsersList();
+        return;
+    }
+
+    drawPageDefault();
+}
 
 
 $(function () {
@@ -275,7 +304,7 @@ $(function () {
 
             updateUser(user.id, user);
 
-            drawPageManageUsers();
+            drawPageUsersList();
         }
     });
 
@@ -285,13 +314,13 @@ $(function () {
         // Modal confirm component under construction
         // drawModalConfirm("Estàs segur que vols eliminar l'usuari " + user.name + "?", () => deleteUser(userId));
 
-        deleteUser(userId);
+        deleteUser(userId, drawPageUsersList);
     });
 
     $("#admin-panel").on("click", "#update-user, .user-card", function(e) {
         const userId = e.target.dataset.userid;
 
-        drawPageUpdateUser(userId);
+        drawPageUserEditor(userId);
     });
 
     $("#admin-panel").on("click", "#delete-article", function(e) {
@@ -299,13 +328,13 @@ $(function () {
 
         // Modal confirm component under construction
         // drawModalConfirm("Estàs segur que vols eliminar la notícia " + article.title + "?", () => deleteArticle(articleId));
-        deleteArticle(articleId, drawPageManageArticles);
+        deleteArticle(articleId, drawPageArticlesList);
     });
 
-    $("#admin-panel").on("click", "#update-article, .article-card", function(e) {
+    $("#admin-panel").on("click", "#update-article", function(e) {
         const articleId = e.target.dataset.articleid;
 
-        drawPageCreateOrUpdateArticle(articleId);
+        drawPageArticleEditor(articleId);
     });
 
 
@@ -314,6 +343,5 @@ $(function () {
         return;
     }
 
-    drawPageCreateOrUpdateArticle();
-    //drawPageManageArticles();
+    handlePages();
 });
