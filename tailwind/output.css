@@ -681,6 +681,10 @@ video {
   height: 100%;
 }
 
+.min-h-svh {
+  min-height: 100svh;
+}
+
 .w-full {
   width: 100%;
 }
@@ -779,6 +783,10 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 .text-brown {

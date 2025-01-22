@@ -56,10 +56,7 @@ function saveArticle(published) {
 }
 
 function loadArticle() {
-  const url = new URL(window.location.href);
-  const articleId = url.searchParams.get("articleId");
-
-  const articleData = findArticle((article) => article.id == articleId);
+  const articleData = getArticleByUrl();
 
   if (!articleData) {
     return;

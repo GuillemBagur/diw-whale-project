@@ -6,6 +6,15 @@ function findArticle(condition) {
   return articles.find(condition);
 }
 
+function getArticleByUrl() {
+  const url = new URL(window.location.href);
+  const articleId = url.searchParams.get("articleId");
+
+  const articleData = findArticle((article) => article.id == articleId);
+
+  return articleData;
+}
+
 function joinAuthorToArticle(article) {
   let articleView = { ...article };
   const author = findUser((user) => article.author_id === user.id);
@@ -41,6 +50,7 @@ function addArticle(article) {
   // Assign ID to that article
   let lastId = articles[articles.length - 1]?.id ?? 0;
   article.id = Number(lastId) + 1;
+  article.created_on = new Date();
 
   articles.push(article);
 
