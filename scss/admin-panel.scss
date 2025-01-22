@@ -1,5 +1,29 @@
 @import "./commons.scss";
 
+.admin-panel-wrapper {
+    padding-top: 5rem;
+    background-color: $dark_blue;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.admin-panel-nav {
+    padding: 1rem;
+    padding-top: 3rem;
+
+    &__title {
+        color: $white;
+        margin-bottom: 3rem;
+    }
+
+    &__link {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+        @include button($orange, $dark_blue);
+    }
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -81,7 +105,7 @@
         align-items: center;
 
         /* Visual correction */
-        transform: translateY(3px);
+        transform: translateY(1px);
     }
 
     &__icon {

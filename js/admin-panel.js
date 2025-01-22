@@ -42,8 +42,6 @@ function drawCardUser(user) {
 
 
 function drawCardArticle(article) {
-    //<a href="/diw-whale-project/views/noticia.html?id=${article.id}" target="_blank" class="card__button"><img src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" /></a>
-
     return `
         <article class="card" data-articleid="${article.id}">
                 <a class="card__link" target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"><h3 class="card__title">${article.title}<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" /></h3></a>
@@ -61,7 +59,11 @@ function drawPageUsersList() {
     clearPage();
     $("#admin-panel").append(`
         <section class="section">
-            <h2 class="section__title section__title--mt-5">Gestionar usuaris</h2>
+            <div class="section__header">
+                <h2 class="section__title section__title--dark-blue">Gestionar usuaris</h2>
+                <a class="btn-dark-blue" href="?page=userEditor"><img src="/diw-whale-project/assets/icons/plus.svg" />Crear usuari</a>
+            </div>
+
             <article class="users-list" id="users-list">
             </article>
         </section>
@@ -80,11 +82,18 @@ function setChecked(prop) {
 function drawPageUserEditor(userId) {
     clearPage();
 
-    const user = findUser(user => user.id === +userId);
+    const emptyUser = {
+        name: "",
+        email: "",
+        edit_news: false,
+        edit_bone_files: false,
+        edit_users: false,
+    }
+    const user = findUser(user => user.id === +userId) ?? emptyUser;
 
     $("#admin-panel").append(`
         <section class="section section--white">
-            <h2 class="section__title section__title--brown section__title--centered section__title--mt-5">Editar usuari</h2>
+            <h2 class="section__title section__title--dark-blue section__title--centered">Gestionar usuari</h2>
             
             <form id="edit-user" class="form form--over-white form--small">
                 <div class="form__control">
@@ -140,7 +149,10 @@ function drawPageArticlesList() {
     clearPage();
     $("#admin-panel").append(`
         <section class="section">
-            <h2 class="section__title section__title--mt-5">Gestionar notícies</h2>
+            <div class="section__header">
+                <h2 class="section__title section__title--dark-blue">Gestionar notícies</h2>
+                <a class="btn-dark-blue" href="?page=articleEditor"><img src="/diw-whale-project/assets/icons/plus.svg" />Crear notícia</a>
+            </div>
             <article class="articles-list" id="articles-list">
             </article>
         </section>

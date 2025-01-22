@@ -334,6 +334,9 @@ img {
 .main--blue {
   background-color: #0A0F14;
 }
+.main--white {
+  background-color: #FFE6D7;
+}
 .main--h100 {
   min-height: 100vh;
 }
@@ -423,6 +426,11 @@ img {
   padding: 8rem;
   padding-top: 6rem;
 }
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .section__title {
   font-family: "Libre Baskerville", "Times New Roman", serif;
   color: #FFE6D7;
@@ -504,7 +512,9 @@ img {
 }
 
 .btn-white {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 10px;
@@ -525,7 +535,9 @@ img {
 }
 
 .btn-secondary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 10px;
@@ -547,7 +559,9 @@ img {
 }
 
 .btn-dark-blue {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 10px;
@@ -568,7 +582,9 @@ img {
 }
 
 .btn-orange {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 10px;
@@ -589,7 +605,9 @@ img {
 }
 
 .btn-brown {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 10px;

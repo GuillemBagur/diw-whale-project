@@ -105,6 +105,10 @@ img {
         background-color: $dark_blue;
     }
 
+    &--white {
+        background-color: $white;
+    }
+
     &--h100 {
         min-height: 100vh;
     }
@@ -214,6 +218,12 @@ img {
     position: relative;
     padding: 8rem;
     padding-top: 6rem;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     &__title {
         font-family: $font_serif;
