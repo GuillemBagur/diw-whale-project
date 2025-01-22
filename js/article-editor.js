@@ -16,16 +16,31 @@ function getAllArticleData() {
         $(this)
           .children(".element")
           .each(function () {
+            if ($(this).find(".section-title").length) {
+              column.push({
+                type: "title-section",
+                content: $(this).find(".section-title").text(),
+              });
+
+              return;
+            }
+
             if ($(this).find("p").length) {
               column.push({
                 type: "paragraph",
                 content: $(this).find("p").text(),
               });
-            } else if ($(this).find("img").length) {
+
+              return;
+            }
+            
+            if ($(this).find("img").length) {
               column.push({
                 type: "image",
-                src: $(this).find("img").attr("src"),
+                content: $(this).find("img").attr("src"),
               });
+
+              return;
             }
           });
         row.push(column);
@@ -37,10 +52,7 @@ function getAllArticleData() {
 }
 
 function saveArticle(published) {
-  addArticle({ ...getAllArticleData(), published });
-
-  //!
-  alert("Article guardat.");
+  
 }
 
 function loadArticle() {
@@ -61,10 +73,7 @@ function loadArticle() {
     let newRow = '<div class="row">';
     row.forEach((column) => {
       newRow += `<div class="row__column">`;
-      column.forEach(
-        (element) =>
-          (newRow += createNewElement(element.type).prop("outerHTML"))
-      );
+      column.forEach(element => newRow += createNewElement(element.type, element.content).prop("outerHTML"));
       newRow += `</div>`;
     });
 
@@ -77,28 +86,47 @@ function loadArticle() {
   // Update the buttons
   $("#save-draft").hide();
   $("#save-article").hide();
+  $("#save-update-draft").show();
   $("#save-update-article").show();
+  $("#save-update-draft").attr("data-articleId", articleId);
   $("#save-update-article").attr("data-articleId", articleId);
 }
 
-function handleSaveAndPublish() {
-  saveArticle(true);
+function handleSaveArticle() {
+  addArticle({ ...getAllArticleData(), published: true });
+
+  alert("Article guardat i publicat");
+  window.location.href = "?page=articlesList";
 }
 
 function handleSaveDraft() {
-  saveArticle(false);
+  addArticle({ ...getAllArticleData(), published: false });
+
+  alert("Article guardat com a esborray");
+  window.location.href = "?page=articlesList";
+}
+
+function handleUpdateDraft() {
+  const articleId = $(this).attr("data-articleId");
+  updateArticle(articleId, false);
+
+  alert("Esborrany guardat");
+  window.location.href = "?page=articlesList";
 }
 
 function handleUpdateArticle() {
   const articleId = $(this).attr("data-articleId");
-  updateArticle(articleId);
+  updateArticle(articleId, true);
+
+  alert("Article actualitzat i publicat");
+  window.location.href = "?page=articlesList";
 }
 
-function createNewElement(elementType) {
+function createNewElement(elementType, content) {
   if (elementType === "title-section") {
     return $(
       `<div class="element">
-        <h3 class="section-title" contenteditable="true">Títol de secció...</h3>
+        <h3 class="section-title" contenteditable="true">${ content ?? "Títol de secció..."}</h3>
       </div>`
     );
   }
@@ -106,7 +134,7 @@ function createNewElement(elementType) {
   if (elementType === "paragraph") {
     return $(
       `<div class="element">
-        <p class="editable">Escribe aquí tu texto...</p>
+        <p contenteditable="true">${ content ?? "Paràgraf..."}</p>
       </div>`
     );
   }
@@ -115,7 +143,7 @@ function createNewElement(elementType) {
     return $(
       `<div class="element">
         <input type="file" accept="image/*" onchange="loadImage(event)" />
-        <img src="" alt="Imagen" style="display: none;">
+        <img src="${content}" alt="Imagen" style="display: ${content ? "block " : "none"};">
       </div>`
     );
   }
@@ -149,6 +177,8 @@ function initializeDroppable() {
 }
 
 function makeColumnsSortable() {
+  return;
+  
   $(".row__column").each(function () {
     $(this).sortable();
   });
@@ -163,7 +193,9 @@ $(function () {
 
   // Cleaner approach to add events to delete buttons
   $("#rows-container").on("click", ".row__delete-row-btn", function () {
-    $(this).closest(".row").remove();
+    if(confirm("Segur que vols eliminar aquesta fila?")) {
+      $(this).closest(".row").remove();
+    }
   });
 
   $("#editor").on("click", ".add-row-tooltip__btn", function () {
@@ -180,11 +212,13 @@ $(function () {
   });
 
   $("#save-draft").on("click", handleSaveDraft);
-  $("#save-article").on("click", handleSaveAndPublish);
+  $("#save-article").on("click", handleSaveArticle);
+  $("#save-update-draft").on("click", handleUpdateDraft);
   $("#save-update-article").on("click", handleUpdateArticle);
 
   $("#save-draft").show();
   $("#save-article").show();
+  $("#save-update-draft").hide();
   $("#save-update-article").hide();
 
   initializeDroppable();

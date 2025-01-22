@@ -99,7 +99,7 @@ function addUser(user) {
     
     // Assign ID to that user
     let lastId = users[users.length -1]?.id ?? 0;
-    user.id = lastId + 1;
+    user.id = Number(lastId) + 1;
 
     users.push(user);
     

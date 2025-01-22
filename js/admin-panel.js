@@ -46,7 +46,7 @@ function drawCardArticle(article) {
 
     return `
         <article class="card" data-articleid="${article.id}">
-                <h3 class="card__title">${article.title}</h3>
+                <a class="card__link" target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"><h3 class="card__title">${article.title}<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" /></h3></a>
                 <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
                 <a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
                 <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>
@@ -183,9 +183,10 @@ function drawPageArticleEditor() {
             </div>
 
             <div class="builder-buttons-wrapper">
-            <button class="btn-secondary" id="save-draft">Guardar borrador</button>
+            <button class="btn-secondary" id="save-draft">Guardar esborrany</button>
             <button class="btn-dark-blue" id="save-article">Guardar i publicar</button>
-            <button class="btn-dark-blue" id="save-update-article">Actualitzar</button>
+            <button class="btn-secondary" id="save-update-draft">Actualitzar esborrany</button>
+            <button class="btn-dark-blue" id="save-update-article">Actualitzar i publicar</button>
             </div>
         </section>
     `);

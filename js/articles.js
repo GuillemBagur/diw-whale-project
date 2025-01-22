@@ -40,7 +40,7 @@ function addArticle(article) {
 
   // Assign ID to that article
   let lastId = articles[articles.length - 1]?.id ?? 0;
-  article.id = lastId + 1;
+  article.id = Number(lastId) + 1;
 
   articles.push(article);
 
@@ -60,10 +60,10 @@ function deleteArticle(articleId, callback = () => {}) {
   callback();
 }
 
-function updateArticle(articleId) {
+function updateArticle(articleId, published) {
   const articleNewData = getAllArticleData();
   articleNewData.id = articleId;
-  articleNewData.published = true;
+  articleNewData.published = published;
 
   const articles = getArticles();
 
