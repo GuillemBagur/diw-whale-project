@@ -81,7 +81,9 @@ function checkUserPassword(password, user) {
 function getUsers() {
     let users = localStorage.getItem(USERS_LOCAL_STORAGE);
 
-    return JSON.parse(users) ?? [];
+    users = JSON.parse(users) ?? [];
+
+    return users.filter(user => user.active == 1)
 }
 
 function saveUsers(users) {
@@ -110,7 +112,7 @@ function deleteUser(userId, callback = () => {}) {
 
     const userIndex = users.findIndex(user => user.id == userId);
 
-    users.splice(userIndex, 1);
+    users[userIndex].active = false;
 
     saveUsers(users);
     callback();
@@ -118,6 +120,7 @@ function deleteUser(userId, callback = () => {}) {
 
 function generateUser(userData) {
     const user = {...userData};
+    user.active = 1;
     user.salt = generateSalt();
     console.log(userData);
     user.password = hash(user.password, user.salt);

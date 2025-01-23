@@ -228,9 +228,15 @@ function checkUserisAllowedToCreate() {
 
 function checkUserIsAllowedToEdit(articleId) {
   const sessionUser = getSessionUser();
-  const article = findArticle(article => article.id == articleId);
+  
+  console.log(sessionUser, isMainUser(sessionUser));
 
-  return checkUserisAllowedToCreate() && sessionUser.id == article.author_id;
+  if(isMainUser(sessionUser)) {
+    return true;
+  }
+  
+  const article = findArticle(article => article.id == articleId);
+  return sessionUser.edit_news && sessionUser.id == article.author_id;
 }
 
 function blockUnallowedUserToCreate() {
