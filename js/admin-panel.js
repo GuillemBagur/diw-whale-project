@@ -42,9 +42,11 @@ function drawCardUser(user) {
 
 
 function drawCardArticle(article) {
+    const articleLink = article.published ? `target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"` : "";
+
     return `
         <article class="card" data-articleid="${article.id}">
-                <a class="card__link" target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"><h3 class="card__title">${article.title}<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" /></h3></a>
+                <a class="card__link" ${articleLink}><h3 class="card__title">${article.title}${articleLink && `<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" />`}</h3></a>
                 <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
                 <a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
                 <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>

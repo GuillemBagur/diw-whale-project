@@ -1,17 +1,19 @@
 function drawArticleElement(elementType, content) {
   if (elementType === "title-section") {
-    return $(`<h2 class="title">${content}</h2>`);
+    return $(
+      `<h2 class="font-serif text-darkblue text-3xl font-bold">${content}</h2>`
+    );
   }
 
   if (elementType === "paragraph") {
     return $(
-      `<p class="flex-1 basis-0 text-justify text-brown font-sans text-lg mt-6">${content}</p>`
+      `<p class="text-justify text-brown font-sans text-lg mb-6">${content}</p>`
     );
   }
 
   if (elementType === "image") {
     return $(
-      `<img src="${content}" alt="Imagen" class="flex-1 basis-0 overflow-hidden w-full max-w-[40rem] md:float-right md:mx-6 md:my-2" />`
+      `<img src="${content}" alt="Imagen" class="w-full object-cover" />`
     );
   }
 }
@@ -19,26 +21,30 @@ function drawArticleElement(elementType, content) {
 function drawArticle() {
   const articleData = joinAuthorToArticle(getArticleByUrl());
 
+  if (!articleData.published) {
+    alert("No s'ha trobat aquesta notícia.");
+    window.location.href = "/diw-whale-project/views/index.html";
+    return;
+  }
+
   $("#article-title").html(articleData.title);
   $("#article-author-name").html(articleData.author.name);
-  $("#article-date").html(articleData.date);
-
+  $("#article-date").html(`Darrera modif. ${stringToHumanDate(articleData.created_on)}`);
 
   $("#article-content").empty(); // Limpiar todo antes de cargar
 
   const rows = articleData.content;
   rows.forEach((row) => {
-    let newRow = "<div>";
+    let newRow = "";
+    newRow += "<div class='flex mb-8 gap-8'>";
     row.forEach((column) => {
-      column.forEach(
-        (element) => {
-          newRow += "<div class='flex'>";
-          newRow += drawArticleElement(element.type, element.content).prop(
-            "outerHTML"
-          );
-          newRow += "</div>";
-        }
-      );
+      newRow += "<div class='flex-1 basis-0'>";
+      column.forEach((element) => {
+        newRow += drawArticleElement(element.type, element.content).prop(
+          "outerHTML"
+        );
+      });
+      newRow += "</div>";
     });
 
     newRow += `</div>`;
@@ -46,5 +52,47 @@ function drawArticle() {
   });
 }
 
+function getFirstImageInArticle(article) {
+  return article?.content.flat(2).find(column => column.type === "image");
+}
 
-drawArticle();
+function getFirstParagraphInArticle(article) {
+  return article?.content.flat(2).find(column => column.type === "paragraph");
+}
+
+function drawArticlesPreview() {
+  const articles = getArticlesView((article) => article.published);
+  
+  for (let article of articles) {
+    let articleHtml = `<section class="mt-[5rem] mb-[10rem] md:mb-[3rem]"><article class="relative">`;
+    articleHtml += `<h2 class="article-title">${article.title}</h2>`;
+    articleHtml += `
+      <div class="flex gap-4 mt-3 mb-8">
+        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+            alt="L'autor de la notícia">
+        <div>
+            <h3 class="text-brown text-lg font-serif">${
+              article.author.name
+            }</h3>
+            <h4 class="text-brown text-sm opacity-70 font-serif">Darrera modif. ${stringToHumanDate(
+              article.created_on
+            )}</h4>
+        </div>
+    </div>
+    `;
+    articleHtml += `<img class="rounded-xl w-full max-h-[30rem] object-cover" src="${getFirstImageInArticle(article)?.content}" alt="Imatge del procés de restauració.">`;
+
+    articleHtml += `
+    <div class="relative">
+        <div class="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-white"></div>
+        <p class="text-justify text-brown font-sans text-lg mt-6">
+          ${getFirstParagraphInArticle(article)?.content}
+        </p>
+    </div>`;
+
+    articleHtml += `<a href="noticia.html?articleId=${article.id}" class="button-main">Llegir</a></article></section>`;
+
+    $("#articles-wrapper").append(articleHtml);
+  }
+}
+

@@ -17,21 +17,28 @@ function getArticleByUrl() {
 
 function joinAuthorToArticle(article) {
   let articleView = { ...article };
-  const author = findUser((user) => article.author_id === user.id);
+  const author = findUser((user) => article?.author_id === user.id);
   articleView.author = author;
   return articleView;
 }
 
-function getArticles() {
+function getArticles(condition = () => true) {
   let articles = localStorage.getItem(ARTICLES_LOCAL_STORAGE);
+  
+  articles = JSON.parse(articles) ?? [];
+  articles = articles.filter(condition);
 
-  return JSON.parse(articles) ?? [];
+  return articles;
 }
 
 // Rich data version of article (with author data)
 // Simulates an SQL view
-function getArticlesView() {
-  let articles = getArticles();
+function getArticlesView(condition = () => true) {
+  let articles = getArticles(condition);
+
+  if(!articles) {
+    return;
+  }
 
   articles = articles.map(function (article) {
     return joinAuthorToArticle(article);
@@ -74,6 +81,7 @@ function updateArticle(articleId, published) {
   const articleNewData = getAllArticleData();
   articleNewData.id = articleId;
   articleNewData.published = published;
+  articleNewData.created_on = new Date();
 
   const articles = getArticles();
 

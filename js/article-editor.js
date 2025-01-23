@@ -85,8 +85,8 @@ function loadArticle() {
   $("#save-article").hide();
   $("#save-update-draft").show();
   $("#save-update-article").show();
-  $("#save-update-draft").attr("data-articleId", articleId);
-  $("#save-update-article").attr("data-articleId", articleId);
+  $("#save-update-draft").attr("data-articleId", articleData.id);
+  $("#save-update-article").attr("data-articleId", articleData.id);
 }
 
 function handleSaveArticle() {
