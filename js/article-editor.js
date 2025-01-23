@@ -120,7 +120,7 @@ function handleUpdateArticle() {
 }
 
 function createNewElement(elementType, content) {
-  if (elementType === "title-section") {
+  if (elementType == "title-section") {
     return $(
       `<div class="element">
         <h3 class="section-title" contenteditable="true">${ content ?? "Títol de secció..."}</h3>
@@ -128,7 +128,7 @@ function createNewElement(elementType, content) {
     );
   }
 
-  if (elementType === "paragraph") {
+  if (elementType == "paragraph") {
     return $(
       `<div class="element">
         <p contenteditable="true">${ content ?? "Paràgraf..."}</p>
@@ -136,7 +136,7 @@ function createNewElement(elementType, content) {
     );
   }
 
-  if (elementType === "image") {
+  if (elementType == "image") {
     return $(
       `<div class="element">
         <input type="file" accept="image/*" onchange="loadImage(event)" />

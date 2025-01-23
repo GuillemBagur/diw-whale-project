@@ -17,7 +17,7 @@ function getArticleByUrl() {
 
 function joinAuthorToArticle(article) {
   let articleView = { ...article };
-  const author = findUser((user) => article?.author_id === user.id);
+  const author = findUser((user) => article?.author_id == user.id);
   articleView.author = author;
   return articleView;
 }

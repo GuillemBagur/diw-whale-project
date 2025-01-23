@@ -272,6 +272,9 @@
   transform: scale(0.95);
   transition: all 0.1s;
 }
+.admin-panel-nav__link--last {
+  margin-top: 3rem;
+}
 
 .modal-overlay {
   position: fixed;

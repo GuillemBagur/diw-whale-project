@@ -34,7 +34,7 @@ function drawCardUser(user) {
         <article class="card" data-userid="${user.id}">
                 <h3 class="card__title">${user.name}</h3>
                 <h4 class="card__subtitle">${user.email}</h4>
-                <button id="update-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></button>
+                <a href="/diw-whale-project/views/admin-panel.html?page=userEditor&userId=${user.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
                 ${!isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
         </article>
     `;
@@ -42,13 +42,21 @@ function drawCardUser(user) {
 
 
 function drawCardArticle(article) {
+    function canEdit(user, article) {
+        if(isMainUser(user)) {
+            return true;
+        }
+
+        return user.id == article.author.id;
+    }
+
     const articleLink = article.published ? `target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"` : "";
 
     return `
         <article class="card" data-articleid="${article.id}">
-                <a class="card__link" ${articleLink}><h3 class="card__title">${article.title}${articleLink && `<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" />`}</h3></a>
+                <a class="card__link" ${articleLink}><h3 class="card__title">${article.title}${articleLink ? `<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" />` : ""}</h3></a>
                 <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
-                <a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
+                ${canEdit(getSessionUser(), article) ? `<a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>` : ""}
                 <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>
         </article>
     `;
@@ -81,8 +89,11 @@ function setChecked(prop) {
     return prop ? "checked" : "";
 }
 
-function drawPageUserEditor(userId) {
+function drawPageUserEditor() {
     clearPage();
+
+    const url = new URL(window.location.href);
+    const userId = url.searchParams.get("userId");
 
     const emptyUser = {
         name: "",
@@ -91,13 +102,13 @@ function drawPageUserEditor(userId) {
         edit_bone_files: false,
         edit_users: false,
     }
-    const user = findUser(user => user.id === +userId) ?? emptyUser;
+    const user = findUser(user => user.id == +userId) ?? emptyUser;
 
     $("#admin-panel").append(`
         <section class="section section--white">
             <h2 class="section__title section__title--dark-blue section__title--centered">Gestionar usuari</h2>
             
-            <form id="edit-user" class="form form--over-white form--small">
+            <form id="user-editor" class="form form--over-white form--small">
                 <div class="form__control">
                     <label class="form__label" for="name">Nom d'usuari</label>
                     <input type="text" id="name" class="input-text" placeholder="Escriu el nom d'usuari" value="${user.name}" />
@@ -136,7 +147,7 @@ function drawPageUserEditor(userId) {
                 </fieldset>
 
                 <div class="form__button-wrapper">
-                    <button class="btn-orange btn--block btn--w100 btn--big btn--login" type="submit">Canvia</button>
+                    <button class="btn-orange btn--block btn--w100 btn--big btn--login" type="submit">Guardar</button>
                     <small class="form__error-msg"></small>
                 </div>
             </form>
@@ -228,23 +239,29 @@ function handlePages() {
     const url = new URL(window.location.href);
     const page = url.searchParams.get("page");
 
-    if(page === "articleEditor") {
+    if(page == "articleEditor") {
         drawPageArticleEditor();
         return;
     }
 
-    if(page === "articlesList") {
+    if(page == "articlesList") {
         drawPageArticlesList();
         return;
     }
 
-    if(page === "userEditor") {
+    if(page == "userEditor") {
         drawPageUserEditor();
         return;
     }
 
-    if(page === "usersList") {
+    if(page == "usersList") {
         drawPageUsersList();
+        return;
+    }
+
+    if(page == "logout") {
+        logout();
+        window.location.href = "/diw-whale-project/views/index.html";
         return;
     }
 
@@ -264,7 +281,7 @@ $(function () {
         let isValidated = true;
 
         isValidated = updateValidation(isValidated,
-            validateElement($newPasswordConfirm, (passwordConfirm) => $newPassword.val() === passwordConfirm, "Les contrasenyes no coincideixen."));
+            validateElement($newPasswordConfirm, (passwordConfirm) => $newPassword.val() == passwordConfirm, "Les contrasenyes no coincideixen."));
 
         isValidated = updateValidation(isValidated,
             checkRequiredElement($newPasswordConfirm, "Has d'escriure la comprovació de la contrasenya."));
@@ -273,7 +290,7 @@ $(function () {
             validateElement($newPassword, validatePassword, "La contrasenya ha de tenir números, majúscules, minúscules i almenys un caràcter especial."));
 
         if (isValidated) {
-            user.password = hash($newPassword.val(), user.salt);
+            user.password = $newPassword.val();
             user.is_first_login = false;
             updateUser(user.id, user);
             setSessionUser(user);
@@ -281,11 +298,15 @@ $(function () {
         }
     });
 
-    $("#admin-panel").on("submit", "#edit-user", function (e) {
+    $("#admin-panel").on("submit", "#user-editor", function (e) {
         e.preventDefault();
 
-        const $newPassword = $("#new-password");
-        const $newPasswordConfirm = $("#new-password-confirm");
+        const url = new URL(window.location.href);
+        const userId = url.searchParams.get("userId");
+        const user = findUser(user => user.id == userId);
+
+        const $newPassword = $("#password");
+        const $newPasswordConfirm = $("#password-confirm");
 
         let isValidated = true;
 
@@ -297,7 +318,7 @@ $(function () {
 
         if ($newPassword.val()) {
             isValidated = updateValidation(isValidated,
-                validateElement($newPasswordConfirm, (passwordConfirm) => $newPassword.val() === passwordConfirm, "Les contrasenyes no coincideixen."));
+                validateElement($newPasswordConfirm, (passwordConfirm) => $newPassword.val() == passwordConfirm, "Les contrasenyes no coincideixen."));
 
             isValidated = updateValidation(isValidated,
                 checkRequiredElement($newPasswordConfirm, "Has d'escriure la comprovació de la contrasenya."));
@@ -307,19 +328,42 @@ $(function () {
         }
 
         if (isValidated) {
-            if($newPassword.val()) {
-                user.password = hash($newPassword.val(), user.salt);
+            const isUpdate = !!user;
+
+            if(isUpdate) {
+                user.name = $("#name").val();
+                user.email = $("#email").val();
+                user.edit_news = $("#edit-news").is(":checked");
+                user.edit_bone_files = $("#edit-bone-files").is(":checked");
+                user.edit_users = $("#edit-users").is(":checked");
+
+                if($newPassword.val()) {
+                    user.password = $newPassword.val();
+                }
+
+                console.log(user);
+
+                updateUser(userId, user);
+                alert("Usuari actualitzat correctament.");
+
+            } else {
+                console.log($newPassword.val());
+                let newUser = {};
+                newUser.name = $("#name").val();
+                newUser.email = $("#email").val();
+                newUser.password = $newPassword.val();
+                newUser.edit_news = $("#edit-news").is(":checked");
+                newUser.edit_bone_files = $("#edit-bone-files").is(":checked");
+                newUser.edit_users = $("#edit-users").is(":checked");
+
+                
+                addUser(generateUser(newUser));
+                alert("Usuari creat correctament.");
             }
 
-            user.name = $("#name").val();
-            user.email = $("#email").val();
-            user.edit_news = $("#edit-news").is(":checked");
-            user.edit_bone_files = $("#edit-bone-files").is(":checked");
-            user.edit_users = $("#edit-users").is(":checked");
 
-            updateUser(user.id, user);
 
-            drawPageUsersList();
+            //window.location.href = "?page=usersList";
         }
     });
 
@@ -332,24 +376,12 @@ $(function () {
         deleteUser(userId, drawPageUsersList);
     });
 
-    $("#admin-panel").on("click", "#update-user, .user-card", function(e) {
-        const userId = e.target.dataset.userid;
-
-        drawPageUserEditor(userId);
-    });
-
     $("#admin-panel").on("click", "#delete-article", function(e) {
         const articleId = e.target.dataset.articleid;
 
         // Modal confirm component under construction
         // drawModalConfirm("Estàs segur que vols eliminar la notícia " + article.title + "?", () => deleteArticle(articleId));
         deleteArticle(articleId, drawPageArticlesList);
-    });
-
-    $("#admin-panel").on("click", "#update-article", function(e) {
-        const articleId = e.target.dataset.articleid;
-
-        drawPageArticleEditor(articleId);
     });
 
 

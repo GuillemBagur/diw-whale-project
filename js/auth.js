@@ -11,7 +11,7 @@ function findUser(condition) {
 }
 
 function random32() {
-    if (randomId === randLen) {
+    if (randomId == randLen) {
         randomId = 0
         return crypto.getRandomValues(randomArray)[randomId++] * 2.3283064365386963e-10
     }
@@ -26,10 +26,15 @@ function getSessionUser(failAuthRedirectUrl = "/diw-whale-project/views/index.ht
     const user = JSON.parse(localStorage.getItem("whale-session"));
 
     if(user) {
+        console.log(user);
         return user;
     }
 
     window.location.href = failAuthRedirectUrl;
+}
+
+function logout() {
+    localStorage.removeItem("whale-session");
 }
 
 async function getDefaultUser() {
@@ -39,14 +44,6 @@ async function getDefaultUser() {
 async function addDefaultUserToLocalStorage() {
     const user = generateUser(await getDefaultUser());
     addUser(user);
-}
-
-function generateUser(userData) {
-    const user = {...userData};
-    user.salt = generateSalt();
-    user.password = hash(user.password, user.salt);
-
-    return user;
 }
 
 function generateSalt() {
@@ -76,11 +73,12 @@ function hash(string, salt) {
 }
 
 function checkUserPassword(password, user) {
+    console.log(password);
     password = hash(password, user.salt);
 
     console.log(password, user.password, user.salt);
 
-    return password === user.password;
+    return password == user.password;
 }
 
 function getUsers() {
@@ -103,7 +101,7 @@ function addUser(user) {
 
     users.push(user);
     
-    if(user.is_first_login === undefined) {
+    if(user.is_first_login == undefined) {
         user.is_first_login = true;
     }
 
@@ -121,10 +119,24 @@ function deleteUser(userId, callback = () => {}) {
     callback();
 }
 
+function generateUser(userData) {
+    const user = {...userData};
+    user.salt = generateSalt();
+    console.log(userData);
+    user.password = hash(user.password, user.salt);
+
+    console.log(user);
+    return user;
+}
+
 function updateUser(userId, userNewData) {
     const users = getUsers();
-
-    const userIndex = users.findIndex(user => user.id === userId);
+    
+    const userIndex = users.findIndex(user => user.id == userId);
+    
+    if(userNewData.password) {
+        userNewData.password = hash(userNewData.password, users[userIndex].salt);
+    }
 
     users[userIndex] = userNewData;
 
@@ -132,7 +144,7 @@ function updateUser(userId, userNewData) {
 }
 
 function isMainUser(user) {
-    return user.id === 1;
+    return user.id == 1;
 }
 
 

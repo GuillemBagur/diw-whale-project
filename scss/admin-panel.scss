@@ -21,6 +21,10 @@
         width: 100%;
         margin-bottom: 1rem;
         @include button($orange, $dark_blue);
+
+        &--last {
+            margin-top: 3rem;
+        }
     }
 }
 

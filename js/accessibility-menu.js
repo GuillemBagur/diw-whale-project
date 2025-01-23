@@ -179,7 +179,7 @@ function applyFilter(filter) {
     main.style.filter = filters[filter];
     footer.style.filter = filters[filter];
 
-    if (filter === "light-contrast") {
+    if (filter == "light-contrast") {
         main.classList.add("main--inverted");
     }
 }

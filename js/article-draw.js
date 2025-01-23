@@ -1,17 +1,17 @@
 function drawArticleElement(elementType, content) {
-  if (elementType === "title-section") {
+  if (elementType == "title-section") {
     return $(
       `<h2 class="font-serif text-darkblue text-3xl font-bold">${content}</h2>`
     );
   }
 
-  if (elementType === "paragraph") {
+  if (elementType == "paragraph") {
     return $(
       `<p class="text-justify text-brown font-sans text-lg mb-6">${content}</p>`
     );
   }
 
-  if (elementType === "image") {
+  if (elementType == "image") {
     return $(
       `<img src="${content}" alt="Imagen" class="w-full object-cover" />`
     );
@@ -53,11 +53,11 @@ function drawArticle() {
 }
 
 function getFirstImageInArticle(article) {
-  return article?.content.flat(2).find(column => column.type === "image");
+  return article?.content.flat(2).find(column => column.type == "image");
 }
 
 function getFirstParagraphInArticle(article) {
-  return article?.content.flat(2).find(column => column.type === "paragraph");
+  return article?.content.flat(2).find(column => column.type == "paragraph");
 }
 
 function drawArticlesPreview() {

@@ -3,7 +3,7 @@ const domPassword = $("#password");
 
 
 function loginUser() {
-    const user = findUser(user => user.email === domEmail.val() && checkUserPassword(domPassword.val(), user));
+    const user = findUser(user => user.email == domEmail.val() && checkUserPassword(domPassword.val(), user));
 
     if(user) {
         hideErrorMessages();
@@ -38,4 +38,10 @@ $("#login-form").on("submit", function (e) {
     e.preventDefault();
 
     loginUser();
+});
+
+$(function() {
+    if(localStorage.getItem("whale-session")) {
+        window.location.href = "/diw-whale-project/views/admin-panel.html";
+    }
 });
