@@ -81,22 +81,3 @@ function deleteArticle(articleId, callback = () => {}) {
   callback();
 }
 
-function updateArticle(articleId, published) {
-  const articleNewData = getAllArticleData();
-  articleNewData.id = articleId;
-  articleNewData.published = published;
-  articleNewData.created_on = new Date();
-
-  const articles = getArticles();
-
-  const articleIndex = articles.findIndex(
-    (article) => article.id == articleId
-  );
-
-  articles[articleIndex] = articleNewData;
-
-  console.log(articleNewData);
-  console.log(articles);
-
-  saveArticles(articles);
-}

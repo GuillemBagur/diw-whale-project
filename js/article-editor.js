@@ -90,6 +90,10 @@ function loadArticle() {
 }
 
 function handleSaveArticle() {
+  if(blockUnallowedUserToCreate()) {
+    return;
+  }
+
   addArticle({ ...getAllArticleData(), published: true });
 
   alert("Article guardat i publicat");
@@ -97,26 +101,56 @@ function handleSaveArticle() {
 }
 
 function handleSaveDraft() {
+  if(blockUnallowedUserToCreate()) {
+    return;
+  }
+
   addArticle({ ...getAllArticleData(), published: false });
 
   alert("Article guardat com a esborray");
   window.location.href = "?page=articlesList";
 }
 
+
+function updateArticle(articleId, published) {
+  if(blockUnallowedUserToEdit(articleId)) {
+    return false;
+  }
+
+  const articleNewData = getAllArticleData();
+
+  articleNewData.id = articleId;
+  articleNewData.published = published;
+  articleNewData.created_on = new Date();
+
+  const articles = getArticles();
+
+  const articleIndex = articles.findIndex(
+    (article) => article.id == articleId
+  );
+
+  articles[articleIndex] = articleNewData;
+
+  saveArticles(articles);
+  return true;
+}
+
 function handleUpdateDraft() {
   const articleId = $(this).attr("data-articleId");
-  updateArticle(articleId, false);
+  if(updateArticle(articleId, false)) {
+    alert("Esborrany guardat");
+    window.location.href = "?page=articlesList";
+  }
 
-  alert("Esborrany guardat");
-  window.location.href = "?page=articlesList";
 }
 
 function handleUpdateArticle() {
   const articleId = $(this).attr("data-articleId");
-  updateArticle(articleId, true);
 
-  alert("Article actualitzat i publicat");
-  window.location.href = "?page=articlesList";
+  if(updateArticle(articleId, true)) {
+    alert("Article actualitzat i publicat");
+    window.location.href = "?page=articlesList";
+  }
 }
 
 function createNewElement(elementType, content) {
@@ -173,12 +207,51 @@ function initializeDroppable() {
   });
 }
 
+// Atm, they wont be sortable
 function makeColumnsSortable() {
   return;
   
   $(".row__column").each(function () {
     $(this).sortable();
   });
+}
+
+function checkUserisAllowedToCreate() {
+  const sessionUser = getSessionUser();
+
+  if(isMainUser(sessionUser)) {
+    return true;
+  }
+
+  return sessionUser.edit_news;
+}
+
+function checkUserIsAllowedToEdit(articleId) {
+  const sessionUser = getSessionUser();
+  const article = findArticle(article => article.id == articleId);
+
+  return checkUserisAllowedToCreate() && sessionUser.id == article.author_id;
+}
+
+function blockUnallowedUserToCreate() {
+  if(!checkUserisAllowedToCreate()) {
+    alert("No pots crear notícies.");
+    window.location.href = "/diw-whale-project/views/admin-panel.html";
+    return true;
+  }
+
+  return false;
+}
+
+
+function blockUnallowedUserToEdit(articleId) {
+  if(!checkUserIsAllowedToEdit(articleId)) {
+    alert("No pots editar aquesta notícia.");
+    window.location.href = "/diw-whale-project/views/admin-panel.html";
+    return true;
+  }
+
+  return false;
 }
 
 $(function () {

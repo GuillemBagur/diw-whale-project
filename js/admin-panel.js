@@ -268,6 +268,23 @@ function handlePages() {
     drawPageDefault();
 }
 
+function drawAdminPanelNav() {
+    const sessionUser = getSessionUser();
+
+    if(sessionUser.edit_users) {
+        $("#admin-panel-nav").append(`<a href="?page=usersList" class="admin-panel-nav__link">Usuaris</a>`);
+    }
+
+    if(sessionUser.edit_news) {
+        $("#admin-panel-nav").append(`<a href="?page=articlesList" class="admin-panel-nav__link">Notícies</a>`);
+    }
+
+    if(sessionUser.edit_bone_files) {
+        $("#admin-panel-nav").append(`<a href="?page=bonesList" class="admin-panel-nav__link">Fitxes d'ossos</a>`);
+    }
+
+    $("#admin-panel-nav").append(`<a href="?page=logout" class="admin-panel-nav__link admin-panel-nav__link--last">Tanca la sessió</a>`);
+}
 
 $(function () {
     const user = getSessionUser();
@@ -396,5 +413,6 @@ $(function () {
         return;
     }
 
+    drawAdminPanelNav();
     handlePages();
 });
