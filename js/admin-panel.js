@@ -361,13 +361,15 @@ $(function () {
                 alert("Usuari creat correctament.");
             }
 
-
-
-            //window.location.href = "?page=usersList";
+            window.location.href = "?page=usersList";
         }
     });
 
     $("#admin-panel").on("click", "#delete-user", function(e) {
+        if(!confirm("Segur que vols borrar aquest usuari?")) {
+            return;
+        }
+
         const userId = e.target.dataset.userid;
 
         // Modal confirm component under construction
@@ -377,6 +379,10 @@ $(function () {
     });
 
     $("#admin-panel").on("click", "#delete-article", function(e) {
+        if(!confirm("Segur que vols borrar aquesta notícia?")) {
+            return;
+        }
+
         const articleId = e.target.dataset.articleid;
 
         // Modal confirm component under construction

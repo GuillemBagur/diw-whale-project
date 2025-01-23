@@ -73,10 +73,7 @@ function hash(string, salt) {
 }
 
 function checkUserPassword(password, user) {
-    console.log(password);
     password = hash(password, user.salt);
-
-    console.log(password, user.password, user.salt);
 
     return password == user.password;
 }

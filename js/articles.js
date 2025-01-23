@@ -47,6 +47,10 @@ function getArticlesView(condition = () => true) {
   return articles;
 }
 
+function getArticlesViewSortedByDate(condition = () => true) {
+  return getArticlesView(condition).sort((a, b) => b.created_on.localeCompare(a.created_on));
+}
+
 function saveArticles(articles) {
   localStorage.setItem(ARTICLES_LOCAL_STORAGE, JSON.stringify(articles));
 }

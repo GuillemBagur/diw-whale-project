@@ -61,9 +61,10 @@ function getFirstParagraphInArticle(article) {
 }
 
 function drawArticlesPreview() {
-  const articles = getArticlesView((article) => article.published);
+  const articles = getArticlesViewSortedByDate((article) => article.published);
   
   for (let article of articles) {
+    const imageSrc = getFirstImageInArticle(article)?.content;
     let articleHtml = `<section class="mt-[5rem] mb-[10rem] md:mb-[3rem]"><article class="relative">`;
     articleHtml += `<h2 class="article-title">${article.title}</h2>`;
     articleHtml += `
@@ -80,7 +81,10 @@ function drawArticlesPreview() {
         </div>
     </div>
     `;
-    articleHtml += `<img class="rounded-xl w-full max-h-[30rem] object-cover" src="${getFirstImageInArticle(article)?.content}" alt="Imatge del procés de restauració.">`;
+
+    if(imageSrc) {
+      articleHtml += `<img class="rounded-xl w-full max-h-[30rem] object-cover" src="${imageSrc}" alt="Imatge del procés de restauració.">`;
+    }
 
     articleHtml += `
     <div class="relative">
