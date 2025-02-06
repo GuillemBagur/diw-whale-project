@@ -225,12 +225,13 @@
     <script src="/diw-whale-project/js/nav.js"></script>
     <script src="/diw-whale-project/js/accessibility-menu.js"></script>
     <script type="module" src="/diw-whale-project/js/users.js"></script>
-    <script src="/diw-whale-project/js/functions.js"></script>
-    <script src="/diw-whale-project/js/articles.js"></script>
-    <script src="/diw-whale-project/js/article-draw.js"></script>
+    <script type="module" src="/diw-whale-project/js/functions.js"></script>
+    <script type="module" src="/diw-whale-project/js/articles.js"></script>
 
-    <script>
-        drawArticlesPreview();
+    <script type="module">
+        import { drawArticlesPreview } from "/diw-whale-project/js/article-draw.js";
+
+        drawArticlesPreview(2);
     </script>
 </body>
 
