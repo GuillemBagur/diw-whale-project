@@ -1,5 +1,5 @@
 // https://github.com/irevm/jquery_examples
-import { addArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
+import { addArticle, findArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
 
@@ -62,6 +62,10 @@ async function loadArticle() {
   const articleData = await getArticleByUrl();
 
   if (!articleData) {
+    $("#save-draft").show();
+    $("#save-article").show();
+    $("#save-update-draft").hide();
+    $("#save-update-article").hide();
     return;
   }
 
@@ -120,24 +124,30 @@ async function updateArticle(articleId, published) {
     return false;
   }
 
+  const article = await findArticle(article => article.id == articleId);
+
   const articleNewData = getAllArticleData();
-  await fsArticleUpdate(articleId, articleNewData);
+  articleNewData.published = published;
+  articleNewData.content = JSON.stringify(articleNewData.content);
+  articleNewData.updated_on = new Date();
+  console.log(articleId, articleNewData);
+  await fsArticleUpdate(articleId, {...article, ...articleNewData});
   return true;
 }
 
-function handleUpdateDraft() {
+async function handleUpdateDraft() {
   const articleId = $(this).attr("data-articleId");
-  if(updateArticle(articleId, false)) {
+  if(await updateArticle(articleId, false)) {
     alert("Esborrany guardat");
     window.location.href = "?page=articlesList";
   }
 
 }
 
-function handleUpdateArticle() {
+async function handleUpdateArticle() {
   const articleId = $(this).attr("data-articleId");
 
-  if(updateArticle(articleId, true)) {
+  if(await updateArticle(articleId, true)) {
     alert("Article actualitzat i publicat");
     window.location.href = "?page=articlesList";
   }
@@ -251,6 +261,12 @@ export function blockUnallowedUserToEdit(articleId) {
 }
 
 $(async function () {
+  $("#save-draft").show();
+  $("#save-article").show();
+  $("#save-update-draft").hide();
+  $("#save-update-article").hide();
+
+
   await loadArticle();
 
   // Hacer los elementos de la toolbox arrastrables
@@ -283,11 +299,6 @@ $(async function () {
   $("#save-article").on("click", handleSaveArticle);
   $("#save-update-draft").on("click", handleUpdateDraft);
   $("#save-update-article").on("click", handleUpdateArticle);
-
-  $("#save-draft").show();
-  $("#save-article").show();
-  $("#save-update-draft").hide();
-  $("#save-update-article").hide();
 
   initializeDroppable();
 

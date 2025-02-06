@@ -59,7 +59,7 @@
     </main>
 
     <footer class="footer">
-        <p class="footer__credits">Web by: Guiem Bagur</p>
+        <a class="footer__credits" href="https://guiem.dev" target="_blank">Web by: Guiem Bagur</a>
         <p class="footer__copyright">&copy; 2024 - Present</p>
     </footer>
 
@@ -144,11 +144,12 @@
     <script src="/diw-whale-project/js/nav.js"></script>
     <script src="/diw-whale-project/js/accessibility-menu.js"></script>
     <script type="module" src="/diw-whale-project/js/users.js"></script>
-    <script src="/diw-whale-project/js/functions.js"></script>
-    <script src="/diw-whale-project/js/articles.js"></script>
-    <script src="/diw-whale-project/js/article-draw.js"></script>
+    <script type="module" src="/diw-whale-project/js/functions.js"></script>
+    <script type="module" src="/diw-whale-project/js/articles.js"></script>
 
-    <script>
+
+    <script type="module">
+        import { drawArticle } from "/diw-whale-project/js/article-draw.js";
         drawArticle();
     </script>
 </body>

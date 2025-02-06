@@ -1,5 +1,5 @@
 import { addRow } from "./article-editor.js";
-import { getArticlesView } from "./articles.js";
+import { deleteArticle, getArticlesView, getArticlesViewSortedByDate } from "./articles.js";
 import { fsUserGetById } from "./firebase.js";
 import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, setSessionUser, logout, hash, deleteUser } from "./users.js";
 
@@ -167,7 +167,7 @@ async function drawPageUserEditor() {
 
 
 export async function drawPageArticlesList() {
-    const storedArticles = await getArticlesView();
+    const storedArticles = await getArticlesViewSortedByDate();
 
     clearPage();
     $("#admin-panel").append(`

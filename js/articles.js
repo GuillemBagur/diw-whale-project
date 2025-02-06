@@ -13,7 +13,7 @@ export async function getArticleByUrl() {
   const url = new URL(window.location.href);
   const articleId = url.searchParams.get("articleId");
 
-  const articleData = await findArticle((article) => article.id == articleId);
+  const [articleData] = await getArticlesView((article) => article.id == articleId);
 
   return articleData;
 }
@@ -55,7 +55,7 @@ export async function getArticlesView(condition = () => true) {
 }
 
 export async function getArticlesViewSortedByDate(condition = () => true) {
-  return await getArticlesView(condition).sort((a, b) => b.created_on.localeCompare(a.created_on));
+  return (await getArticlesView(condition)).sort((a, b) => b.created_on.seconds - a.created_on.seconds);
 }
 
 export function saveArticles(articles) {
@@ -64,6 +64,8 @@ export function saveArticles(articles) {
 
 export async function addArticle(article) {
   article.content = JSON.stringify(article.content);
+  article.created_on = new Date();
+  article.updated_on = new Date();
   await fsArticleAdd(article);
 }
 

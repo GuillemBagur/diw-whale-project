@@ -86,6 +86,9 @@
   padding: 3rem;
 }
 .footer__credits {
+  display: block;
+  color: white;
+  text-decoration: none;
   text-align: center;
   font-family: "Libre Baskerville", "Times New Roman", serif;
   font-size: 1.5rem;
