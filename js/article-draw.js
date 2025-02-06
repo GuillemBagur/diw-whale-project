@@ -1,4 +1,4 @@
-import { getArticleByUrl, getArticlesView, getArticlesViewSortedByDate } from "./articles.js";
+import { getArticleByUrl, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
 import { stringToHumanDate } from "./functions.js";
 
 function drawArticleElement(elementType, content) {
@@ -67,7 +67,7 @@ function getFirstParagraphInArticle(article) {
 }
 
 export async function drawArticlesPreview(numArticlesToDisplay) {
-  let articles = await getArticlesViewSortedByDate(
+  let articles = await getArticlesViewSortedByCreatedOn(
     (article) => article.published
   );
 

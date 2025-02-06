@@ -1,7 +1,7 @@
 import { addRow } from "./article-editor.js";
-import { deleteArticle, getArticlesView, getArticlesViewSortedByDate } from "./articles.js";
+import { deleteArticle, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
 import { fsUserGetById } from "./firebase.js";
-import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, setSessionUser, logout, hash, deleteUser } from "./users.js";
+import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, setSessionUser, logout, hash, deleteUser, getUsersSortedByCreatedOn } from "./users.js";
 
 export function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
@@ -69,7 +69,7 @@ export function drawCardArticle(article) {
 
 
 async function drawPageUsersList() {
-    const storedUsers = await getUsers();
+    const storedUsers = await getUsersSortedByCreatedOn();
 
     clearPage();
     $("#admin-panel").append(`
@@ -167,7 +167,7 @@ async function drawPageUserEditor() {
 
 
 export async function drawPageArticlesList() {
-    const storedArticles = await getArticlesViewSortedByDate();
+    const storedArticles = await getArticlesViewSortedByCreatedOn();
 
     clearPage();
     $("#admin-panel").append(`
@@ -382,7 +382,6 @@ $(function () {
 
                 
                 await addUser(newUser);
-                console.log(await getUsers());
                 alert("Usuari creat correctament.");
             }
 

@@ -54,7 +54,7 @@ export async function getArticlesView(condition = () => true) {
   return articles;
 }
 
-export async function getArticlesViewSortedByDate(condition = () => true) {
+export async function getArticlesViewSortedByCreatedOn(condition = () => true) {
   return (await getArticlesView(condition)).sort((a, b) => b.created_on.seconds - a.created_on.seconds);
 }
 

@@ -83,6 +83,11 @@ export async function getUsers() {
     return users.filter(user => user.active == 1)
 }
 
+export async function getUsersSortedByCreatedOn() {
+    let users = await getUsers();
+    return users.sort((userA, userB) => userA.created_on?.seconds - userB?.created_on?.seconds);
+}
+
 export function saveUsers(users) {
     localStorage.setItem(USERS_LOCAL_STORAGE, JSON.stringify(users));
 }
@@ -92,7 +97,9 @@ export async function addUser(userData) {
 }
 
 export async function deleteUser(userId, callback = () => {}) {
-    await fsUserDelete(userId);
+    const user = await findUser(user => user.id == userId);
+
+    await fsUserUpdate(userId, {...user, active: 0});
     callback();
 }
 
@@ -102,6 +109,7 @@ export function generateUser(userData) {
     user.salt = generateSalt();
     user.password = hash(user.password, user.salt);
     user.is_first_login = true;
+    user.created_on = new Date();
 
     return user;
 }
