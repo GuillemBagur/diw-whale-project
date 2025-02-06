@@ -1,4 +1,9 @@
-function drawPageChangePassword() {
+import { addRow } from "./article-editor.js";
+import { getArticlesView } from "./articles.js";
+import { fsUserGetById } from "./firebase.js";
+import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, setSessionUser, logout, hash, deleteUser } from "./users.js";
+
+export function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
     $("#admin-panel").append(`
         <div id="change-password" class="modal">
@@ -24,24 +29,24 @@ function drawPageChangePassword() {
     `);
 }
 
-function clearPage() {
+export function clearPage() {
     $("#admin-panel").html("");
 }
 
 
-function drawCardUser(user) {
+export function drawCardUser(user) {
     return `
         <article class="card" data-userid="${user.id}">
                 <h3 class="card__title">${user.name}</h3>
                 <h4 class="card__subtitle">${user.email}</h4>
-                <a href="/diw-whale-project/views/admin-panel.html?page=userEditor&userId=${user.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>
+                ${!isMainUser(user) ? `<a href="/diw-whale-project/views/admin-panel.html?page=userEditor&userId=${user.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>` : ""}
                 ${!isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
         </article>
     `;
 }
 
 
-function drawCardArticle(article) {
+export function drawCardArticle(article) {
     function canEdit(user, article) {
         if(isMainUser(user)) {
             return true;
@@ -63,8 +68,8 @@ function drawCardArticle(article) {
 }
 
 
-function drawPageUsersList() {
-    const storedUsers = getUsers();
+async function drawPageUsersList() {
+    const storedUsers = await getUsers();
 
     clearPage();
     $("#admin-panel").append(`
@@ -79,17 +84,17 @@ function drawPageUsersList() {
         </section>
     `);
 
-    $userList = $("#users-list");
+    let $userList = $("#users-list");
     $(storedUsers).each(function (_, user) {
         $userList.append(drawCardUser(user));
     });
 }
 
-function setChecked(prop) {
+export function setChecked(prop) {
     return prop ? "checked" : "";
 }
 
-function drawPageUserEditor() {
+async function drawPageUserEditor() {
     clearPage();
 
     const url = new URL(window.location.href);
@@ -102,7 +107,12 @@ function drawPageUserEditor() {
         edit_bone_files: false,
         edit_users: false,
     }
-    const user = findUser(user => user.id == +userId) ?? emptyUser;
+
+    let user = emptyUser;
+    
+    if(userId) {
+        user = await fsUserGetById(userId);
+    }
 
     $("#admin-panel").append(`
         <section class="section section--white">
@@ -156,8 +166,8 @@ function drawPageUserEditor() {
 }
 
 
-function drawPageArticlesList() {
-    const storedArticles = getArticlesView();
+export async function drawPageArticlesList() {
+    const storedArticles = await getArticlesView();
 
     clearPage();
     $("#admin-panel").append(`
@@ -171,14 +181,14 @@ function drawPageArticlesList() {
         </section>
     `);
 
-    $articleList = $("#articles-list");
+    let $articleList = $("#articles-list");
     $(storedArticles).each(function (_, article) {
         $articleList.append(drawCardArticle(article));
     });
 
 }
 
-function drawPageArticleEditor() {
+export function drawPageArticleEditor() {
     clearPage();
 
     $("#admin-panel").append(`
@@ -230,12 +240,12 @@ function drawPageArticleEditor() {
     
 }
 
-function drawPageDefault() {
+export function drawPageDefault() {
     console.log("Default page");
     drawPageArticlesList();
 }
 
-function handlePages() {
+export function handlePages() {
     const url = new URL(window.location.href);
     const page = url.searchParams.get("page");
 
@@ -268,7 +278,7 @@ function handlePages() {
     drawPageDefault();
 }
 
-function drawAdminPanelNav() {
+export function drawAdminPanelNav() {
     const sessionUser = getSessionUser();
 
     if(sessionUser.edit_users) {
@@ -289,7 +299,7 @@ function drawAdminPanelNav() {
 $(function () {
     const user = getSessionUser();
 
-    $("#admin-panel").on("submit", "#change-password", function (e) {
+    $("#admin-panel").on("submit", "#change-password", async function (e) {
         e.preventDefault();
 
         const $newPassword = $("#new-password");
@@ -307,20 +317,20 @@ $(function () {
             validateElement($newPassword, validatePassword, "La contrasenya ha de tenir números, majúscules, minúscules i almenys un caràcter especial."));
 
         if (isValidated) {
-            user.password = $newPassword.val();
+            user.password = hash($newPassword.val(), user.salt);
             user.is_first_login = false;
-            updateUser(user.id, user);
+            await updateUser(user.id, user);
             setSessionUser(user);
             window.location.reload();
         }
     });
 
-    $("#admin-panel").on("submit", "#user-editor", function (e) {
+    $("#admin-panel").on("submit", "#user-editor", async function (e) {
         e.preventDefault();
 
         const url = new URL(window.location.href);
         const userId = url.searchParams.get("userId");
-        const user = findUser(user => user.id == userId);
+        const user = await findUser(user => user.id == userId);
 
         const $newPassword = $("#password");
         const $newPasswordConfirm = $("#password-confirm");
@@ -355,16 +365,13 @@ $(function () {
                 user.edit_users = $("#edit-users").is(":checked");
 
                 if($newPassword.val()) {
-                    user.password = $newPassword.val();
+                    user.password = hash($newPassword.val(), user.salt);
                 }
 
-                console.log(user);
-
-                updateUser(userId, user);
+                await updateUser(userId, user);
                 alert("Usuari actualitzat correctament.");
 
             } else {
-                console.log($newPassword.val());
                 let newUser = {};
                 newUser.name = $("#name").val();
                 newUser.email = $("#email").val();
@@ -374,7 +381,8 @@ $(function () {
                 newUser.edit_users = $("#edit-users").is(":checked");
 
                 
-                addUser(generateUser(newUser));
+                await addUser(newUser);
+                console.log(await getUsers());
                 alert("Usuari creat correctament.");
             }
 
@@ -382,7 +390,7 @@ $(function () {
         }
     });
 
-    $("#admin-panel").on("click", "#delete-user", function(e) {
+    $("#admin-panel").on("click", "#delete-user", async function(e) {
         if(!confirm("Segur que vols borrar aquest usuari?")) {
             return;
         }
@@ -392,7 +400,8 @@ $(function () {
         // Modal confirm component under construction
         // drawModalConfirm("Estàs segur que vols eliminar l'usuari " + user.name + "?", () => deleteUser(userId));
 
-        deleteUser(userId, drawPageUsersList);
+        await deleteUser(userId, drawPageUsersList);
+        window.location.href = "?page=usersList";
     });
 
     $("#admin-panel").on("click", "#delete-article", function(e) {

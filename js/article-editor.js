@@ -1,4 +1,7 @@
 // https://github.com/irevm/jquery_examples
+import { addArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
+import { fsArticleUpdate } from "./firebase.js";
+import { getSessionUser, isMainUser } from "./users.js";
 
 function getAllArticleData() {
   const article = {
@@ -55,8 +58,8 @@ function saveArticle(published) {
   
 }
 
-function loadArticle() {
-  const articleData = getArticleByUrl();
+async function loadArticle() {
+  const articleData = await getArticleByUrl();
 
   if (!articleData) {
     return;
@@ -89,49 +92,36 @@ function loadArticle() {
   $("#save-update-article").attr("data-articleId", articleData.id);
 }
 
-function handleSaveArticle() {
+async function handleSaveArticle() {
   if(blockUnallowedUserToCreate()) {
     return;
   }
 
-  addArticle({ ...getAllArticleData(), published: true });
+  await addArticle({ ...getAllArticleData(), published: true });
 
   alert("Article guardat i publicat");
   window.location.href = "?page=articlesList";
 }
 
-function handleSaveDraft() {
+async function handleSaveDraft() {
   if(blockUnallowedUserToCreate()) {
     return;
   }
 
-  addArticle({ ...getAllArticleData(), published: false });
+  await addArticle({ ...getAllArticleData(), published: false });
 
   alert("Article guardat com a esborray");
   window.location.href = "?page=articlesList";
 }
 
 
-function updateArticle(articleId, published) {
+async function updateArticle(articleId, published) {
   if(blockUnallowedUserToEdit(articleId)) {
     return false;
   }
 
   const articleNewData = getAllArticleData();
-
-  articleNewData.id = articleId;
-  articleNewData.published = published;
-  articleNewData.created_on = new Date();
-
-  const articles = getArticles();
-
-  const articleIndex = articles.findIndex(
-    (article) => article.id == articleId
-  );
-
-  articles[articleIndex] = articleNewData;
-
-  saveArticles(articles);
+  await fsArticleUpdate(articleId, articleNewData);
   return true;
 }
 
@@ -207,8 +197,8 @@ function initializeDroppable() {
   });
 }
 
-// Atm, they wont be sortable
-function makeColumnsSortable() {
+// Atm, the columns wont be sortable
+export function makeColumnsSortable() {
   return;
   
   $(".row__column").each(function () {
@@ -216,7 +206,7 @@ function makeColumnsSortable() {
   });
 }
 
-function checkUserisAllowedToCreate() {
+export function checkUserisAllowedToCreate() {
   const sessionUser = getSessionUser();
 
   if(isMainUser(sessionUser)) {
@@ -226,7 +216,7 @@ function checkUserisAllowedToCreate() {
   return sessionUser.edit_news;
 }
 
-function checkUserIsAllowedToEdit(articleId) {
+export function checkUserIsAllowedToEdit(articleId) {
   const sessionUser = getSessionUser();
   
   console.log(sessionUser, isMainUser(sessionUser));
@@ -239,7 +229,7 @@ function checkUserIsAllowedToEdit(articleId) {
   return sessionUser.edit_news && sessionUser.id == article.author_id;
 }
 
-function blockUnallowedUserToCreate() {
+export function blockUnallowedUserToCreate() {
   if(!checkUserisAllowedToCreate()) {
     alert("No pots crear notícies.");
     window.location.href = "/diw-whale-project/views/admin-panel.html";
@@ -250,7 +240,7 @@ function blockUnallowedUserToCreate() {
 }
 
 
-function blockUnallowedUserToEdit(articleId) {
+export function blockUnallowedUserToEdit(articleId) {
   if(!checkUserIsAllowedToEdit(articleId)) {
     alert("No pots editar aquesta notícia.");
     window.location.href = "/diw-whale-project/views/admin-panel.html";
@@ -260,7 +250,9 @@ function blockUnallowedUserToEdit(articleId) {
   return false;
 }
 
-$(function () {
+$(async function () {
+  await loadArticle();
+
   // Hacer los elementos de la toolbox arrastrables
   $(".tool").draggable({
     helper: "clone",
@@ -298,10 +290,10 @@ $(function () {
   $("#save-update-article").hide();
 
   initializeDroppable();
-  loadArticle();
+
 });
 
-function loadImage(event) {
+export function loadImage(event) {
   const input = event.target;
   const reader = new FileReader();
   reader.onload = function () {
@@ -313,7 +305,7 @@ function loadImage(event) {
   reader.readAsDataURL(input.files[0]);
 }
 
-function editParagraph(paragraph) {
+export function editParagraph(paragraph) {
   const $p = $(paragraph);
   const currentText = $p.text();
   const input = $(`<input type="text" value="${currentText}" />`);
@@ -330,7 +322,7 @@ function editParagraph(paragraph) {
   input.focus();
 }
 
-function addRow(columnCount) {
+export function addRow(columnCount) {
   let newRow = '<div class="row">';
 
   if (columnCount == "1") {

@@ -1,83 +1,74 @@
+import { fsArticleAdd, fsArticleDelete, fsArticlesGet } from "./firebase.js";
+import { findUser, getUsers } from "./users.js";
+
 const ARTICLES_LOCAL_STORAGE = "whale-articles";
 
-function findArticle(condition) {
-  const articles = getArticles();
+export async function findArticle(condition) {
+  const articles = await getArticles();
 
   return articles.find(condition);
 }
 
-function getArticleByUrl() {
+export async function getArticleByUrl() {
   const url = new URL(window.location.href);
   const articleId = url.searchParams.get("articleId");
 
-  const articleData = findArticle((article) => article.id == articleId);
+  const articleData = await findArticle((article) => article.id == articleId);
 
   return articleData;
 }
 
-function joinAuthorToArticle(article) {
-  let articleView = { ...article };
-  const author = findUser((user) => article?.author_id == user.id);
-  articleView.author = author;
-  return articleView;
-}
-
-function getArticles(condition = () => true) {
-  let articles = localStorage.getItem(ARTICLES_LOCAL_STORAGE);
-  
-  articles = JSON.parse(articles) ?? [];
+export async function getArticles(condition = () => true) {
+  let articles = await fsArticlesGet();
   articles = articles.filter(condition);
+  articles = articles.map(article => ({...article, content: JSON.parse(article.content)}))
 
   return articles;
 }
 
 // Rich data version of article (with author data)
 // Simulates an SQL view
-function getArticlesView(condition = () => true) {
-  let articles = getArticles(condition);
-
-  if(!articles) {
-    return;
+export async function getArticlesView(condition = () => true) {
+  
+  // Identifies what user from the array is the author of the param-given-article
+  // Returns a merged array
+  function joinAuthorToArticle(article, users) {
+    let articleView = { ...article };
+    const author = users.find((user) => article?.author_id == user.id);
+    articleView.author = author;
+    return articleView;
   }
 
+  let articles = await getArticles(condition);
+
+  if(!articles) {
+    return [];
+  }
+
+  const users = await getUsers();
+
   articles = articles.map(function (article) {
-    return joinAuthorToArticle(article);
+    return joinAuthorToArticle(article, users);
   });
 
   return articles;
 }
 
-function getArticlesViewSortedByDate(condition = () => true) {
-  return getArticlesView(condition).sort((a, b) => b.created_on.localeCompare(a.created_on));
+export async function getArticlesViewSortedByDate(condition = () => true) {
+  return await getArticlesView(condition).sort((a, b) => b.created_on.localeCompare(a.created_on));
 }
 
-function saveArticles(articles) {
+export function saveArticles(articles) {
   localStorage.setItem(ARTICLES_LOCAL_STORAGE, JSON.stringify(articles));
 }
 
-function addArticle(article) {
-  let articles = getArticles();
-
-  // Assign ID to that article
-  let lastId = articles[articles.length - 1]?.id ?? 0;
-  article.id = Number(lastId) + 1;
-  article.created_on = new Date();
-
-  articles.push(article);
-
-  saveArticles(articles);
+export async function addArticle(article) {
+  article.content = JSON.stringify(article.content);
+  await fsArticleAdd(article);
 }
 
-function deleteArticle(articleId, callback = () => {}) {
-  const articles = getArticles();
-
-  const articleIndex = articles.findIndex(
-    (article) => article.id == articleId
-  );
-
-  articles.splice(articleIndex, 1);
-
-  saveArticles(articles);
+export function deleteArticle(articleId, callback = () => {}) {
+  fsArticleDelete(articleId);
   callback();
 }
 

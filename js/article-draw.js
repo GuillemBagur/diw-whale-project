@@ -60,8 +60,8 @@ function getFirstParagraphInArticle(article) {
   return article?.content.flat(2).find(column => column.type == "paragraph");
 }
 
-function drawArticlesPreview() {
-  const articles = getArticlesViewSortedByDate((article) => article.published);
+async function drawArticlesPreview() {
+  const articles = await getArticlesViewSortedByDate((article) => article.published);
   
   for (let article of articles) {
     const imageSrc = getFirstImageInArticle(article)?.content;
