@@ -70,8 +70,13 @@ export function generateSalt() {
 
 export async function seedUsers() {
     const users = await getUsers();
+    
     if(!users.length) {
-        addUser(await getDefaultUser())
+        const defaultUser = await getDefaultUser();
+        defaultUser.active = 1;
+        defaultUser.is_first_login = true;
+        defaultUser.created_on = new Date();
+        fsUserAdd(defaultUser);
     }
 }
 
