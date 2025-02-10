@@ -3,6 +3,7 @@ import { addArticle, findArticle, getArticleByUrl, getArticles, saveArticles } f
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
 import { convertFileToBase64 } from "./functions.js";
+import { MAX_FILE_SIZE_UPLOAD } from "./globals.js";
 
 async function getAllArticleData() {
   const article = {
@@ -309,6 +310,13 @@ $(async function () {
 });
 
 export function loadImage(input) {
+  const file = input.files[0];
+
+  if(file.size >= MAX_FILE_SIZE_UPLOAD) {
+    alert("La imatge és massa gran.");
+    return;
+  }
+
   convertFileToBase64(input.files[0], image => $(input).parent().find("img").attr("src", image));
 }
 
