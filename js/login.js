@@ -1,4 +1,4 @@
-import { findUser, checkUserPassword, setSessionUser } from "./users.js";
+import { findUser, checkUserPassword, setSessionUser, SESSION_LOCAL_STORAGE } from "./users.js";
 
 const domEmail = $("#email");
 const domPassword = $("#password");
@@ -43,7 +43,7 @@ $("#login-form").on("submit", function (e) {
 });
 
 $(function() {
-    if(localStorage.getItem("whale-session")) {
+    if(localStorage.getItem(SESSION_LOCAL_STORAGE)) {
         window.location.href = "/diw-whale-project/views/admin-panel.html";
     }
 });

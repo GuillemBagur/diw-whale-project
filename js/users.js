@@ -1,6 +1,7 @@
 import { fsGetUsers, fsUserGetById, fsUserDelete, fsUserAdd, fsUserUpdate } from "./firebase.js";
 
 const USERS_LOCAL_STORAGE = "whale-users";
+export const SESSION_LOCAL_STORAGE = "whale-session";
 
 const randLen = 16384
 var randomId = randLen
@@ -12,6 +13,14 @@ export async function findUser(condition) {
     return users.find(condition);
 }
 
+export function checkUserPermission(user, permission) {
+    if(!user) {
+        return false;
+    }
+
+    return user[permission];
+}
+
 export function random32() {
     if (randomId == randLen) {
         randomId = 0
@@ -21,21 +30,23 @@ export function random32() {
 }
 
 export function setSessionUser(user) {
-    localStorage.setItem("whale-session", JSON.stringify(user));
+    localStorage.setItem(SESSION_LOCAL_STORAGE, user.id);
 }
 
-export function getSessionUser(failAuthRedirectUrl = "/diw-whale-project/views/index.html") {
-    const user = JSON.parse(localStorage.getItem("whale-session"));
+export async function getSessionUser(failAuthRedirectUrl = "/diw-whale-project/views/index.html") {
+    const userId = localStorage.getItem(SESSION_LOCAL_STORAGE);
+    const user = await findUser(user => user.id == userId);
 
     if(user) {
         return user;
     }
 
+    logout();
     window.location.href = failAuthRedirectUrl;
 }
 
 export function logout() {
-    localStorage.removeItem("whale-session");
+    localStorage.removeItem(SESSION_LOCAL_STORAGE);
 }
 
 export async function getDefaultUser() {
@@ -77,10 +88,16 @@ export function checkUserPassword(password, user) {
     return password == user.password;
 }
 
-export async function getUsers() {
+export async function getUsers(includeInactive = false) {
     let users = await fsGetUsers();
 
-    return users.filter(user => user.active == 1)
+    if(includeInactive) {
+        return users;
+
+    } else {
+        return users.filter(user => user.active == 1)
+    }
+
 }
 
 export async function getUsersSortedByCreatedOn() {

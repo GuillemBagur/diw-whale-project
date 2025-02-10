@@ -45,12 +45,13 @@ export async function getArticlesView(condition = () => true) {
     return [];
   }
 
-  const users = await getUsers();
+  const users = await getUsers(true);
 
   articles = articles.map(function (article) {
     return joinAuthorToArticle(article, users);
   });
 
+  console.log(articles);
   return articles;
 }
 

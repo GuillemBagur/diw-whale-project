@@ -1,7 +1,7 @@
 import { addRow } from "./article-editor.js";
 import { deleteArticle, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
 import { fsUserGetById } from "./firebase.js";
-import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, setSessionUser, logout, hash, deleteUser, getUsersSortedByCreatedOn } from "./users.js";
+import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, logout, hash, deleteUser, getUsersSortedByCreatedOn, checkUserPermission, SESSION_LOCAL_STORAGE } from "./users.js";
 
 export function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
@@ -35,18 +35,20 @@ export function clearPage() {
 
 
 export function drawCardUser(user) {
+    const sessionUserId = localStorage.getItem(SESSION_LOCAL_STORAGE);
+
     return `
         <article class="card" data-userid="${user.id}">
                 <h3 class="card__title">${user.name}</h3>
                 <h4 class="card__subtitle">${user.email}</h4>
                 ${!isMainUser(user) ? `<a href="/diw-whale-project/views/admin-panel.html?page=userEditor&userId=${user.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>` : ""}
-                ${!isMainUser(user) ? `<button id="delete-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
+                ${!isMainUser(user) && user.id != sessionUserId ? `<button id="delete-user" data-userid=${user.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>` : ""}
         </article>
     `;
 }
 
 
-export function drawCardArticle(article) {
+export async function drawCardArticle(article) {
     function canEdit(user, article) {
         if(isMainUser(user)) {
             return true;
@@ -57,11 +59,12 @@ export function drawCardArticle(article) {
 
     const articleLink = article.published ? `target="_blank" href="/diw-whale-project/views/noticia.html?articleId=${article.id}"` : "";
 
+    console.log(article);
     return `
         <article class="card" data-articleid="${article.id}">
                 <a class="card__link" ${articleLink}><h3 class="card__title">${article.title}${articleLink ? `<img class="card__icon" src="/diw-whale-project/assets/icons/square-arrow-out-up-right.svg" />` : ""}</h3></a>
                 <h4 class="card__subtitle"><img src="/diw-whale-project/assets/icons/user-round.svg" class="card__icon" />${article.author.name}</h4>
-                ${canEdit(getSessionUser(), article) ? `<a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>` : ""}
+                ${canEdit(await getSessionUser(), article) ? `<a href="/diw-whale-project/views/admin-panel.html?page=articleEditor&articleId=${article.id}" class="card__button"><img src="/diw-whale-project/assets/icons/pencil.svg" /></a>` : ""}
                 <button id="delete-article" data-articleid=${article.id} class="card__button"><img src="/diw-whale-project/assets/icons/trash-2.svg" /></button>
         </article>
     `;
@@ -69,6 +72,12 @@ export function drawCardArticle(article) {
 
 
 async function drawPageUsersList() {
+    if(!checkUserPermission(await getSessionUser(), "edit_users")) {
+        alert("No tens permisos per accedir a aquesta pàgina.");
+        window.location.href = "/diw-whale-project/views/index.html";
+        return
+    }
+
     const storedUsers = await getUsersSortedByCreatedOn();
 
     clearPage();
@@ -95,6 +104,12 @@ export function setChecked(prop) {
 }
 
 async function drawPageUserEditor() {
+    if(!checkUserPermission(await getSessionUser(), "edit_users")) {
+        alert("No tens permisos per accedir a aquesta pàgina.");
+        window.location.href = "/diw-whale-project/views/index.html";
+        return
+    }
+
     clearPage();
 
     const url = new URL(window.location.href);
@@ -112,6 +127,12 @@ async function drawPageUserEditor() {
     
     if(userId) {
         user = await fsUserGetById(userId);
+
+        if(isMainUser(user)) {
+            alert("L'usuari administrador no es pot editar");
+            window.location.href = "/diw-whale-project/views/admin-panel.html";
+            return;
+        }
     }
 
     $("#admin-panel").append(`
@@ -167,6 +188,12 @@ async function drawPageUserEditor() {
 
 
 export async function drawPageArticlesList() {
+    if(!checkUserPermission(await getSessionUser(), "edit_news")) {
+        alert("No tens permisos per accedir a aquesta pàgina.");
+        window.location.href = "/diw-whale-project/views/index.html";
+        return
+    }
+
     const storedArticles = await getArticlesViewSortedByCreatedOn();
 
     clearPage();
@@ -182,13 +209,19 @@ export async function drawPageArticlesList() {
     `);
 
     let $articleList = $("#articles-list");
-    $(storedArticles).each(function (_, article) {
-        $articleList.append(drawCardArticle(article));
+    $(storedArticles).each(async function (_, article) {
+        $articleList.append(await drawCardArticle(article));
     });
 
 }
 
-export function drawPageArticleEditor() {
+export async function drawPageArticleEditor() {
+    if(!checkUserPermission(await getSessionUser(), "edit_news")) {
+        alert("No tens permisos per accedir a aquesta pàgina.");
+        window.location.href = "/diw-whale-project/views/index.html";
+        return
+    }
+
     clearPage();
 
     $("#admin-panel").append(`
@@ -278,8 +311,8 @@ export function handlePages() {
     drawPageDefault();
 }
 
-export function drawAdminPanelNav() {
-    const sessionUser = getSessionUser();
+export async function drawAdminPanelNav() {
+    const sessionUser = await getSessionUser();
 
     if(sessionUser.edit_users) {
         $("#admin-panel-nav").append(`<a href="?page=usersList" class="admin-panel-nav__link">Usuaris</a>`);
@@ -296,8 +329,8 @@ export function drawAdminPanelNav() {
     $("#admin-panel-nav").append(`<a href="?page=logout" class="admin-panel-nav__link admin-panel-nav__link--last">Tanca la sessió</a>`);
 }
 
-$(function () {
-    const user = getSessionUser();
+$(async function () {
+    const user = await getSessionUser();
 
     $("#admin-panel").on("submit", "#change-password", async function (e) {
         e.preventDefault();
@@ -314,13 +347,13 @@ $(function () {
             checkRequiredElement($newPasswordConfirm, "Has d'escriure la comprovació de la contrasenya."));
 
         isValidated = updateValidation(isValidated,
-            validateElement($newPassword, validatePassword, "La contrasenya ha de tenir números, majúscules, minúscules i almenys un caràcter especial."));
+            validateElement($newPassword, validatePassword, "La contrasenya ha de tenir mínim 12 caràcters i ha de contenir números, majúscules, minúscules i almenys un caràcter especial."));
 
         if (isValidated) {
             user.password = hash($newPassword.val(), user.salt);
             user.is_first_login = false;
             await updateUser(user.id, user);
-            setSessionUser(user);
+
             window.location.reload();
         }
     });
@@ -331,6 +364,7 @@ $(function () {
         const url = new URL(window.location.href);
         const userId = url.searchParams.get("userId");
         const user = await findUser(user => user.id == userId);
+        const isUpdate = !!user;
 
         const $newPassword = $("#password");
         const $newPasswordConfirm = $("#password-confirm");
@@ -350,12 +384,16 @@ $(function () {
             isValidated = updateValidation(isValidated,
                 checkRequiredElement($newPasswordConfirm, "Has d'escriure la comprovació de la contrasenya."));
 
-            isValidated = updateValidation(isValidated,
-                validateElement($newPassword, validatePassword, "La contrasenya ha de tenir números, majúscules, minúscules i almenys un caràcter especial."));
+            // If the user was already existing, we validate the new password
+            // Any user in the system can enter with an unsafe password
+            // New users will be forced to reset their password on enter
+            if(isUpdate) {
+                isValidated = updateValidation(isValidated,
+                    validateElement($newPassword, validatePassword, "La contrasenya ha de tenir mínim 12 caràcters i ha de contenir números, majúscules, minúscules i almenys un caràcter especial."));
+            }
         }
 
         if (isValidated) {
-            const isUpdate = !!user;
 
             if(isUpdate) {
                 user.name = $("#name").val();

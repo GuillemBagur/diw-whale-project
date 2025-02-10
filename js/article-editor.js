@@ -2,13 +2,15 @@
 import { addArticle, findArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
+import { convertFileToBase64 } from "./functions.js";
 
-function getAllArticleData() {
+async function getAllArticleData() {
   const article = {
     title: $("#article-title").text(),
-    author_id: getSessionUser().id,
+    author_id: (await getSessionUser()).id,
     content: [],
   };
+
 
   $(".row").each(function () {
     const row = [];
@@ -54,10 +56,6 @@ function getAllArticleData() {
   return article;
 }
 
-function saveArticle(published) {
-  
-}
-
 async function loadArticle() {
   const articleData = await getArticleByUrl();
 
@@ -101,7 +99,8 @@ async function handleSaveArticle() {
     return;
   }
 
-  await addArticle({ ...getAllArticleData(), published: true });
+  const articleData = await getAllArticleData();
+  await addArticle({ ...articleData, published: true });
 
   alert("Article guardat i publicat");
   window.location.href = "?page=articlesList";
@@ -112,7 +111,8 @@ async function handleSaveDraft() {
     return;
   }
 
-  await addArticle({ ...getAllArticleData(), published: false });
+  const articleData = await getAllArticleData();
+  await addArticle({ ...articleData, published: false });
 
   alert("Article guardat com a esborray");
   window.location.href = "?page=articlesList";
@@ -126,7 +126,7 @@ async function updateArticle(articleId, published) {
 
   const article = await findArticle(article => article.id == articleId);
 
-  const articleNewData = getAllArticleData();
+  const articleNewData = await getAllArticleData();
   articleNewData.published = published;
   articleNewData.content = JSON.stringify(articleNewData.content);
   articleNewData.updated_on = new Date();
@@ -173,7 +173,7 @@ function createNewElement(elementType, content) {
   if (elementType == "image") {
     return $(
       `<div class="element">
-        <input type="file" accept="image/*" onchange="loadImage(event)" />
+        <input type="file" class="load-image" accept="image/*" />
         <img src="${content}" alt="Imagen" style="display: ${content ? "block " : "none"};">
       </div>`
     );
@@ -216,8 +216,8 @@ export function makeColumnsSortable() {
   });
 }
 
-export function checkUserisAllowedToCreate() {
-  const sessionUser = getSessionUser();
+export async function checkUserisAllowedToCreate() {
+  const sessionUser = await getSessionUser();
 
   if(isMainUser(sessionUser)) {
     return true;
@@ -226,8 +226,8 @@ export function checkUserisAllowedToCreate() {
   return sessionUser.edit_news;
 }
 
-export function checkUserIsAllowedToEdit(articleId) {
-  const sessionUser = getSessionUser();
+export async function checkUserIsAllowedToEdit(articleId) {
+  const sessionUser = await getSessionUser();
   
   console.log(sessionUser, isMainUser(sessionUser));
 
@@ -282,6 +282,10 @@ $(async function () {
     }
   });
 
+  $(".load-image").on("change", function(e) {
+    loadImage(e.target);
+  });
+
   $("#editor").on("click", ".add-row-tooltip__btn", function () {
     console.log("adding row");
     addRow($(this).attr("data-cols"));
@@ -304,16 +308,8 @@ $(async function () {
 
 });
 
-export function loadImage(event) {
-  const input = event.target;
-  const reader = new FileReader();
-  reader.onload = function () {
-    const img = $(input).siblings("img");
-    img.attr("src", reader.result);
-    img.show();
-    $(input).hide();
-  };
-  reader.readAsDataURL(input.files[0]);
+export function loadImage(input) {
+  convertFileToBase64(input.files[0], image => $(input).parent().find("img").attr("src", image));
 }
 
 export function editParagraph(paragraph) {

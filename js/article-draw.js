@@ -81,7 +81,7 @@ export async function drawArticlesPreview(numArticlesToDisplay) {
     articleHtml += `<h2 class="article-title">${article.title}</h2>`;
     articleHtml += `
       <div class="flex gap-4 mt-3 mb-8">
-        <img class="h-14" src="/diw-whale-project/assets/imgs/joan-pons-pons.png"
+        <img class="h-14 rounded-full" src="/diw-whale-project/assets/imgs/avatar.png"
             alt="L'autor de la notícia">
         <div>
             <h3 class="text-brown text-lg font-serif">${

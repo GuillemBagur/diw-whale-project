@@ -9,3 +9,16 @@ export function stringToHumanDate(timestamp) {
     day: "numeric",
   });
 }
+
+export function convertFileToBase64(file, callback) {
+  // Convierte la imagen a base64
+  const reader = new FileReader();
+
+  reader.onload = async function (e) {
+    const base64Image = e.target.result; // Imagen en formato base64
+
+    callback(base64Image);
+  };
+
+  reader.readAsDataURL(file);
+}
