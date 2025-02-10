@@ -359,6 +359,10 @@ $(async function () {
     });
 
     $("#admin-panel").on("submit", "#user-editor", async function (e) {
+        function checkUserHasAtLeastOnePermission() {
+            return $("#edit-news").is(":checked") || $("#edit-bone-files").is(":checked") || $("#edit-users").is(":checked");
+        }
+
         e.preventDefault();
 
         const url = new URL(window.location.href);
@@ -406,8 +410,14 @@ $(async function () {
                     user.password = hash($newPassword.val(), user.salt);
                 }
 
-                await updateUser(userId, user);
-                alert("Usuari actualitzat correctament.");
+                if(checkUserHasAtLeastOnePermission()) {
+                    await updateUser(userId, user);
+                    alert("Usuari actualitzat correctament.");
+                    window.location.href = "?page=usersList";
+
+                } else {
+                    alert("Has de donar-li mínim un permís a l'usuari.");
+                }
 
             } else {
                 let newUser = {};
@@ -419,11 +429,16 @@ $(async function () {
                 newUser.edit_users = $("#edit-users").is(":checked");
 
                 
-                await addUser(newUser);
-                alert("Usuari creat correctament.");
+                if(checkUserHasAtLeastOnePermission()) {
+                    await addUser(newUser);
+                    alert("Usuari creat correctament.");
+                    window.location.href = "?page=usersList";
+
+                } else {
+                    alert("Has de donar-li mínim un permís a l'usuari.");
+                }
             }
 
-            window.location.href = "?page=usersList";
         }
     });
 
