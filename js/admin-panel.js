@@ -273,14 +273,25 @@ export async function drawPageArticleEditor() {
     
 }
 
-export function drawPageDefault() {
-    console.log("Default page");
-    drawPageArticlesList();
+export async function drawPageDefault() {
+    const user = await getSessionUser();
+
+    console.log(user);
+
+    if(user.edit_news) {
+        drawPageArticlesList();
+        return;
+    }
+
+    if(user.edit_users) {
+        drawPageUsersList();
+        return;
+    }
 }
 
 export function handlePages() {
     const url = new URL(window.location.href);
-    const page = url.searchParams.get("page");
+    let page = url.searchParams.get("page");
 
     if(page == "articleEditor") {
         drawPageArticleEditor();

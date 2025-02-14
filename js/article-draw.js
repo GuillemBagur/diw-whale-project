@@ -24,10 +24,9 @@ function drawArticleElement(elementType, content) {
 export async function drawArticle() {
   const articleData = await getArticleByUrl();
 
-  if (!articleData.published) {
+  if (!articleData?.published) {
     alert("No s'ha trobat aquesta notícia.");
-    console.log(articleData);
-    //window.location.href = "/diw-whale-project/views/index.html";
+    window.location.href = "/diw-whale-project/views/index.html";
     return;
   }
 
@@ -73,6 +72,12 @@ export async function drawArticlesPreview(numArticlesToDisplay) {
 
   if(numArticlesToDisplay) {
     articles = articles.slice(0, numArticlesToDisplay);
+  }
+
+  if(!articles.length) {
+    $("#articles-wrapper").append(`<section class="mt-[5rem] mb-[10rem] md:mb-[3rem]"><article class="relative">
+        <h2 class="text-brown font-serif">No s'han trobat notícies encara.</h2>
+    </section`);
   }
 
   for (let article of articles) {
