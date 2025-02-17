@@ -1,4 +1,5 @@
 const domNav = document.getElementById("nav");
+const userId = localStorage.getItem("whale-session"); // Should be better to use global var, but is unavailable as this is not a module.
 
 domNav.innerHTML = `
 <button class="nav-hamburger" id="expand-nav-btn">
@@ -21,7 +22,7 @@ balena</a></li>
 <li class="nav__li"><a href="/" class="nav__link">Història</a></li>
 <li class="nav__li"><a href="/diw-whale-project/views/portfolio.html" class="nav__link">Procés</a></li>
 <li class="nav__li"><a href="/diw-whale-project/views/noticies.html" class="nav__link">Notícies</a></li>
-<li class="nav__li"><a href="/diw-whale-project/views/login.html" class="nav__link">Login</a></li>
+<li class="nav__li"><a href="/diw-whale-project/views/login.html" class="nav__link">${userId ? "Administració" : "Login"}</a></li>
 </ul>
 `;
 

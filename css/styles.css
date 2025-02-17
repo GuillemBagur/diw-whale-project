@@ -56,15 +56,27 @@
   margin-right: 3rem;
 }
 .nav__li {
+  position: relative;
+  overflow: hidden;
   height: 70%;
+  height: fit-content;
 }
-.nav__li:hover .nav__link {
-  transform: rotate(-5deg);
-  transform-origin: 0;
+.nav__li::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #FFE6D7;
+  transform: translateY(100%);
+  pointer-events: none;
+  transition: transform 0.3s;
+  z-index: -1;
 }
-.nav__li:active .nav__link {
-  transform-origin: 100%;
-  transform: rotate(5deg);
+.nav__li:hover a {
+  color: #0A0F14;
+}
+.nav__li:hover::before {
+  transform: none;
 }
 .nav__link {
   align-content: center;

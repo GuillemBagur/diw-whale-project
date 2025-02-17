@@ -1,6 +1,6 @@
 import { fsGetUsers, fsUserGetById, fsUserDelete, fsUserAdd, fsUserUpdate } from "./firebase.js";
 
-const USERS_LOCAL_STORAGE = "whale-users";
+export const USERS_LOCAL_STORAGE = "whale-users";
 export const SESSION_LOCAL_STORAGE = "whale-session";
 
 const randLen = 16384
