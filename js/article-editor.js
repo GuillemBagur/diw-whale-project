@@ -1,5 +1,5 @@
 // https://github.com/irevm/jquery_examples
-import { addArticle, checkArticleExists, findArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
+import { addArticle, checkArticleExists, getArticleByCondition, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
 import { convertFileToBase64 } from "./functions.js";
@@ -160,7 +160,7 @@ async function updateArticle(articleId, published) {
     return false;
   }
 
-  const article = await findArticle(article => article.id == articleId);
+  const article = await getArticleByCondition(article => article.id == articleId);
 
   const articleNewData = await getAllArticleData();
   
@@ -277,7 +277,7 @@ export async function checkUserIsAllowedToEdit(articleId) {
     return true;
   }
   
-  const article = findArticle(article => article.id == articleId);
+  const article = getArticleByCondition(article => article.id == articleId);
   return sessionUser.edit_news && sessionUser.id == article.author_id;
 }
 

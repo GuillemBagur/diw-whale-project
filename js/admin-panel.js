@@ -1,7 +1,7 @@
 import { addRow } from "./article-editor.js";
 import { deleteArticle, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
 import { fsUserGetById } from "./firebase.js";
-import { getSessionUser, getUsers, isMainUser, findUser, updateUser, addUser, logout, hash, deleteUser, getUsersSortedByCreatedOn, checkUserPermission, SESSION_LOCAL_STORAGE } from "./users.js";
+import { getSessionUser, getUsers, isMainUser, getUserByCondition, updateUser, addUser, logout, hash, deleteUser, getUsersSortedByCreatedOn, checkUserPermission, SESSION_LOCAL_STORAGE } from "./users.js";
 
 export function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
@@ -393,7 +393,7 @@ $(async function () {
         const sessionUserId = localStorage.getItem("whale-session");
         const userId = url.searchParams.get("userId");
         const isUserEditingHimself = sessionUserId === userId;
-        const user = await findUser(user => user.id == userId);
+        const user = await getUserByCondition(user => user.id == userId);
         const isUpdate = !!user;
 
         const $newPassword = $("#password");

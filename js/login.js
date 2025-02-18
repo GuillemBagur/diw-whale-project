@@ -1,11 +1,11 @@
-import { findUser, checkUserPassword, setSessionUser, SESSION_LOCAL_STORAGE } from "./users.js";
+import { getUserByCondition, checkUserPassword, setSessionUser, SESSION_LOCAL_STORAGE } from "./users.js";
 
 const domEmail = $("#email");
 const domPassword = $("#password");
 
 
 async function loginUser() {
-    const user = await findUser(user => user.email == domEmail.val() && checkUserPassword(domPassword.val(), user));
+    const user = await getUserByCondition(user => user.email == domEmail.val() && checkUserPassword(domPassword.val(), user));
 
     if(user) {
         hideErrorMessages();

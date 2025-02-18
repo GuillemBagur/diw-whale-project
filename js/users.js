@@ -7,7 +7,7 @@ const randLen = 16384
 var randomId = randLen
 var randomArray = new Uint32Array(randLen);
 
-export async function findUser(condition) {
+export async function getUserByCondition(condition) {
     const users = await getUsers();
 
     return users.find(condition);
@@ -35,7 +35,7 @@ export function setSessionUser(user) {
 
 export async function getSessionUser(failAuthRedirectUrl = "/diw-whale-project/views/index.html") {
     const userId = localStorage.getItem(SESSION_LOCAL_STORAGE);
-    const user = await findUser(user => user.id == userId);
+    const user = await getUserByCondition(user => user.id == userId);
 
     if(user) {
         return user;
@@ -117,7 +117,7 @@ export async function addUser(userData) {
 }
 
 export async function deleteUser(userId, callback = () => {}) {
-    const user = await findUser(user => user.id == userId);
+    const user = await getUserByCondition(user => user.id == userId);
 
     await fsUserUpdate(userId, {...user, active: 0});
     callback();

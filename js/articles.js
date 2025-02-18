@@ -1,9 +1,9 @@
 import { fsArticleAdd, fsArticleDelete, fsArticlesGet } from "./firebase.js";
-import { findUser, getUsers } from "./users.js";
+import { getUserByCondition, getUsers } from "./users.js";
 
 const ARTICLES_LOCAL_STORAGE = "whale-articles";
 
-export async function findArticle(condition) {
+export async function getArticleByCondition(condition) {
   const articles = await getArticles();
 
   return articles.find(condition);
