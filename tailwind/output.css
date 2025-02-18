@@ -657,12 +657,12 @@ video {
   margin-top: 1.5rem;
 }
 
-.mt-\[3rem\] {
-  margin-top: 3rem;
-}
-
 .mt-\[5rem\] {
   margin-top: 5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .box-border {
@@ -697,10 +697,6 @@ video {
   width: 100%;
 }
 
-.max-w-\[40rem\] {
-  max-width: 40rem;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -715,10 +711,6 @@ video {
 
 .gap-8 {
   gap: 2rem;
-}
-
-.overflow-hidden {
-  overflow: hidden;
 }
 
 .overflow-x-hidden {
@@ -877,20 +869,6 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:float-right {
-    float: right;
-  }
-
-  .md\:mx-6 {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-  }
-
-  .md\:my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
   .md\:mb-\[3rem\] {
     margin-bottom: 3rem;
   }

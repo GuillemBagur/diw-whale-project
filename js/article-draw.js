@@ -21,7 +21,7 @@ function drawArticleElement(elementType, content) {
 
   if (elementType == "image") {
     return $(
-      `<img src="${content}" alt="Imagen" class="w-full object-cover" />`
+      `<img src="${content}" alt="Imagen" class="w-full object-cover mb-4" />`
     );
   }
 }

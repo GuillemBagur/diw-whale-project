@@ -5,6 +5,29 @@ import { getSessionUser, isMainUser } from "./users.js";
 import { convertFileToBase64 } from "./functions.js";
 import { MAX_FILE_SIZE_UPLOAD } from "./globals.js";
 
+// Checks at least there is a text element in the whole article which has valid content
+function checkContentIsValid(content) {
+  function checkIsValidParagraph(articleElement) {
+    return articleElement.type === "paragraph" && articleElement.content !== "Paràgraf...";
+  }
+
+  function checkIsValidTitleSection(articleElement) {
+    return articleElement.type === "title-section" && articleElement.content !== "Títol de secció...";
+  }
+
+  let validContent = content.flat(2).filter(articleElement => checkIsValidParagraph(articleElement) || checkIsValidTitleSection(articleElement));
+
+  return validContent.length > 0;
+}
+
+function checkTitleIsValid(title) {
+  return title !== "Títol de la notícia...";
+}
+
+function checkArticleIsValid(article) {
+  return checkTitleIsValid(article.title) && checkContentIsValid(article.content);
+}
+
 async function getAllArticleData() {
   const article = {
     title: $("#article-title").text(),
@@ -60,41 +83,39 @@ async function getAllArticleData() {
 async function loadArticle() {
   const articleData = await getArticleByUrl();
   
-  if(await checkArticleExists()) {
-    if (!articleData) {
-      $("#save-draft").show();
-      $("#save-article").show();
-      $("#save-update-draft").hide();
-      $("#save-update-article").hide();
-      return;
-    }
+  if (!articleData) {
+    $("#save-draft").show();
+    $("#save-article").show();
+    $("#save-update-draft").hide();
+    $("#save-update-article").hide();
+    return;
+  }
 
-    $("#article-title").text(articleData.title);
+  $("#article-title").text(articleData.title);
 
-    const rows = articleData.content;
-    $("#rows-container").empty(); // Limpiar todo antes de cargar
-    rows.forEach((row) => {
-      let newRow = '<div class="row">';
-      row.forEach((column) => {
-        newRow += `<div class="row__column">`;
-        column.forEach(element => newRow += createNewElement(element.type, element.content).prop("outerHTML"));
-        newRow += `</div>`;
-      });
-
-      newRow += `<button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>`;
-      $("#rows-container").append(newRow);
+  const rows = articleData.content;
+  $("#rows-container").empty(); // Limpiar todo antes de cargar
+  rows.forEach((row) => {
+    let newRow = '<div class="row">';
+    row.forEach((column) => {
+      newRow += `<div class="row__column">`;
+      column.forEach(element => newRow += createNewElement(element.type, element.content).prop("outerHTML"));
+      newRow += `</div>`;
     });
 
-    initializeDroppable();
+    newRow += `<button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>`;
+    $("#rows-container").append(newRow);
+  });
 
-    // Update the buttons
-    $("#save-draft").hide();
-    $("#save-article").hide();
-    $("#save-update-draft").show();
-    $("#save-update-article").show();
-    $("#save-update-draft").attr("data-articleId", articleData.id);
-    $("#save-update-article").attr("data-articleId", articleData.id);
-  }
+  initializeDroppable();
+
+  // Update the buttons
+  $("#save-draft").hide();
+  $("#save-article").hide();
+  $("#save-update-draft").show();
+  $("#save-update-article").show();
+  $("#save-update-draft").attr("data-articleId", articleData.id);
+  $("#save-update-article").attr("data-articleId", articleData.id);
 }
 
 async function handleSaveArticle() {
@@ -103,6 +124,12 @@ async function handleSaveArticle() {
   }
 
   const articleData = await getAllArticleData();
+
+  if(!checkArticleIsValid(articleData)) {
+    alert("L'article no és vàlid i no s'ha guardat. Assegura't de posar-li un títol i una mica de contingut (no valen imatges totes soles).");
+    return;
+  }
+
   await addArticle({ ...articleData, published: true });
 
   alert("Article guardat i publicat");
@@ -115,6 +142,12 @@ async function handleSaveDraft() {
   }
 
   const articleData = await getAllArticleData();
+
+  if(!checkArticleIsValid(articleData)) {
+    alert("L'article no és vàlid i no s'ha guardat. Assegura't de posar-li un títol i una mica de contingut (no valen imatges totes soles).");
+    return;
+  }
+
   await addArticle({ ...articleData, published: false });
 
   alert("Article guardat com a esborray");
@@ -130,6 +163,12 @@ async function updateArticle(articleId, published) {
   const article = await findArticle(article => article.id == articleId);
 
   const articleNewData = await getAllArticleData();
+  
+  if(!checkArticleIsValid(articleNewData)) {
+    alert("L'article no és vàlid i no s'ha guardat. Assegura't de posar-li un títol i una mica de contingut (no valen imatges totes soles).");
+    return;
+  }
+
   articleNewData.published = published;
   articleNewData.content = JSON.stringify(articleNewData.content);
   articleNewData.updated_on = new Date();
