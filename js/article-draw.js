@@ -1,4 +1,9 @@
-import { getArticleByUrl, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
+import {
+  checkArticleExists,
+  getArticleByUrl,
+  getArticlesView,
+  getArticlesViewSortedByCreatedOn,
+} from "./articles.js";
 import { stringToHumanDate } from "./functions.js";
 
 function drawArticleElement(elementType, content) {
@@ -22,39 +27,42 @@ function drawArticleElement(elementType, content) {
 }
 
 export async function drawArticle() {
-  const articleData = await getArticleByUrl();
-
-  if (!articleData?.published) {
-    alert("No s'ha trobat aquesta notícia.");
+  const url = new URL(window.location.href);
+  const articleId = url.searchParams.get("articleId");
+  if(!articleId) {
+    alert("Aquesta pàgina no existeix.");
     window.location.href = "/diw-whale-project/views/index.html";
     return;
   }
 
-  $("#article-title").html(articleData.title);
-  $("#article-author-name").html(articleData.author.name);
-  $("#article-date").html(
-    `Darrera modif. ${stringToHumanDate(articleData.updated_on)}`
-  );
+  const articleData = await getArticleByUrl();
+  if (await checkArticleExists()) {
+    $("#article-title").html(articleData.title);
+    $("#article-author-name").html(articleData.author.name);
+    $("#article-date").html(
+      `Darrera modif. ${stringToHumanDate(articleData.updated_on)}`
+    );
 
-  $("#article-content").empty(); // Limpiar todo antes de cargar
+    $("#article-content").empty(); // Limpiar todo antes de cargar
 
-  const rows = articleData.content;
-  rows.forEach((row) => {
-    let newRow = "";
-    newRow += "<div class='flex mb-8 gap-8'>";
-    row.forEach((column) => {
-      newRow += "<div class='flex-1 basis-0'>";
-      column.forEach((element) => {
-        newRow += drawArticleElement(element.type, element.content).prop(
-          "outerHTML"
-        );
+    const rows = articleData.content;
+    rows.forEach((row) => {
+      let newRow = "";
+      newRow += "<div class='flex mb-8 gap-8'>";
+      row.forEach((column) => {
+        newRow += "<div class='flex-1 basis-0'>";
+        column.forEach((element) => {
+          newRow += drawArticleElement(element.type, element.content).prop(
+            "outerHTML"
+          );
+        });
+        newRow += "</div>";
       });
-      newRow += "</div>";
-    });
 
-    newRow += `</div>`;
-    $("#article-content").append(newRow);
-  });
+      newRow += `</div>`;
+      $("#article-content").append(newRow);
+    });
+  }
 }
 
 function getFirstImageInArticle(article) {
@@ -70,12 +78,13 @@ export async function drawArticlesPreview(numArticlesToDisplay) {
     (article) => article.published
   );
 
-  if(numArticlesToDisplay) {
+  if (numArticlesToDisplay) {
     articles = articles.slice(0, numArticlesToDisplay);
   }
 
-  if(!articles.length) {
-    $("#articles-wrapper").append(`<section class="mt-[5rem] mb-[10rem] md:mb-[3rem]"><article class="relative">
+  if (!articles.length) {
+    $("#articles-wrapper")
+      .append(`<section class="mt-[5rem] mb-[10rem] md:mb-[3rem]"><article class="relative">
         <h2 class="text-brown font-serif">No s'han trobat notícies encara.</h2>
     </section`);
   }

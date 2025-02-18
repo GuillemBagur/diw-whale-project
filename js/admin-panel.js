@@ -104,7 +104,9 @@ export function setChecked(prop) {
 }
 
 async function drawPageUserEditor() {
-    if(!checkUserPermission(await getSessionUser(), "edit_users")) {
+    const sessionUser = await getSessionUser();
+
+    if(!checkUserPermission(sessionUser, "edit_users")) {
         alert("No tens permisos per accedir a aquesta pàgina.");
         window.location.href = "/diw-whale-project/views/index.html";
         return
@@ -135,6 +137,8 @@ async function drawPageUserEditor() {
         }
     }
 
+    const isUserEditingHimself = userId === sessionUser.id;
+
     $("#admin-panel").append(`
         <section class="section section--white">
             <h2 class="section__title section__title--dark-blue section__title--centered">Gestionar usuari</h2>
@@ -160,7 +164,7 @@ async function drawPageUserEditor() {
                     <input type="password" id="password-confirm" class="input-text" placeholder="Les dues contrenyes han de ser idèntiques" />
                     <small class="form__error-msg"></small>
                 </div>
-                <fieldset class="form__fieldset">
+                ${isUserEditingHimself ? "" : `<fieldset class="form__fieldset">
                     <legend class="form__legend">Permisos</legend>
 
                     <div class="form__control">
@@ -175,7 +179,7 @@ async function drawPageUserEditor() {
                         <label class="form__label" for="edit-users"><input type="checkbox" class="input-checkbox" id="edit-users" ${setChecked(user.edit_users)} />Pot crear/editar usuaris</label>
                         
                     </div>
-                </fieldset>
+                </fieldset>`}
 
                 <div class="form__button-wrapper">
                     <button class="btn-orange btn--block btn--w100 btn--big btn--login" type="submit">Guardar</button>
@@ -370,6 +374,7 @@ $(async function () {
     });
 
     $("#admin-panel").on("submit", "#user-editor", async function (e) {
+
         function checkUserHasAtLeastOnePermission() {
             return $("#edit-news").is(":checked") || $("#edit-bone-files").is(":checked") || $("#edit-users").is(":checked");
         }
@@ -377,7 +382,9 @@ $(async function () {
         e.preventDefault();
 
         const url = new URL(window.location.href);
+        const sessionUserId = localStorage.getItem("whale-session");
         const userId = url.searchParams.get("userId");
+        const isUserEditingHimself = sessionUserId === userId;
         const user = await findUser(user => user.id == userId);
         const isUpdate = !!user;
 
@@ -409,19 +416,23 @@ $(async function () {
         }
 
         if (isValidated) {
-
             if(isUpdate) {
                 user.name = $("#name").val();
                 user.email = $("#email").val();
-                user.edit_news = $("#edit-news").is(":checked");
-                user.edit_bone_files = $("#edit-bone-files").is(":checked");
-                user.edit_users = $("#edit-users").is(":checked");
+
+                if(!isUserEditingHimself) {
+                    user.edit_news = $("#edit-news").is(":checked");
+                    user.edit_bone_files = $("#edit-bone-files").is(":checked");
+                    user.edit_users = $("#edit-users").is(":checked");
+                }
 
                 if($newPassword.val()) {
                     user.password = hash($newPassword.val(), user.salt);
                 }
 
-                if(checkUserHasAtLeastOnePermission()) {
+                const areChangesValid = isUserEditingHimself || checkUserHasAtLeastOnePermission();
+
+                if(areChangesValid) {
                     await updateUser(userId, user);
                     alert("Usuari actualitzat correctament.");
                     window.location.href = "?page=usersList";

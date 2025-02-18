@@ -88,8 +88,6 @@ export function hash(string, salt) {
 export function checkUserPassword(password, user) {
     password = hash(password, user.salt);
 
-    console.log(password, user.password);
-    
     return password == user.password;
 }
 

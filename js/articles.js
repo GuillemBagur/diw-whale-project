@@ -75,3 +75,22 @@ export function deleteArticle(articleId, callback = () => {}) {
   callback();
 }
 
+export async function checkArticleExists() {
+  const url = new URL(window.location.href);
+  const articleId = url.searchParams.get("articleId");
+
+  // If no article Id, it means its not editing time
+  if(!articleId) {
+    return true;
+  }
+
+  const articleData = await getArticleByUrl();
+
+  if (!articleData?.published) {
+    alert("No s'ha trobat aquesta notícia.");
+    window.location.href = "/diw-whale-project/views/index.html";
+    return false;
+  } else {
+    return true;
+  }
+}

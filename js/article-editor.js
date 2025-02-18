@@ -1,5 +1,5 @@
 // https://github.com/irevm/jquery_examples
-import { addArticle, findArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
+import { addArticle, checkArticleExists, findArticle, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
 import { convertFileToBase64 } from "./functions.js";
@@ -59,40 +59,42 @@ async function getAllArticleData() {
 
 async function loadArticle() {
   const articleData = await getArticleByUrl();
+  
+  if(await checkArticleExists()) {
+    if (!articleData) {
+      $("#save-draft").show();
+      $("#save-article").show();
+      $("#save-update-draft").hide();
+      $("#save-update-article").hide();
+      return;
+    }
 
-  if (!articleData) {
-    $("#save-draft").show();
-    $("#save-article").show();
-    $("#save-update-draft").hide();
-    $("#save-update-article").hide();
-    return;
-  }
+    $("#article-title").text(articleData.title);
 
-  $("#article-title").text(articleData.title);
+    const rows = articleData.content;
+    $("#rows-container").empty(); // Limpiar todo antes de cargar
+    rows.forEach((row) => {
+      let newRow = '<div class="row">';
+      row.forEach((column) => {
+        newRow += `<div class="row__column">`;
+        column.forEach(element => newRow += createNewElement(element.type, element.content).prop("outerHTML"));
+        newRow += `</div>`;
+      });
 
-  const rows = articleData.content;
-  $("#rows-container").empty(); // Limpiar todo antes de cargar
-  rows.forEach((row) => {
-    let newRow = '<div class="row">';
-    row.forEach((column) => {
-      newRow += `<div class="row__column">`;
-      column.forEach(element => newRow += createNewElement(element.type, element.content).prop("outerHTML"));
-      newRow += `</div>`;
+      newRow += `<button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>`;
+      $("#rows-container").append(newRow);
     });
 
-    newRow += `<button title="Eliminar fila" class="row__delete-row-btn"><img src="/diw-whale-project/assets/icons/trash-2.svg" alt="Eliminar fila" /></button></div>`;
-    $("#rows-container").append(newRow);
-  });
+    initializeDroppable();
 
-  initializeDroppable();
-
-  // Update the buttons
-  $("#save-draft").hide();
-  $("#save-article").hide();
-  $("#save-update-draft").show();
-  $("#save-update-article").show();
-  $("#save-update-draft").attr("data-articleId", articleData.id);
-  $("#save-update-article").attr("data-articleId", articleData.id);
+    // Update the buttons
+    $("#save-draft").hide();
+    $("#save-article").hide();
+    $("#save-update-draft").show();
+    $("#save-update-article").show();
+    $("#save-update-draft").attr("data-articleId", articleData.id);
+    $("#save-update-article").attr("data-articleId", articleData.id);
+  }
 }
 
 async function handleSaveArticle() {
