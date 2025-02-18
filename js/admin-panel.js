@@ -104,6 +104,8 @@ export function setChecked(prop) {
 }
 
 async function drawPageUserEditor() {
+    clearPage();
+
     const sessionUser = await getSessionUser();
 
     if(!checkUserPermission(sessionUser, "edit_users")) {
@@ -111,8 +113,6 @@ async function drawPageUserEditor() {
         window.location.href = "/diw-whale-project/views/index.html";
         return
     }
-
-    clearPage();
 
     const url = new URL(window.location.href);
     const userId = url.searchParams.get("userId");
@@ -130,6 +130,14 @@ async function drawPageUserEditor() {
     if(userId) {
         user = await fsUserGetById(userId);
 
+        // Check user exists
+        if(!user.name) {
+            alert("L'usuari sel·leccionat no existeix");
+            window.location.href = "/diw-whale-project/views/admin-panel.html";
+            return;
+        }
+
+        // Check user is not the admin
         if(isMainUser(user)) {
             alert("L'usuari administrador no es pot editar");
             window.location.href = "/diw-whale-project/views/admin-panel.html";
