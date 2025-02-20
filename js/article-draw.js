@@ -39,6 +39,7 @@ export async function drawArticle() {
   if (await checkArticleExists()) {
     $("#article-title").html(articleData.title);
     $("#article-author-name").html(articleData.author.name);
+    $("#article-author-profile-pic").attr("src", articleData.author.profile_pic);
     $("#article-date").html(
       `Darrera modif. ${stringToHumanDate(articleData.updated_on)}`
     );
@@ -95,7 +96,7 @@ export async function drawArticlesPreview(numArticlesToDisplay) {
     articleHtml += `<h2 class="article-title">${article.title}</h2>`;
     articleHtml += `
       <div class="flex gap-4 mt-3 mb-8">
-        <img class="h-14 rounded-full" src="/diw-whale-project/assets/imgs/avatar.png"
+        <img class="h-14 rounded-full aspect-square" src="${article.author.profile_pic}"
             alt="L'autor de la notícia">
         <div>
             <h3 class="text-brown text-lg font-serif">${

@@ -1,7 +1,8 @@
 import { addRow } from "./article-editor.js";
 import { deleteArticle, getArticlesView, getArticlesViewSortedByCreatedOn } from "./articles.js";
 import { fsUserGetById } from "./firebase.js";
-import { getSessionUser, getUsers, isMainUser, getUserByCondition, updateUser, addUser, logout, hash, deleteUser, getUsersSortedByCreatedOn, checkUserPermission, SESSION_LOCAL_STORAGE } from "./users.js";
+import { loadImage } from "./functions.js";
+import { getSessionUser, getUsers, isMainUser, getUserByCondition, updateUser, addUser, logout, hash, deleteUser, getUsersSortedByCreatedOn, checkUserPermission, SESSION_LOCAL_STORAGE, DEFAULT_PROFILE_PIC } from "./users.js";
 
 export function drawPageChangePassword() {
     $("#admin-panel").append(`<div class="modal-overlay"></div>`);
@@ -172,6 +173,14 @@ async function drawPageUserEditor() {
                     <input type="password" id="password-confirm" class="input-text" placeholder="Les dues contrenyes han de ser idèntiques" />
                     <small class="form__error-msg"></small>
                 </div>
+                <div class="form__control">
+                    <label class="form__label" for="profile-pic">Foto de perfil</label>
+                    <div class="input-profile-pic">
+                        <input type="file" id="profile-pic-input" class="input-profile-pic__input" />
+                        <img src="${user.profile_pic ?? DEFAULT_PROFILE_PIC}" id="profile-pic-img" class="input-profile-pic__img" alt="Foto de perfil" />
+                    </div>
+                    <small class="form__error-msg"></small>
+                </div>
                 ${isUserEditingHimself ? "" : `<fieldset class="form__fieldset">
                     <legend class="form__legend">Permisos</legend>
 
@@ -196,6 +205,10 @@ async function drawPageUserEditor() {
             </form>
         </section>
     `);
+
+    $("#profile-pic-input").on("change", function(e) {
+        loadImage(e.target);
+    });
 }
 
 
@@ -427,6 +440,7 @@ $(async function () {
             if(isUpdate) {
                 user.name = $("#name").val();
                 user.email = $("#email").val();
+                user.profile_pic = $("#profile-pic-img").attr("src");
 
                 if(!isUserEditingHimself) {
                     user.edit_news = $("#edit-news").is(":checked");
@@ -454,10 +468,10 @@ $(async function () {
                 newUser.name = $("#name").val();
                 newUser.email = $("#email").val();
                 newUser.password = $newPassword.val();
+                newUser.profile_pic = $("#profile-pic-img").attr("src");
                 newUser.edit_news = $("#edit-news").is(":checked");
                 newUser.edit_bone_files = $("#edit-bone-files").is(":checked");
                 newUser.edit_users = $("#edit-users").is(":checked");
-
                 
                 if(checkUserHasAtLeastOnePermission()) {
                     await addUser(newUser);

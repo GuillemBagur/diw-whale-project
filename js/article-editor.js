@@ -2,8 +2,8 @@
 import { addArticle, checkArticleExists, getArticleByCondition, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";
-import { convertFileToBase64 } from "./functions.js";
-import { MAX_FILE_SIZE_UPLOAD } from "./globals.js";
+import { loadImage } from "./functions.js";
+
 
 // Checks at least there is a text element in the whole article which has valid content
 function checkContentIsValid(content) {
@@ -350,16 +350,7 @@ $(async function () {
 
 });
 
-export function loadImage(input) {
-  const file = input.files[0];
 
-  if(file.size >= MAX_FILE_SIZE_UPLOAD) {
-    alert("La imatge és massa gran.");
-    return;
-  }
-
-  convertFileToBase64(input.files[0], image => $(input).parent().find("img").attr("src", image));
-}
 
 export function editParagraph(paragraph) {
   const $p = $(paragraph);

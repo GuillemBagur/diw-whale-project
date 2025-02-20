@@ -643,7 +643,8 @@ img {
     }
 }
 
-.input-text {
+.input-text, .input-profile-pic {
+    position: relative;
     display: block;
     width: 100%;
     border: none;
@@ -651,6 +652,26 @@ img {
     font-size: 1.1rem;
     padding: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.input-profile-pic {
+    border: 2px solid $dark_blue;
+    
+    &__input {
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+    }
+
+    &__img {
+        height: 4rem;
+        aspect-ratio: 1 / 1;
+        border-radius: 2000px;
+    }
 }
 
 .input-checkbox {

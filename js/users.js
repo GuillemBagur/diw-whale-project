@@ -3,6 +3,8 @@ import { fsGetUsers, fsUserGetById, fsUserDelete, fsUserAdd, fsUserUpdate } from
 export const USERS_LOCAL_STORAGE = "whale-users";
 export const SESSION_LOCAL_STORAGE = "whale-session";
 
+export const DEFAULT_PROFILE_PIC = "/diw-whale-project/assets/imgs/avatar.png";
+
 const randLen = 16384
 var randomId = randLen
 var randomArray = new Uint32Array(randLen);
@@ -76,6 +78,7 @@ export async function seedUsers() {
         defaultUser.active = 1;
         defaultUser.is_first_login = true;
         defaultUser.created_on = new Date();
+        defaultUser.profile_pic = DEFAULT_PROFILE_PIC;
         fsUserAdd(defaultUser);
     }
 }
