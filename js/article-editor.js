@@ -1,4 +1,5 @@
-// https://github.com/irevm/jquery_examples
+// Insipred on https://github.com/irevm/jquery_examples
+
 import { addArticle, checkArticleExists, getArticleByCondition, getArticleByUrl, getArticles, saveArticles } from "./articles.js";
 import { fsArticleUpdate } from "./firebase.js";
 import { getSessionUser, isMainUser } from "./users.js";

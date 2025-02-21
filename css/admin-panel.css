@@ -554,4 +554,13 @@
   color: #FFE6D7;
 }
 
+.element .load-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}
+
 /*# sourceMappingURL=admin-panel.css.map */
