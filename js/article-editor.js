@@ -5,6 +5,8 @@ import { getSessionUser, isMainUser } from "./users.js";
 import { loadImage } from "./functions.js";
 
 
+export const IMAGE_PLACEHOLDER = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg";
+
 // Checks at least there is a text element in the whole article which has valid content
 function checkContentIsValid(content) {
   function checkIsValidParagraph(articleElement) {
@@ -216,7 +218,7 @@ function createNewElement(elementType, content) {
     return $(
       `<div class="element">
         <input type="file" class="load-image" accept="image/*" />
-        <img src="${content}" alt="Imagen" style="display: ${content ? "block " : "none"};">
+        <img src="${content ?? IMAGE_PLACEHOLDER}" alt="Imagen" style="display: block;">
       </div>`
     );
   }
@@ -324,7 +326,7 @@ $(async function () {
     }
   });
 
-  $(".load-image").on("change", function(e) {
+  $("#admin-panel").on("change", ".load-image", function(e) {
     loadImage(e.target);
   });
 
