@@ -94,6 +94,7 @@ function applyValues(accStoredValues) {
     changeStyle("wordSpacing", accStoredValues.wordSpacing);
     changeStyle("letterSpacing", accStoredValues.letterSpacing);
 
+    console.log(accStoredValues);
     applyFilter(accStoredValues.filter);
 }
 

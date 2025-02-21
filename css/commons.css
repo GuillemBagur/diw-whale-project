@@ -167,7 +167,7 @@
   height: 100vh;
   height: 100svh;
   width: 100vw;
-  z-index: 3;
+  z-index: 11;
   background-color: rgba(0, 0, 0, 0.7);
   transition: background-color 0.3s;
 }
@@ -182,7 +182,7 @@
   position: fixed;
   height: 100%;
   max-width: 25rem;
-  z-index: 6;
+  z-index: 12;
   width: 80%;
   background-color: #FFE6D7;
   padding: 1rem;
